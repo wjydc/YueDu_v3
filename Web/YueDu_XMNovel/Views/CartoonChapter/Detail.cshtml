@@ -1,0 +1,146 @@
+﻿@model ChapterDetailView
+@{
+    var book = Model ?? new ChapterDetailView();
+    var novelTitle = book.Novel.Data.Title;
+    ViewBag.Title = novelTitle + "-" + ViewBag.SiteSection.Html.SiteName;
+}
+
+@section styles{
+    @Styles.Render("~/Content/cartoonChapterDetail")
+}
+
+@{
+    string channelId = ViewBag.ChannelId;
+    if (Model.Novel.Success && Model.Chapter.Success)
+    {
+        Novel novel = Model.Novel.Data;
+        Chapter chapter = Model.Chapter.Data;
+        <header class="common_detail box clear comic_buying">
+            <a class="back" href="javascript:history.go(-1);" title="">
+                <img src="~/Content/img/arrow_right.png" alt="">
+            </a>
+            <p>
+                @novel.Title - @chapter.ChapterName
+            </p>
+            <div class=" fr box">
+                <a href="@("/mark/list".GetChannelRouteUrl(channelId))"><img src="~/Content/img/bookcase2.png" alt=""></a>
+                <a href="@("/".GetChannelRouteUrl(channelId))"><img src="~/Content/img/house1.png" alt=""></a>
+            </div>
+        </header>
+
+        <div class="comic_body box">
+            <!-- 点击加载上一张 -->
+            @if (Model.IsPreChapterCode)
+            {
+                <div class="change_comicharpter pre_charpter box bw">
+                    <a href="@(Model.IsPreChapterCode ? Model.PreChapterUrl : "javascript:void(0);")">@(Model.IsPreChapterCode ? "点击加载上一章" : "")</a>
+                </div>
+            }
+
+            @if (Model.ExtendChapterList.Success)
+            {
+                foreach (var item in Model.ExtendChapterList.Data)
+                {
+                    <img src="~/Content/img/zjloading.jpg" data-echo="@item.FilePath" alt="" />
+                }
+            }
+            else
+            {
+                <img src="~/Content/img/zjloading.jpg" />
+            }
+
+            <!-- 点击加载下一张 -->
+            @if (Model.IsNextChapterCode)
+            {
+                <div class="change_comicharpter next_charpter box bw">
+                    <a href="@(Model.IsNextChapterCode ? Model.NextChapterUrl : "javascript:void(0);")">@(Model.IsNextChapterCode ? "点击加载下一章" : "")</a>
+                </div>
+            }
+        </div>
+
+        if (chapter.ChapterCode >= novel.FreeChapterCount && novel.FeeType > 1)
+        {
+            <div class="ch_price">
+                本章价格：@(Model.ChapterFee) @(ViewBag.SiteSection.Html.FeeName)
+            </div>
+        }
+        <div class="comic_change_charpeter box bw">
+            <ol class="clear">
+                <li class="fl"><a class="box @(Model.IsPreChapterCode ? "charptercolor" : "txtcolor")" href="@(Model.IsPreChapterCode ? Model.PreChapterUrl : "javascript:void(0);")">@(Model.IsPreChapterCode ? "上一章" : "第一章")</a></li>
+                <li class="fl"><a class="box charptercolor" href="@(string.Format("/chapter/list?novelId={0}", chapter.NovelId).GetChannelRouteUrl(channelId))">目录</a></li>
+                <li class="fl"><a class="box @(Model.IsNextChapterCode ? "charptercolor" : "txtcolor")" href="@(Model.IsNextChapterCode ? Model.NextChapterUrl : "javascript:void(0);")">@(Model.IsNextChapterCode ? "下一章" : "最后一章")</a></li>
+            </ol>
+        </div>
+
+    }
+}
+@section scripts{
+    @Scripts.Render("~/bundles/echo")
+    <script>
+        $(function () {
+
+            echo.init({
+                offset: 100,
+                throttle: 50,
+                unload: false,
+                callback: function (element, op) {
+                    console.log(element, 'has been', op + 'ed')
+                }
+            });
+
+            // 屏幕滚轮事件
+            var bol = true;
+            $(window).scroll(function (event) {
+                event.stopPropagation();
+                var scrollTop = document.documentElement.scrollTop ||
+
+                document.body.scrollTop;
+                if (scrollTop > 0) {
+                    bol = false;
+                    $('header').hide();
+                    $('.comic_change_charpeter').hide();
+                    $('.comic_body').css({
+                        'marginTop': 0
+                    })
+                    $('.comic_body .pre_charpter').css({
+                        'marginTop': '0'
+                    })
+                }
+            })
+
+            $('.comic_body').click(function (event) {
+                event.stopPropagation();
+                var that = $(this);
+                if (that.attr('data') || bol == false) {
+                    $(this).removeAttr('data');
+                    bol = true;
+                    $('header').show();
+                    $('.comic_change_charpeter').show();
+                    $('.comic_body').css({
+                        'marginTop': '1.25rem'
+                    })
+                    $('.comic_body .pre_charpter').css({
+                        'marginTop': '-1.25rem'
+                    })
+
+                } else if (bol == true || !that.attr('data')) {
+                    $(this).attr('data', 'clicked');
+                    bol == false;
+                    $('header').hide();
+                    $('.comic_change_charpeter').hide();
+                    $('.comic_body').css({
+                        'marginTop': 0
+                    })
+                    $('.comic_body .pre_charpter').css({
+                        'marginTop': '0'
+                    })
+                }
+
+            })
+
+            setTimeout(function () {
+                $(".ch_price").hide();
+            }, 2000);
+        })
+    </script>
+}

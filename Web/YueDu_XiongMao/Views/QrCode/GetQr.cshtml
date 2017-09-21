@@ -1,0 +1,15 @@
+﻿@model SimpleResponse<QrCodeView>
+@{
+    Layout = null;
+}
+
+<!-- 微信关注 -->
+@if (Model.Success)
+{
+    var model = Model.Data;
+    <div class="buy_weixin bw">
+        <p>“关注官方微信公众号，方便下次阅读”</p>
+        <p>长按二维码可识别</p>
+        <img src="@Html.RenderImage(new string[] { model.Path }).SpliceUrl("r", model.UpdateTime.ConvertTimeStamp())" alt="" />
+    </div>
+}

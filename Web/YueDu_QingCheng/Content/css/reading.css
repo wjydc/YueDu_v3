@@ -1,0 +1,506 @@
+.buy_dd_bookcase{
+	width: 100%;
+    /*width: 2.421875rem;*/
+    height: 0.8rem;
+    /*float: right;*/
+    margin-top: 0.1rem;
+   /* margin-left: 0.7rem;*/
+}
+.buy_dd_bookcase span {
+    width: 2rem;
+    height: 0.8rem;
+    line-height: 0.9rem;
+    float: right;
+    padding-left: 0.25rem;
+    color: #fff;
+    background: url(../img/message_box.png) no-repeat;
+    background-position: top right;
+    background-size: 100% 100%;
+    font-size: 0.34375rem;
+}
+/*白天模式*/
+/*白天模式*/
+/*改变背景*/
+.daytime div{
+	background-color: #fff;
+}
+
+ /*加入书架背景和字体颜色*/
+.daytime .buy_dd_bookcase span {
+    color: #fff;
+    background: url(../img/message_box.png) no-repeat;
+    background-position: top right;
+    background-size: 100% 100%;
+}
+
+
+
+
+/*黑夜模式*/
+/*改变背景*/
+.darknight div{
+	/*background-color:#1a1a1a;
+	color: #787878;*/
+     background-color: rgb(34, 34, 34);
+    color: rgb(153, 153, 153);
+}
+.darknight .buy_head_left a{
+     color: rgb(153, 153, 153);
+}
+.darknight .buying_recommend ul li span {
+      color: rgb(153, 153, 153);
+}
+ /*加入书架背景和字体颜色*/
+.darknight .buy_dd_bookcase span{
+    color: #000;
+    background: url(../img/message_boxnight.png) no-repeat;
+    background-position: top right;
+    background-size: 100% 100%;
+}
+
+/*章节切换·*//*章节背景色*/
+.darknight .change_charpeter ol li{
+	/*width: 2.8125rem;*/
+	border:1px solid #d7d7d7;
+	border-radius: 0.15625rem;
+	background-color:#d4d4d4;
+}
+.daytime .change_charpeter ol li{
+	/*width: 2.8125rem;*/
+	border:1px solid #d7d7d7;
+	border-radius: 0.15625rem;
+}
+
+
+
+/*头部*/
+/*白天模式*/
+.headday{
+	background-color:#fff;
+	color:#000; 
+}
+/*黑夜模式*/
+.headnight{
+	background-color:#e1e1e1;
+	color:#000; 
+}
+
+
+/*字体大小控制*/
+
+/*变小*/
+.fontscale5{
+	font-size:0.3125rem;
+	line-height: 0.5625rem;
+	text-indent:0.625rem; 
+}
+.fontscale4{
+	font-size:0.28125rem;
+	line-height:0.53125rem;
+	text-indent:0.5625rem;
+}
+.fontscale3{
+	font-size:0.25rem;
+	line-height:0.5rem;
+	text-indent: 0.5rem;
+}
+.fontscale2{
+	font-size:0.21875rem;
+	line-height:0.46875rem;
+	text-indent:0.4375rem;
+}
+.fontscale1{
+	font-size:0.1875rem;
+	line-height:0.4375rem;
+	text-indent:0.375rem;
+}
+
+/*正常大小*/
+.fontscale6{
+	font-size:0.375rem;
+	line-height:0.625rem;
+	text-indent:0.75rem;
+}
+/*变大*/
+.fontscale7{
+	font-size:0.4375rem;
+	line-height:0.6875rem;
+	text-indent:0.875rem; 
+}
+.fontscale8{
+	font-size: 0.46875rem;
+	line-height: 0.71875rem;
+	text-indent: 0.9375rem;
+}
+
+.fontscale9{
+	font-size:0.546875rem;
+	line-height:0.796875rem;
+	text-indent: 1.09375rem;
+}
+.fontscale10{
+	font-size:0.625rem;
+	line-height:0.875rem;
+	text-indent:1.25rem;
+}
+.fontscale11{
+	font-size:0.78125rem;
+	line-height:1.03125rem;
+	text-indent:1.5625rem;
+}
+
+.fontscale12{
+	font-size:0.9375rem;
+	line-height: 1.1875rem;
+	text-indent: 1.875rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*公共样式*/
+.buy_head_left p:nth-child(3){
+	font-size:0.28125rem;
+	color:#b3b3b3;
+}
+.buy_weixin p:nth-child(2){
+	font-size:0.34375rem;
+	color:#b3b3b3;
+}
+.buy_head{
+	/*min-height: 3.125rem;
+	padding:0 0.3125rem;*/
+    width: 100%;
+    height: 3.125rem;
+   /* height: auto;*/
+    padding: 0 0.3125rem;
+    float: left;
+}
+.buy_head_left{
+	width: 62%;
+}
+.buy_head_left p{
+	margin-top:0.3125rem;
+}
+.buy_head_left p:nth-child(1){
+	font-size: 0.375rem;
+}
+.buy_head_left p:nth-child(2){
+	width: 100%;
+	font-size:0.46875rem;
+	overflow: hidden;
+	height:0.625rem;
+	white-space: nowrap;  
+	text-overflow: ellipsis;
+}
+
+.buy_head_right {
+    /*width:3.125rem;
+	position: relative;*/
+       /*width:2.8rem;*/
+       width: 38%;
+    /*height: auto;*/
+    min-height: 2.8rem;
+    float: right;
+}
+.buy_head_right .add_bookcase{
+	/*width: 0.59375rem;
+	height: 0.625rem;
+	position: absolute;
+	top: 0;
+	right: 0.15625rem;*/
+    width:100%;
+    height: 0.625rem;
+   /* float: right;*/
+}
+    .buy_head_right .add_bookcase img {
+        width: 0.59375rem;
+        height: 0.625rem;
+        float: right;
+    }
+
+
+
+
+
+
+
+.buy_head_right div:last-child{
+	/*position: absolute;
+	right: 0;
+	top:1.875rem;*/
+	width:100%;
+    /*float: right;*/
+    text-align: right;
+    margin-top: 0.42rem;
+}
+
+
+.buy_head_right div:last-child span{
+	display: inline-block;
+	width: 0.55rem;
+	height: 0.55rem;
+	/*width:30px;
+	height:30px;*/
+	margin-left:0.15rem;
+}
+
+.buy_moon{
+	background: url(../img/moon.png) no-repeat;
+	background-size:100% 100%;
+}
+.textS{
+	background: url(../img/a1.png) no-repeat;
+	background-size:100% 100%;
+}
+.textL{
+	background: url(../img/a2.png) no-repeat;
+	background-size:100% 100%;
+}
+
+.buy_book_content{
+	/*font-size: 0.375rem;*/
+	height:auto;
+	padding: 0 0.3125rem;
+	color: rgb(83,83,83);
+	text-align: justify;
+    width:100%;
+    float:left;
+}
+
+
+.buy_book_content p{
+	margin-bottom:20px;
+    height:auto;
+    float:left;
+    width:100%;
+}
+
+
+
+.buying_recommend{
+	padding: 0 0.3125rem;
+    width:100%;
+    float:left;
+}
+
+
+.buying_recommend>p{
+	font-size: 0.4375rem;
+	padding:0.46875rem 0 ;
+}
+
+.buying_recommend ul li{
+	border-bottom:1px dashed #d7d7d7;
+	height: 0.9375rem;
+	line-height: 0.9375rem;
+	font-size: 0.375rem;
+} 
+.buying_recommend ul li span{
+	display: inline-block;
+	height: 0.9375rem;
+	max-width:75%;
+	color: #666;
+	vertical-align: middle;
+	overflow: hidden;  
+	white-space: nowrap;  
+	text-overflow: ellipsis;
+	
+}
+.buying_recommend ul li a{
+	display:inline-block;
+	max-width: 23%;
+	overflow: hidden;
+	height: 0.9375rem;
+	color:#ff5c4d;
+	vertical-align: middle;
+}
+
+/*章节切换·*/
+.change_charpeter{
+	padding:0.9375rem  0.3125rem 1.09375rem;
+    width:100%;
+    float:left;
+}
+
+.change_charpeter ol{
+	/*display: flex;
+	justify-content: space-between;*/
+	overflow: hidden;
+}
+.change_charpeter ol li{
+	width:30%; 
+}
+.change_charpeter ol li:nth-child(2){
+	margin: 0 5%
+}
+
+.change_charpeter ol li a{
+	display: block;
+	height: 0.859375rem;
+	line-height: 0.859375rem;
+	text-align: center;
+	font-size: 0.4375rem;
+}
+
+.buy_weixin{
+	text-align: center;
+    width:100%;
+
+}
+
+.buy_weixin p:nth-child(1){
+	font-size: 0.4375rem;
+	margin-bottom: 0.3125rem;
+}
+
+
+
+
+
+.buy_weixin img{
+	width: 2.96875rem;
+	height: 2.96875rem;
+	margin: 0.46875rem auto 1.25rem;
+}
+
+
+
+
+
+
+
+.Download_now{
+	width: 100%;
+	height:1.5625rem;
+	background:rgba(0,0,0,0.6);
+	position: fixed;
+	bottom:0;
+	z-index: 5;
+}
+
+.Download_now_left {
+    height: 1.5625rem;
+    padding-left: 0.46875rem;
+    /*padding-top: 0.234375rem;*/
+    padding-top: 0;
+    color: #fff;
+}
+.Download_now_left img{
+	/*vertical-align: middle;*/
+	margin-right: 0.15625rem;
+
+}
+.Download_now_left img:nth-child(1){
+	width: 0.46875rem;
+	height: 0.46875rem;
+	margin-right:0.625rem;
+	margin-top:0.58rem;
+}
+
+.Download_now_left img:nth-child(2){
+	width:1.09375rem;
+	height: 1.09375rem;
+    margin-top:0.29rem;
+	
+}
+    .Download_now_left p {
+     margin-top:0.3rem;
+    }
+.Download_now_left p span:nth-child(1){
+	font-size: 0.4375rem;
+}
+.Download_now_left p span:last-child{
+	font-size: 0.3125rem;
+}
+
+
+.Download_now_right{
+	width: 2.5rem;
+	height:0.78125rem;
+	background-color: #f34232;
+	color: #fff;
+	border-radius: 0.15625rem;
+	text-align:center;
+	line-height: 0.78125rem;
+	/*margin-top:0.43rem;*/
+	/*margin-right: 0.46875rem;*/
+	font-size: 0.4375rem;
+	position: absolute;
+	top:0.43rem;
+	right: 0.46875rem;
+	z-index: 100;
+}
+
+
+.warn_login{
+	width:7.0rem;
+	height: 3.59375rem;
+	background-color: #fff;
+	border-radius: 0.3125rem;
+	position: fixed;
+	z-index: 20;
+	top:40%;
+	left:50%; 
+	margin-left: -3.5rem;
+	text-align: center;
+	font-size: 0.40625rem;
+	padding-top: 0.9375rem;
+	display: none;
+}
+
+.warn_login img{
+	position: absolute;
+	top:0.15625rem;
+	right: 0.3125rem;
+	width:0.3125rem;
+	height:0.3125rem;
+}
+
+.warn_login  a{
+	display: block;
+	margin:  0 auto;
+	width:4.921875rem;
+	height:1.09375rem;
+	background-color:#ff5c4d;
+	color:#fff;
+	line-height: 1.09375rem;
+	border-radius:0.15625rem;
+	font-size: 0.46875rem;
+	margin-top: 0.46875rem; 
+}
+
+.new_reading{
+	padding:0.3125rem 0;
+      width:100%;
+    float:left;
+}
+
+
+.author_mess{
+	padding:0.3125rem;
+	font-size: 0.375rem;
+    width:100%;
+    float:left;
+}
+.change_status_2 {
+ width:100%;
+ float:left;
+}
+
+
+
+
+
+
+
+
+
+

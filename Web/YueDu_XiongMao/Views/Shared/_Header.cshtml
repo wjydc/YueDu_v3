@@ -1,0 +1,21 @@
+﻿@model ViewModel.HeaderView
+@{
+    string channelId = ViewBag.ChannelId;   
+}
+<header class="common_detail @(ViewBag.ReadMode == 0 ? "headday" : "headnight") box clear ">
+    <a class="back" href="javascript:history.go(-1);" title="" id="toBack">
+        <img src="~/Content/img/backblack.png" alt="">
+    </a>
+    <p>@Model.Title</p>
+    <div class=" fr box">
+        @if (Model.ShowBookmark)
+        {
+            <a href="@(("/mark/list").GetChannelRouteUrl(channelId))"><img src="~/Content/img/bookcase1.png" alt=""></a>
+        }
+        @if (Model.ShowIndex)
+        {
+            <a href="@(("/").GetChannelRouteUrl(channelId))"><img src="~/Content/img/house.png" alt=""></a>
+        }
+
+    </div>
+</header>

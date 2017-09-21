@@ -1,0 +1,212 @@
+﻿@model SimpleResponse<IEnumerable<BookmarkView>>
+@{
+    ViewBag.Title = "我的书架";
+    var bookmarklist = Model.Data ?? new List<BookmarkView>();
+    var rowCount = ViewBag.RowCount;
+    int CType = ViewBag.CType;
+    bool novelFlag = CType == (int)Constants.Novel.ContentType.小说;
+    bool cartoonFlag = CType == (int)Constants.Novel.ContentType.漫画;
+    string channelId = ViewBag.ChannelId;
+}
+@section styles{
+    @Styles.Render("~/Content/directory")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("书架"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+<div class="bookcase_detail  box">
+    <div class="directory_tab box bw">
+        <span class="directory_novel fl">
+            <a class="@(novelFlag ? "tabactivity " : "bbr") box" href="@(("/mark/list?ct=" + ((int)Constants.Novel.ContentType.小说)).GetChannelRouteUrl(channelId))">小说</a>
+        </span>
+        <span class="directory_comic fr">
+            <a class="@(cartoonFlag ? "tabactivity " : "bbr") box" href="@(("/mark/list?ct=" + ((int)Constants.Novel.ContentType.漫画)).GetChannelRouteUrl(channelId))">其他</a>
+        </span>
+    </div>
+    @if (Model.Success)
+    {
+        <div class="wrap">
+
+            <!-- 小說· -->
+            <div class="bookcase_noval  _list bw">
+                <div class="editor_head box">
+                    <span class="choose-all" id="chooseAll" data-choose='1' style="display:none;">全选</span>
+                    <span>共@(rowCount)本</span>
+                    <span class="cancle_noval" id="edit">编辑</span>
+                </div>
+                <ul class="box bw">
+
+                    @foreach (var bookmark in bookmarklist)
+                    {
+                        <li class="clear">
+                            <div class="dele_editor">
+                                <label data-id='@bookmark.NovelId' for="@bookmark.NovelId"></label>
+                            </div>
+                            <a data-id="@bookmark.NovelId">
+                                <div class="book_list">
+                                    <img class="" src="@Html.RenderImage(new string[] { bookmark.ThumbCover, bookmark.SmallCover }, DefaultCover.novellist)" alt="">
+                                </div>
+                                <div class="book_list_data">
+                                    <p class="novel_name">@Html.RenderText(bookmark.Title)</p>
+                                    <p class="noval_descript">最新章节： @Html.RenderText(bookmark.ChapterName)</p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    <!--换页  -->
+                    Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(rowCount, "/mark/list", pageSize: 10, parameters: new { ct = CType }));
+    }
+</div>
+
+<!-- 删除 -->
+<div class="bookcase_remove">
+    <img src="/content/img/delet.png" alt="">
+    <span>删除</span>(<span>5</span>)
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('mark/list', 'markListRefererrLog');
+
+            $('#edit').click(function () {
+                $('.Turn_page').toggle();
+                if ($(this).attr('data')) {
+                    $('#chooseAll').hide().text('全选').removeAttr('data');
+                    $('header').show();
+                    $('.dele_editor').hide();
+                    $('.directory_tab').show();
+                    $(this).html('编辑').removeAttr('data');
+
+                    $('label').each(function (index, item) {
+
+                        if ($(this).hasClass('checked')) {
+                            $(this).removeClass('checked');
+                        }
+                    });
+                } else {
+                    $('#chooseAll').show();
+                    $('header').hide();
+                    $('.dele_editor').show();
+                    $('.directory_tab').hide();
+                    $(this).html('取消').attr('data', 'editor-noval');
+
+                }
+                $('.bookcase_remove').hide();
+                if ($('.dele_editor').css('display') == 'block') {
+                    $('.noval_descript').css('width', '85%')
+                } else {
+                    $('.noval_descript').css('width', '95%')
+                }
+            });
+
+            $('li a').click(function () {
+                if (!$('#edit').attr('data')) {
+                    $(this).attr('href', '@("/book/detail/".GetChannelRouteUrl(channelId))' + '?novelId=' + $(this).attr('data-id'));
+                }
+                else {
+                    $(this).attr('href', 'javascript:void(0);');
+                }
+            });
+
+            $('li').each(function (index, item) {
+                var that = $(this);
+                that.click(function () {
+                    if ($('#edit').attr('data')) {
+                        that.find('label').toggleClass('checked');
+                        if ($('label.checked').length > 0) {
+                            $('.bookcase_remove').show();
+                            $('.bookcase_remove span:eq(1)').html($('label.checked').length);
+                        }
+                        else
+                            $('.bookcase_remove').hide();
+                    }
+
+                })
+            });
+
+            $('#chooseAll').click(function () {
+                var that = $(this);
+                if (that.attr('data')) {
+                    $('label').each(function (index, item) {
+
+                        if ($(this).hasClass('checked')) {
+                            $(this).removeClass('checked');
+                        }
+                        else
+                            $(this).addClass('checked');
+                    });
+                    that.text('全选').removeAttr('data');
+                    if ($('label.checked').length == 0)
+                        $('.bookcase_remove').hide();
+                    else {
+                        $('.bookcase_remove').show();
+                        $('.bookcase_remove span:eq(1)').html($('label.checked').length);
+                    }
+
+                } else {
+                    $('label').each(function (index, item) {
+
+                        if (!$(this).hasClass('checked')) {
+                            $(this).addClass('checked');
+                        }
+
+                    });
+                    if ($('label.checked').length > 0) {
+                        $('.bookcase_remove').show();
+                        $('.bookcase_remove span:eq(1)').html($('label.checked').length);
+                    }
+                    that.text('反选').attr('data', 'chooseAll');
+                }
+
+            });
+
+            $('.bookcase_remove').click(function () {
+
+                $.confirm('确认删除吗', function () {
+                    var ids = [];
+                    if ($('label.checked').length > 0) {
+                        $('label.checked').each(function (index, item) {
+                            var id = parseInt($(this).attr('data-id'));
+                            ids.push(id);
+                        });
+                    }
+                    $.ajax({
+                        url: '/mark/delete',
+                        type: "post",
+                        dataType: 'json',
+                        data: { ids: ids },
+                        traditional: true,
+                        success: function (result) {
+                            if (result.Success) {
+
+                                $.tips({ message: '删除成功', showTime: 1000 });
+
+                                setTimeout(function () { window.location.reload(); }, 1000);
+                            } else {
+
+                                $.tips({ message: result.Message });
+                            }
+                        },
+                        error: function (err) {
+                            $.tips({ message: "删除失败，请重试" });
+                        }
+                    });
+                });
+            });
+        })
+    </script>
+}

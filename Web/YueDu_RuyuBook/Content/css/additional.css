@@ -1,0 +1,820 @@
+/*免费专区。限时免费*/
+.free_zone_title{
+	font-size:0.46875rem;
+	font-weight: 400;
+	padding:0 0.3125rem;
+}
+.free_zone_title span{
+	display: inline-block;
+	width: 0.375rem;
+	height: 0.375rem;
+	font-size: 0.28125rem;
+	line-height: 0.375rem;
+	text-align: center;
+	color:#ffffff;
+	background: #000000;
+	vertical-align: middle;
+	border-radius: 0.03125rem;
+	margin-top: -0.098125rem;
+	margin-right: 0.078125rem;
+}
+
+.free_zone_title span:nth-child(1){
+	background: #ed424b;
+}
+/**/
+.free_zone #free_zone_des span{
+	/*display: inline-block;
+	padding:0.03125rem 0.09375rem;
+	margin-left: 0.15625rem;
+	border-radius: 0.046875rem;
+	font-size:0.28125rem;*/
+        /*display: inline-block;
+    min-width: 0.703125rem;
+    min-height: 0.375rem;
+    margin-left: 0;
+    border-radius: 0.046875rem;
+    font-size: 0.28125rem;
+    padding: 0.012rem 0.078125rem;
+    text-align: center;*/
+    width: auto;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    margin-left: 0;
+    border-radius: 0.046875rem;
+    font-size: 0.28125rem;
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+}
+.free_zone #free_zone_des span:nth-child(1){
+	color:#999999;
+	border:1px solid #999999;
+}
+.free_zone #free_zone_des span:nth-child(2){
+	color:#fc5e50;
+	border:1px solid #fc5e50;
+}
+.free_zone #free_zone_des span:nth-child(3){
+	color:#08b295;
+	border:1px solid #08b295;
+}
+
+.free_zone .Limited_time_free{
+	margin-bottom: 0.3125rem;
+}
+
+/*免费新书*/
+.free_zone_book{
+	margin-bottom: 0.3125rem;
+}
+.free_zone_book .free_zone_title{
+	padding-top: 0.3125rem;
+}
+.free_zone_book ul li{
+	/*padding-bottom: 0.3125rem;*/
+}
+
+.free_zone_book ul li:last-child{
+	border-bottom:none;
+}
+
+
+
+
+/*已读过页面*/
+.has_reading .MarkRead ul li{
+	border-top:1px solid #d7d7d7;
+	height: 1.984375rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 0.46875rem 0 0.3125rem;
+}
+.has_reading .MarkRead ul li p{
+    width:100%;
+    float:left;
+	overflow: hidden;
+    margin-top:0.35rem;
+}
+.has_reading .MarkRead ul li p span{
+	overflow: hidden;  
+   white-space: nowrap;  
+   text-overflow: ellipsis; 
+}
+.has_reading .MarkRead ul li p span:nth-child(1){
+	display: block;
+	font-size: 0.4375rem;
+	
+}
+.has_reading .MarkRead ul li p span:nth-child(2){
+	display: block;
+	font-size: 0.34375rem;
+	color:#999;
+	margin-top:0.3125rem;
+}
+.has_reading .MarkRead ul li img{
+	width:0.40625rem;
+	height: 0.40625rem;
+	vertical-align: middle;
+}
+
+.has_read_comic{
+	display: none;
+}
+
+
+
+/*漫画专区也  || index页 */
+
+.commic_zone .swiper-container{
+	width: 100%;
+	height:5.0rem;
+	position: relative;
+}
+
+.commic_zone .detail_nav ul li{
+	margin:0.296875rem 7.03% 0;
+}
+.commic_zone .detail_nav{
+	border:none;
+}
+
+
+
+/*漫画书1*/
+.commic_book ul{
+	overflow: hidden;
+}
+.commic_book ul li{
+	width:33.33%;
+	float: left;
+}
+.commic_book ul li a{
+	width: 100%;
+	display: block;
+	font-size: 0.375rem;
+}
+
+.commic_book ul li a img{
+	width: 100%;
+	height:3.15625rem;
+}
+.commic_book ul li span{
+	display:block;
+	width: 90%;
+	margin: 0 auto;
+	padding:0 0 0.46875rem;
+	overflow: hidden;  
+	white-space: nowrap;  
+	text-overflow: ellipsis;
+	text-align: center;
+}
+
+
+.comic_hot ul{
+   padding-top: 0.3125rem;
+	border-bottom:1px solid #d9d9d9;
+}
+
+.comic_hot{
+	padding: 0.46875rem 0 0;
+}
+
+
+
+/*漫画专区  图片尺寸*/
+.commic_zone .commic_book{
+	margin-top: 0.3125rem;
+	padding-top:0.46875rem;
+}
+.commic_zone .commic_book ul{
+	padding-top: 0.3125rem;
+}
+.commic_zone .recommended_detail .r_d_l{
+	width:2.9375rem;
+	height:3.90625rem;
+}
+.commic_zone .recommended_detail .r_d_l img{
+	width:2.875rem;
+	height: 3.8125rem;
+}
+.commic_zone .free_book{
+	padding: 0.3125rem 0;
+}
+.commic_zone .free_book li{
+	width:30%;
+	margin: 0  1.66%;
+}
+
+.commic_zone .free_book li img{
+	width:2.875rem;
+	height: 3.8125rem;
+}
+
+.commic_zone .Hot_zone_list{
+	/*padding: 0.3125rem 0;*/
+}
+.commic_zone .Hot_zone_list li{
+	width:30%;
+	margin: 0  1.66% 0.46875rem;
+}
+.commic_zone .Hot_zone_list li img{
+	width:2.875rem;
+	height: 3.8125rem;
+}
+
+
+
+
+
+
+/*漫画详情页*/
+
+.comic_zone_head{
+	/*background: url(../img/comic_bg.png) no-repeat;
+	background-size: 100% 6.25rem;*/
+	position: relative;
+}
+.blur{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	/*height: 6.421875rem;*/
+        height: 6.55rem;
+	z-index: 0;
+	overflow: hidden;
+	opacity: 0.4;
+	/*border-bottom: 1px solid red;*/
+}
+.blurdiv {
+	display: block;
+	width: 100%;
+	height:1.5625rem;
+	position: absolute;
+	bottom: 0;
+	/*background:-webkit-linear-gradient(bottom,#fff,#e8f1f3);*/
+}
+.blur img:first-child{
+	width: 100%;
+	 -webkit-filter: blur(30px); 
+       -moz-filter: blur(30px);
+        -ms-filter: blur(30px);    
+            filter: blur(30px);   
+}
+
+
+
+
+.comic_zone_head header{
+	position: relative;
+	z-index: 1;
+}
+.comic_zone_head .comic_introduction{
+	position: relative;
+	z-index: 1;
+}
+
+
+
+.comic_zone_head header{
+	background-color: transparent;
+}
+
+.book_message .exclusive{
+	padding-right: 0.3125rem;
+}
+/*.book_message .exclusive p:nth-child(2){
+	margin-right:0.3125rem;
+}*/
+
+.book_message .exclusive .fr span{
+	display: inline-block;
+}
+
+.book_message .exclusive .fr span img{
+	width: 0.3125rem;
+	height: 0.3125rem;
+	/*vertical-align: middle;*/
+	/*margin-top: -0.078125rem;*/
+	margin-right: 0.078125rem;
+
+}
+
+
+.comic_directory ul li{
+	border-bottom:none;
+}
+
+.comic_charpeter_list{
+	width: 100%;
+	font-size: 0.375rem;
+	padding: 0 0.3125rem;
+	border-bottom:1px solid #f0f1f2;
+}
+.comic_charpeter_list li{
+	width: 45%;
+	margin-left:3.33%;
+	border:1px solid #d9d9d9;
+	border-radius: 0.15625rem;
+	margin-bottom: 0.3125rem;
+	    padding: 0 0.1rem;
+}
+.comic_charpeter_list li a{
+	display: block;
+	height: 0.9375rem;
+	line-height: 0.9375rem;
+	padding: 0 0.15625rem;
+	overflow: hidden;
+}
+.comic_charpeter_list li a span{
+	max-width:89%;
+	float: left;
+	overflow: hidden;  
+	white-space: nowrap;  
+	text-overflow: ellipsis;  
+}
+.comic_charpeter_list li a img{
+	float:left;
+	width: 0.375rem;
+	height: 0.34375rem;
+	vertical-align: middle;
+	margin-top:0.3rem;
+}
+
+
+
+/*书库*/
+.library_classfiy{
+	padding:0.46875rem 0.3125rem 0;
+	margin-bottom: 0.3125rem;
+}
+.library_classfiy .type{
+	padding-bottom: 0.46875rem;
+}
+.library_classfiy .type p{
+	/*width:5%;*/
+	margin-right:10px;
+	font-size: 0.40625rem;
+	position: relative;
+}
+.library_classfiy .type p img{
+	vertical-align: middle;
+	width:0.3125rem;
+	height: 0.3125rem;
+   margin-top: 0.1rem;
+}
+.library_classfiy .type ul{
+	overflow:hidden;
+	float:left;
+	width:90%;
+	text-align: justify;
+
+}
+.library_classfiy .type li{
+	/*width:8.75rem;*/
+}
+.library_classfiy .type li span{
+	margin-right:0.390625rem;
+	font-size: 0.40625rem;
+    float:left;
+    line-height:0.7rem;
+}
+.library_classfiy .type li a{
+	margin-right: 0.390625rem;
+	font-size: 0.40625rem;
+	color: #999999;
+    line-height:0.7rem;
+    white-space:nowrap;
+    float:left;
+}
+.library_classfiy .type ul li .type_all{
+	color:red;
+}
+/*书库书列表*/
+.library_list{
+	
+}
+.library_list ul li{
+	border-bottom:1px solid #f0f1f2;
+}
+.library_list ul li:last-child{
+	border-bottom:none;
+}
+.library_list ul li a{
+	display: block;
+	padding:0.234375rem 0.3125rem;
+}
+
+.library_list ul li a .library_book{
+	width:2.1875rem;
+	height: 3.046875rem; 
+	margin-right: 0.3125rem;
+	position: relative;
+}
+.library_list ul li a .library_book img{
+	width: 2.15625rem;
+	height:3.0rem;
+	-webkit-box-shadow:0.078125rem 0.078125rem 0.078125rem #e1e1e1;  
+  	-moz-box-shadow:0.078125rem 0.078125rem 0.078125rem  #e1e1e1;  
+  	box-shadow: 0.078125rem 0.078125rem 0.078125rem #e1e1e1; 
+}
+.library_book .book_title{
+	display: inline-block;
+	position: absolute;
+	top:30%;
+	font-size: 0.3125rem;
+	width:100%;
+	padding: 0 0.3125rem;
+}
+.library_list ul li a .library_book_detail{
+	/*width:6.875rem; */
+	color:#999999;
+	overflow: hidden;
+	font-size: 0.34375rem;
+}
+.library_book_detail p{
+	/*width:6.0rem;*/
+	margin-bottom:0.15625rem;
+}
+.library_book_detail p:nth-child(1){
+	/*height: 0.546875rem;*/
+	font-size: 0.46875rem;
+	color: #6e6e6e;
+	margin: 0.15625rem 0 0.3125rem;
+	/*line-height: 0.546875rem;*/
+	overflow: hidden;
+}
+.library_book_detail p:nth-child(1) span:nth-child(1){
+	display: inline-block;
+	max-width:85%;
+	height:0.5rem;
+	line-height: 0.5rem;
+	overflow: hidden;
+	float: left;
+}
+.library_book_detail p:nth-child(1) span:nth-child(2){
+	display: inline-block;
+	width: 0.390625rem;
+	height: 0.390625rem;
+	text-align: center;
+	line-height: 0.390625rem;
+	color: #fff;
+	/*background-color:#ff942b;*/
+	font-size: 0.3125rem;
+	border-radius:0.078125rem;
+	/*vertical-align: middle;
+	margin-top:-0.15625rem;*/
+	margin-left: 0.15625rem;
+	float: left;
+	margin-top: 0.1rem;
+}
+
+
+    .library_book_detail p:nth-child(2) span {
+        /*border:1px solid #fff;
+	display: inline-block;
+	min-width:0.703125rem;
+	min-height: 0.375rem;
+	border-radius: 0.046875rem;
+	font-size:0.28125rem;
+padding: 0.012rem 0.078125rem;
+	text-align: center;
+    box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;*/
+        width: auto;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        margin-left: 0;
+        border-radius: 0.046875rem;
+        font-size: 0.28125rem;
+        text-align: center;
+        vertical-align: middle;
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+    }
+.library_book_detail p:nth-child(2) span:nth-child(1){
+	/*border-color: #999999;*/
+    color: #999999;
+    border: 1px solid #999999;
+}
+
+.library_book_detail p:nth-child(2) span:nth-child(2){
+	/*border-color:#f6a647;
+	color: #f6a647;*/
+        color: #fc5e50;
+    border: 1px solid #fc5e50;
+}
+.library_book_detail p:nth-child(2) span:nth-child(3){
+	/*border-color: #2db89d;
+	color: #2db89d;*/
+    color: #08b295;
+    border: 1px solid #08b295;
+	
+}
+
+
+.library_book_detail p:nth-child(3){
+	height:0.46875rem;
+	line-height: 0.46875rem;
+	overflow: hidden;
+	
+}
+.library_book_detail p:last-child{
+	/*font-size: 0.34375rem;*/
+}
+
+
+/*听书专区*/
+.listening_zone_ordering{margin-bottom: 0.3125rem;}
+.listening_zone_ordering ul{
+	display: flex;
+	justify-content: space-around;
+	padding: 0.46875rem 0 0.3125rem;
+}
+.listening_zone_ordering ul li a{
+	display: block;
+	font-size: 0.34375rem;
+	color: #94bbcf;
+	text-align: center;
+}
+.listening_zone_ordering ul li a img{
+	width: 1.5625rem;
+	height: 1.5625rem;
+}
+
+.listening_zone_ordering .Monthly_order{
+	display: block;
+	width: 93.75%;
+	height: 0.9375rem;
+	border-radius:0.15625rem;
+	background-color: #ff5c4d;
+	text-align: center;line-height: 0.9375rem;
+	color: #fff;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.listening_zone_ordering .Monthly_order span:nth-child(1){
+	font-size: 0.4375rem;
+}
+.listening_zone_ordering span:nth-child(2){
+	font-size: 0.375rem;
+}
+.listening_zone_ordering>div{
+	padding:0.3125rem;
+}
+.listening_zone_ordering>div p{
+	color: #b3b3b3;
+
+}
+
+
+/*听书列表*/
+.listening_reconmond{
+	padding-top: 0.625rem;
+}
+.listening_reconmond .common_title{
+}
+.listening_reconmond ul{
+	padding:0.3125rem 0.3125rem 0;
+}
+.listening_reconmond ul li{
+	padding-bottom: 0.3125rem;
+}
+.listening_reconmond ul li a{
+	display: block;
+	font-size: 0.40625rem;
+	height:0.65625rem;
+	line-height: 0.65625rem;
+}
+
+.listening_reconmond ul li a span:nth-child(1){
+	/*display:inline-block;
+	width: 0.625rem;
+	height: 0.625rem;
+	line-height: 0.625rem;
+	text-align: center;
+	border-radius: 50%;
+	color: #999999;
+	border:1px solid #999999;
+	vertical-align: middle;
+	margin-right: 0.15625rem;*/
+    width: 0.46875rem;
+    height: 0.46875rem;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 0.15625rem;
+    text-align: center;
+    line-height: 0.46875rem;
+    color: #fff;
+    margin-top: 0.11rem;
+}
+.listening_reconmond ul li a span:nth-child(2){
+	width: 80%;
+	height: 0.65625rem;
+	line-height: 0.65625rem;
+	overflow: hidden;
+}
+
+.listening_reconmond ul li a img{
+	height: 0.3125rem;
+	margin-top: 0.15625rem;
+	vertical-align: middle;
+}
+
+.listening_see_more{
+	padding: 0 0.3125rem;
+	margin-bottom: 0.3125rem;
+}
+.listening_reconmond .listening_see_more a{
+	display: block;
+	height: 1.09375rem;
+	line-height: 1.09375rem;
+	text-align: center;
+	color: #ff5c4d;
+	font-size:0.4375rem;
+	border-top:1px solid #f0f1f2;
+}
+
+
+
+
+/*漫画专区-cp专区*/ 
+.library_list ul{
+	/*min-height:9.375rem;*/
+	padding: 0.3125rem 0;
+}
+.comic_cp .library_book_detail p:nth-child(2){
+	height:0.46875rem;
+	line-height: 0.46875rem;
+	overflow: hidden;
+}
+.comic_cp .library_book_detail p:last-child{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.comic_cp .library_book_detail p:nth-child(1) span:nth-child(2){
+	background-color:#29c9c7;
+}
+
+/*漫画排行榜*/
+
+.comic_ranking{
+	margin-bottom: 0.3125rem;
+}
+.comic_ranking_detail{
+	padding: 0;
+	border-bottom: 1px solid #e3e3e3;
+	position: relative;
+}
+.comic_ranking>div:last-child{
+	border: none;
+}
+.comic_ranking_detail  a{
+	position: relative;
+	display: block;
+	padding:0.390625rem 0.3125rem;
+	/*min-height:2.65625rem; */
+
+}
+
+.comic_ranking .library_book{
+	width: 1.484375rem;
+	/*height: 3.09375rem;*/
+	margin-right: 0.3125rem;
+	position: relative;
+}
+.comic_ranking .library_book img{
+	width: 1.4375rem;
+	height: 1.9375rem;
+	-webkit-box-shadow:0.078125rem 0.078125rem 0.078125rem #e1e1e1;  
+  	-moz-box-shadow:0.078125rem 0.078125rem 0.078125rem  #e1e1e1;  
+  	box-shadow: 0.078125rem 0.078125rem 0.078125rem #e1e1e1;
+}
+
+
+.comic_ranking_des{
+	/*width:7.578125rem;*/
+	padding-top: 0.15625rem;
+	overflow: hidden;
+	
+}
+    .comic_ranking_des p:nth-child(1) {
+        overflow: hidden;
+        font-size: 0.46875rem;
+        /*height: 0.5rem;
+	 line-height: 0.5rem;*/
+       /* height: 0.546875rem;
+        line-height: 0.546875rem;*/
+    }
+.comic_ranking_des p:nth-child(1) span:nth-child(1){
+	display: inline-block;
+    max-width:82%;
+     /*height: 0.5rem;
+	 line-height: 0.5rem;*/
+    overflow: hidden;  
+   white-space: nowrap;  
+   text-overflow: ellipsis; 
+   float: left;
+}
+.comic_ranking_des p:nth-child(1) span:last-child{
+	display: inline-block;
+	width:0.390625rem;
+	height: 0.390625rem;
+	text-align: center;
+	line-height: 0.390625rem;
+	color: #fff;
+	font-size: 0.3125rem;
+	border-radius:0.078125rem;
+	/*vertical-align: middle;
+	margin-top:-0.125rem;*/
+	margin-left:0.15625rem;
+	float: left;
+	margin-top: 0.15rem;
+}
+
+.comic_ranking_des p:nth-child(2) span{
+	/*display: inline-block;
+	/*padding:0 0.078125rem;
+        padding: 0.012rem 0.078125rem;
+	height:0.46875rem;
+	line-height:0.46875rem;
+	border: 1px solid #999999;
+	border-radius:0.078125rem;
+	font-size: 0.28125rem;
+	margin:0.15625rem 0;*/
+        display: inline-block;
+    min-width: 0.703125rem;
+    min-height: 0.375rem;
+    /* margin-left: 0.15625rem; */
+    margin-left: 0;
+    border-radius: 0.046875rem;
+    font-size: 0.28125rem;
+    /* padding: 0.015625rem 0.078125rem; */
+    padding: 0.012rem 0.078125rem;
+    text-align: center;
+    margin-top:0.15625rem;
+    margin-bottom:0.15625rem;
+    box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+}
+
+.comic_ranking_des p:nth-child(2) span:nth-child(1){
+	/*color: #999999;
+	border-color: #999999;*/
+        color: #999999;
+    border: 1px solid #999999;
+}
+
+.comic_ranking_des p:nth-child(2) span:nth-child(2){
+	/*color:#f6a647;
+	border-color:#f6a647;*/
+    color: #fc5e50;
+    border: 1px solid #fc5e50;
+}
+
+
+
+.comic_ranking_des p:last-child{
+	font-size: 0.34375rem;
+	overflow: hidden;  
+   	white-space: nowrap;  
+   	text-overflow: ellipsis;
+    color: #999999;
+}
+
+.comic_ranking_detail  a>p{
+	font-size: 0.5625rem;
+	position: absolute;
+	right:0.3125rem;
+	color: #999999;
+	top:0.3125rem;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

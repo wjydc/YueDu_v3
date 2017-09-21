@@ -1,0 +1,37 @@
+﻿@using Model.Common;
+@using Utility;
+@using Component.Base;
+
+@functions{
+    public static string GetADUrl(int funcType, int fid, string channelId, int fCode, string url) 
+    {        
+        string href = "#";
+        switch (funcType)
+        {
+            case (int)Constants.AdFuncTypeName.超链接:
+
+                href = string.IsNullOrEmpty(url) ? "#" : url;
+                break;
+            case (int)Constants.AdFuncTypeName.公告:
+
+                href = "#";
+                break;
+            case (int)Constants.AdFuncTypeName.漫画:
+            case (int)Constants.AdFuncTypeName.小说:
+
+                href = string.Format("/book/detail?novelId={0}", fid).GetChannelRouteUrl(channelId);
+                break;
+            case (int)Constants.AdFuncTypeName.章节:
+            case (int)Constants.AdFuncTypeName.漫画章节:
+
+                href = ChapterContext.GetUrl("/chapter/detail", fid, fCode, channelId: channelId);
+                break;
+            default:
+
+                href = "#";
+                break;
+        }
+        
+        return href;
+    }
+}

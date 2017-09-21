@@ -1,0 +1,162 @@
+
+.personal_nickname{
+		padding: 0.9375rem 0;
+		text-align: center;
+		font-size: 0.40625rem;
+		margin-bottom: 0.3125rem;
+}
+
+.personal_nickname img{
+	width: 1.796875rem;
+	height: 1.796875rem;
+	margin-bottom: 0.46875rem;
+}
+.personal_account{
+	padding-left: 0.3125rem;
+	font-size: 0.40625rem;
+	margin-bottom: 0.3125rem;
+}
+.personal_account div{
+	height: 1.25rem;
+	line-height: 1.25rem;
+}
+.personal_account div img{
+	width: 0.546875rem;
+	height: 0.546875rem;
+	vertical-align: middle;
+	margin-top: -0.15625rem;
+	margin-right: 0.46875rem;
+}
+.personal_account .personal_accounting{
+	border-bottom: 0.015625rem solid #e3e3e3;
+}
+.copy{color: #ff5c4d;}
+
+.personal_recharge{
+	display: inline-block;
+	width: 1.5625rem;
+	height: 0.78125rem;
+	background-color: #ff5c4d;
+	color: #fff;
+	border-radius:0.15625rem;
+	line-height: 0.78125rem;
+	text-align: center; 
+	margin-top: 0.234375rem;
+	margin-right: 0.46875rem;
+	font-size: 0.34375rem;
+}
+
+.personal_record{
+	padding-left: 0.3125rem;
+	font-size: 0.40625rem;
+	margin-bottom: 0.3125rem;
+} 
+.personal_record a{
+	display: block;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	color: #000;
+	border-bottom:0.015625rem solid #e3e3e3;
+}
+.personal_record a:last-child{
+	border:none;
+}
+.personal_record a img:nth-child(1){
+	width: 0.546875rem;
+	height: 0.546875rem;
+	vertical-align: middle;
+	margin-top: -0.125rem;
+	margin-right: 0.46875rem;
+}
+.personal_record a img:nth-child(3){
+	height:0.390625rem;
+	margin-top: 0.429688rem;
+	margin-right: 0.46875rem;
+} 
+
+.personal_back{
+	margin-bottom: 0.3125rem;
+}
+.personal_back a{
+	display: block;
+	text-align: center;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	font-size: 0.40625rem;
+	color: #ff6b5e;
+}
+
+
+
+
+/*返回首页*/
+
+.back_index{
+	width: 2.421875rem;
+	color:#fff;
+	background: url(../img/message_box.png) no-repeat;
+	background-position: top right;
+	background-size: 100% 100%;
+	position: absolute;
+	top:1.25rem;
+	right:1.328125rem
+	
+}
+
+
+.back_index span{
+	min-width: 80%;
+	text-align: center;
+	display: inline-block;
+	height:0.859375rem;
+	line-height:0.9375rem;
+	font-size:0.34375rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2DDFDBEE-F91B-43DF-9867-4616377D2BAD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YueDu</RootNamespace>
+    <AssemblyName>YueDu_HuaSheng</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Alipay\" />
+    <Folder Include="Views\Error\" />
+    <Folder Include="Views\PreOrder\" />
+    <Folder Include="Views\QQ\" />
+    <Folder Include="Views\Read\" />
+    <Folder Include="Views\Recharge\" />
+    <Folder Include="Views\Weibo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Code\EnvSettings.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AlipayController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CartoonController.cs" />
+    <Compile Include="Controllers\ChapterController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\MarkController.cs" />
+    <Compile Include="Controllers\FooterController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HeaderController.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
+    <Compile Include="Controllers\NowPayController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PreOrderController.cs" />
+    <Compile Include="Controllers\PresentController.cs" />
+    <Compile Include="Controllers\PreviewController.cs" />
+    <Compile Include="Controllers\QQController.cs" />
+    <Compile Include="Controllers\QrCodeController.cs" />
+    <Compile Include="Controllers\RankController.cs" />
+    <Compile Include="Controllers\RecentReadController.cs" />
+    <Compile Include="Controllers\RechargeController.cs" />
+    <Compile Include="Controllers\RecommendController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WeChatController.cs" />
+    <Compile Include="Controllers\WeiboController.cs" />
+    <Compile Include="Controllers\WxController.cs" />
+    <Compile Include="Controllers\WxPayController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\Rec.config" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\additional.css" />
+    <Content Include="Content\css\book_Comment.css" />
+    <Content Include="Content\css\buying.css" />
+    <Content Include="Content\css\comic.css" />
+    <Content Include="Content\css\common.css" />
+    <Content Include="Content\css\directory.css" />
+    <Content Include="Content\css\index.css" />
+    <Content Include="Content\css\login.css" />
+    <Content Include="Content\css\mask.css" />
+    <Content Include="Content\css\payerror.css" />
+    <Content Include="Content\css\personalcenter.css" />
+    <Content Include="Content\css\promote.css" />
+    <Content Include="Content\css\RankingList.css" />
+    <Content Include="Content\css\reading.css" />
+    <Content Include="Content\css\read_detail.css" />
+    <Content Include="Content\css\rechargecenter.css" />
+    <Content Include="Content\css\wechart.css" />
+    <Content Include="Content\img\a1.png" />
+    <Content Include="Content\img\a2.png" />
+    <Content Include="Content\img\arrow_left.png" />
+    <Content Include="Content\img\arrow_right.png" />
+    <Content Include="Content\img\arrow_right1.png" />
+    <Content Include="Content\img\attribute.png" />
+    <Content Include="Content\img\authorization.png" />
+    <Content Include="Content\img\backblack.png" />
+    <Content Include="Content\img\backred.png" />
+    <Content Include="Content\img\beian.png" />
+    <Content Include="Content\img\bg1.png" />
+    <Content Include="Content\img\bg2.png" />
+    <Content Include="Content\img\bg3.png" />
+    <Content Include="Content\img\bg4.png" />
+    <Content Include="Content\img\blurbg.png" />
+    <Content Include="Content\img\book.png" />
+    <Content Include="Content\img\bookcase.png" />
+    <Content Include="Content\img\bookcase1.png" />
+    <Content Include="Content\img\bookcase2.png" />
+    <Content Include="Content\img\buy_logo.png" />
+    <Content Include="Content\img\change.png" />
+    <Content Include="Content\img\check.png" />
+    <Content Include="Content\img\classify.png" />
+    <Content Include="Content\img\clock.png" />
+    <Content Include="Content\img\close.png" />
+    <Content Include="Content\img\close_login.png" />
+    <Content Include="Content\img\comic.png" />
+    <Content Include="Content\img\comic_bg.png" />
+    <Content Include="Content\img\comment.png" />
+    <Content Include="Content\img\comment0.png" />
+    <Content Include="Content\img\consumption.png" />
+    <Content Include="Content\img\cry.png" />
+    <Content Include="Content\img\default\banner.png" />
+    <Content Include="Content\img\default\vacancy.png" />
+    <Content Include="Content\img\default\book.png" />
+    <Content Include="Content\img\default\unknow.png" />
+    <Content Include="Content\img\default\user.png" />
+    <Content Include="Content\img\delet.png" />
+    <Content Include="Content\img\down.png" />
+    <Content Include="Content\img\duguo.png" />
+    <Content Include="Content\img\error.png" />
+    <Content Include="Content\img\error1.png" />
+    <Content Include="Content\img\error2.png" />
+    <Content Include="Content\img\exclusive.png" />
+    <Content Include="Content\img\fenlei.png" />
+    <Content Include="Content\img\fwkfqr.png" />
+    <Content Include="Content\img\hasreading.png" />
+    <Content Include="Content\img\home.png" />
+    <Content Include="Content\img\house.png" />
+    <Content Include="Content\img\house1.png" />
+    <Content Include="Content\img\hy.png" />
+    <Content Include="Content\img\katong.png" />
+    <Content Include="Content\img\know.png" />
+    <Content Include="Content\img\latestread.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logo_bookcase.png" />
+    <Content Include="Content\img\logo_singal.png" />
+    <Content Include="Content\img\magnifying_glass.png" />
+    <Content Include="Content\img\message.png" />
+    <Content Include="Content\img\message_box.png" />
+    <Content Include="Content\img\message_boxnight.png" />
+    <Content Include="Content\img\money.png" />
+    <Content Include="Content\img\moon.png" />
+    <Content Include="Content\img\more.png" />
+    <Content Include="Content\img\new.png" />
+    <Content Include="Content\img\no_search.png" />
+    <Content Include="Content\img\num1.png" />
+    <Content Include="Content\img\num2.png" />
+    <Content Include="Content\img\num3.png" />
+    <Content Include="Content\img\out.png" />
+    <Content Include="Content\img\paihang.png" />
+    <Content Include="Content\img\person.png" />
+    <Content Include="Content\img\phone.png" />
+    <Content Include="Content\img\price.png" />
+    <Content Include="Content\img\progress.png" />
+    <Content Include="Content\img\qq_logo.png" />
+    <Content Include="Content\img\quality.png" />
+    <Content Include="Content\img\rank1.png" />
+    <Content Include="Content\img\rank2.png" />
+    <Content Include="Content\img\rank3.png" />
+    <Content Include="Content\img\ranking.png" />
+    <Content Include="Content\img\reading.png" />
+    <Content Include="Content\img\recharge.png" />
+    <Content Include="Content\img\recharge1.png" />
+    <Content Include="Content\img\red_line.png" />
+    <Content Include="Content\img\refresh.png" />
+    <Content Include="Content\img\search_back.png" />
+    <Content Include="Content\img\search_bookcase.png" />
+    <Content Include="Content\img\sina_logo.png" />
+    <Content Include="Content\img\sorting.png" />
+    <Content Include="Content\img\sourse.png" />
+    <Content Include="Content\img\sousuo.png" />
+    <Content Include="Content\img\step1.png" />
+    <Content Include="Content\img\step2.png" />
+    <Content Include="Content\img\step3.png" />
+    <Content Include="Content\img\the_first.png" />
+    <Content Include="Content\img\tipimg.png" />
+    <Content Include="Content\img\trash.png" />
+    <Content Include="Content\img\type.png" />
+    <Content Include="Content\img\uncheck.png" />
+    <Content Include="Content\img\v.png" />
+    <Content Include="Content\img\wechat_login.png" />
+    <Content Include="Content\img\weixin.jpg" />
+    <Content Include="Content\img\x.png" />
+    <Content Include="Content\img\zjloading.jpg" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\listening\css\buying.css" />
+    <Content Include="Content\listening\css\comic.css" />
+    <Content Include="Content\listening\css\common.css" />
+    <Content Include="Content\listening\css\img\backblack.png" />
+    <Content Include="Content\listening\css\img\backred.png" />
+    <Content Include="Content\listening\css\img\bookcase1.png" />
+    <Content Include="Content\listening\css\img\close_login.png" />
+    <Content Include="Content\listening\css\img\comic.png" />
+    <Content Include="Content\listening\css\img\house.png" />
+    <Content Include="Content\listening\css\img\last_1.png" />
+    <Content Include="Content\listening\css\img\next_1.png" />
+    <Content Include="Content\listening\css\img\out.png" />
+    <Content Include="Content\listening\css\img\play.png" />
+    <Content Include="Content\listening\css\img\playbg.png" />
+    <Content Include="Content\listening\css\img\Z.jpg" />
+    <Content Include="Content\listening\css\listening.css" />
+    <Content Include="Content\listening\js\jqmobi.js" />
+    <Content Include="Content\listening\js\tsall.js" />
+    <Content Include="Content\plugin\clipboard\dist\clipboard.js" />
+    <Content Include="Content\plugin\clipboard\dist\clipboard.min.js" />
+    <Content Include="Content\plugin\dist\css\swiper.min.css" />
+    <Content Include="Content\plugin\dist\js\swiper.jquery.js" />
+    <Content Include="Content\plugin\dist\js\swiper.jquery.min.js" />
+    <Content Include="Content\plugin\dist\js\swiper.jquery.umd.min.js" />
+    <Content Include="Content\plugin\dist\js\swiper.js" />
+    <Content Include="Content\plugin\dist\js\swiper.min.js" />
+    <Content Include="Content\plugin\echo\echo.min.js" />
+    <Content Include="Content\plugin\libflexible\flexible.debug.js" />
+    <Content Include="Content\plugin\libflexible\flexible_css.debug.js" />
+    <Content Include="Content\plugin\libflexible\makegrid.debug.js" />
+    <Content Include="Content\scripts\bookSearch.js" />
+    <Content Include="Content\scripts\goBack.js" />
+    <Content Include="Content\scripts\commonTips.js" />
+    <Content Include="Content\scripts\jquery.cookie.js" />
+    <Content Include="Content\scripts\readMode.js" />
+    <Content Include="Content\wx\css\1.png" />
+    <Content Include="Content\wx\css\2.png" />
+    <Content Include="Content\wx\css\3.png" />
+    <Content Include="Content\wx\css\index.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Config\Site.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Config\Auth.config" />
+    <Content Include="Config\Pay.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\beian.cshtml" />
+    <Content Include="Views\Notify\Contact.cshtml" />
+    <Content Include="Views\Notify\PayError.cshtml" />
+    <None Include="Views\Shared\Statistics.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Header\Index.cshtml" />
+    <Content Include="Views\Footer\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Book\Search.cshtml" />
+    <Content Include="Views\Mark\List.cshtml" />
+    <Content Include="Views\Book\SearchList.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Book\List.cshtml" />
+    <Content Include="Views\Chapter\List.cshtml" />
+    <Content Include="Views\Book\Detail.cshtml" />
+    <Content Include="Views\Rank\List.cshtml" />
+    <Content Include="Views\Book\Free.cshtml" />
+    <Content Include="Views\Comment\List.cshtml" />
+    <Content Include="Views\RecentRead\Index.cshtml" />
+    <Content Include="Views\Cartoon\Index.cshtml" />
+    <Content Include="Views\Cartoon\Rank.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\Cartoon\Detail.cshtml" />
+    <Content Include="Views\Cartoon\CP.cshtml" />
+    <Content Include="Views\Comment\Detail.cshtml" />
+    <Content Include="Views\Present\List.cshtml" />
+    <Content Include="Views\Shared\Pager.cshtml" />
+    <Content Include="Views\Chapter\Detail.cshtml" />
+    <Content Include="Views\WxPay\Index.cshtml" />
+    <Content Include="Views\WxPay\Index1.cshtml" />
+    <Content Include="Views\Order\Recharge.cshtml" />
+    <Content Include="Views\Order\RechargeRecord.cshtml" />
+    <Content Include="Views\NowPay\Index1.cshtml" />
+    <Content Include="Views\NowPay\Index2.cshtml" />
+    <Content Include="Views\NowPay\Index3.cshtml" />
+    <Content Include="Views\User\ConsumeRecords.cshtml" />
+    <Content Include="Views\Recommend\GuessLike.cshtml" />
+    <Content Include="Views\CartoonChapter\List.cshtml" />
+    <Content Include="Views\Book\Order.cshtml" />
+    <Content Include="Views\Audio\AllPackage.cshtml" />
+    <Content Include="Views\Chapter\Order.cshtml" />
+    <Content Include="Views\CartoonChapter\Detail.cshtml" />
+    <Content Include="Views\CartoonChapter\Order.cshtml" />
+    <Content Include="Views\Cartoon\Order.cshtml" />
+    <Content Include="Views\AudioChapter\Detail.cshtml" />
+    <Content Include="Views\QrCode\GetQr.cshtml" />
+    <Content Include="Views\Audio\Order.cshtml" />
+    <Content Include="Views\AudioChapter\Order.cshtml" />
+    <Content Include="Views\Shared\DownloadTip.cshtml" />
+    <Content Include="Views\WeChat\ScanLogin.cshtml" />
+    <Content Include="Views\QrCode\GetPromoteQr.cshtml" />
+    <Content Include="Views\Preview\Index.cshtml" />
+    <Content Include="App_Code\UIHelper.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Wx\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Component\Component.csproj">
+      <Project>{c0cc5838-0b6f-4ecd-90a4-d07244e3e1a6}</Project>
+      <Name>Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Model.csproj">
+      <Project>{53d75ba8-7a95-427d-8074-52e768d9ae5a}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Service.csproj">
+      <Project>{3bcaffad-792e-4f01-804f-24c51efe9d93}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utility\Utility.csproj">
+      <Project>{6d1820b1-2fa4-4f1d-8493-4656a7a21aaa}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ViewModel\ViewModel.csproj">
+      <Project>{e1df7428-39d8-43e2-8c10-e9509e9a2488}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>65403</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58428/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

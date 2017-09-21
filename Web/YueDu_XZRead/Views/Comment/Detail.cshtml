@@ -1,0 +1,181 @@
+﻿@model CommentDetailView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var replyIndex = 0;
+    var commentId = Model.commentDetail.Success ? Model.commentDetail.Data.Id : 0;
+    var replyList = Model.replyList;
+    var commentInfo = Model.commentDetail.Data;
+    ViewBag.Title = "回应_" + (string.IsNullOrEmpty(commentInfo.Title) ? Server.HtmlDecode(commentInfo.Message) : commentInfo.Title);
+    string channelId = ViewBag.ChannelId;
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("评论详情"));
+    }
+}
+
+@section styles{
+
+    @Styles.Render("~/Content/bookComment")
+}
+
+<div class="Comment_back box">
+    <ul class="Comment_back_uls box  bw">
+        <li>
+            @if (Model.commentDetail.Success)
+            {
+                var detail = Model.commentDetail.Data;
+
+                <div class="">
+                    <img class="" src="@Html.RenderImage(new string[] { detail.UserIcon }, DefaultCover.usericon)" />
+                    <p class="">
+                        <span>@detail.UserNickName</span><br />
+                        <span>@(detail.AddTime.ToString("yyyy-MM-dd HH:mm"))</span>
+                    </p>
+                </div>
+                <p>
+                    @Server.HtmlDecode(detail.Message)
+                </p>
+
+            }
+        </li>
+    </ul>
+    <div class="bg"></div>
+    <!-- 回复 -->
+    <div class="reply">
+        @if (Model.commentDetail.Success)
+        {
+            <p>全部回复 (<span class="comment_num">@(replyList.Success ? replyList.Data.Count() : 0)</span>)</p>
+            if (Model.replyList.Success)
+            {
+                 <!-- 有评论 -->
+                <ul class="has_comment box">
+                    @foreach (var item in replyList.Data)
+                    {
+                        replyIndex++;
+                        <li class="clear box" uname="@item.UserNickName" crid="@item.Id">
+                            <div class="reviewers fl">
+                                <img src="@Html.RenderImage(new string[] { item.UserIcon }, DefaultCover.usericon)" alt="">
+                            </div>
+                            <div class="comment_reviewers  box">
+                                <p class="clear">
+                                    <span class="fl">@item.UserNickName</span>
+                                    <span class="fr">@(replyIndex)楼</span>
+                                </p>
+                                <p>@(item.AddTime.ToString("yyyy-MM-dd HH:mm"))</p>
+                                <p>
+                                    @if (item.ReplyId > 0)
+                                    {
+                                        <span>回复 </span>
+                                        <span>@item.ToNickName</span>
+                                        <span>:</span>
+                                    }
+                                    <span class="sended_message">@Server.HtmlDecode(item.Message)</span>
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                    {
+                        Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(Model.RowCount, "/Comment/detail", parameters: new { commentId }));
+                    }
+            }
+            else
+            {
+                <!--无评论-->
+                <div class="no_comment box">
+                    <img src="~/Content/img/comment0.png" alt="" />
+                    <br />
+                    快来抢沙发吧~
+                </div>
+            }
+        }
+    </div>
+    @if (Model.IsOpen)
+    {
+        <div class="reply_btn">
+            <img src="~/Content/img/comment.png" />
+            <span>回复</span>
+        </div>
+
+    <!-- 回复遮罩层 -->
+        <div class="mask"></div>
+        <div class="Text_input box">
+            <p>
+                <span class="cancle fl">取消</span>
+                <span class="send fr">发表</span>
+            </p>
+            <div class="send_area box">
+                <p>
+                    <span>回复 </span>
+                    <span id="replyTo">:</span>
+                </p>
+                <textarea id="txtarea" name="" style='resize: none;'></textarea>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('comment/detail', 'commentDetailRefererrLog');
+
+            $('.reply_btn,li[class="clear box"]').click(function () {
+                if ($(this).attr('uname')) {
+                    $('#replyTo').data('replyid', $(this).attr('crid')).text($(this).attr('uname') + "：");
+                }
+                $('.Text_input').show();
+                $('.mask').show();
+                $('#txtarea').focus();
+            })
+            $('.cancle').click(function () {
+                $('.Text_input').hide();
+                $('.mask').hide();
+                $('#txtarea').val('');
+                $('#replyTo').text('');
+            })
+
+            // 发送信息
+            $('.send').click(function () {
+                var message = $('#txtarea').val();
+                if (message == '') {
+                    $.tips({ message: "评论不能为空" });
+                    $('textarea').focus();
+                } else {
+                    var replyId = 0;
+                    if ($('#replyTo').data('replyid')) {
+                        replyId = $('#replyTo').data('replyid');
+                    }
+                    $.ajax({
+                        url: '/Comment/Reply',
+                        type: "post",
+                        data: { message: message, commentId: "@commentId", replyId: replyId },
+                        success: function (result) {
+                            if (result.Success) {
+                                if (result.ErrorCode == 1) {
+                                    $.tips({ message: "回复成功！" });
+                                    window.location.reload();
+                                }
+                            } else {
+                                //评论失败
+                                if (result.ErrorCode == 10110) {
+                                    window.location.href = "@StringHelper.GetReturnUrl("/login", channelId: channelId)";
+                                }
+                                else
+                                    $.tips({ message: '充值用户三天后可评论' });
+                            }
+                        },
+                        error: function (err) {
+                            $.tips({ message: "评论失败，请重试" });
+                        }
+                    });
+                }
+            })
+
+        })
+    </script>
+}

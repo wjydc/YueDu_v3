@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AuthSection>
+  <QQ>
+    <item key="AppId" value="101269209" />
+    <item key="AppKey" value="c66bd49b956fce5bb05f062fb33571d4" />
+    <item key="CallbackUrl" value="/user/auth/qq/notify.aspx" />
+  </QQ>
+  <Weibo>
+    <item key="AppId" value="327963033" />
+    <item key="AppKey" value="b82335d6be48ed6ba9680000e1f61b97" />
+    <item key="CallbackUrl" value="/user/auth/weibo/notify.aspx" />
+  </Weibo>
+  <WeChat>
+    <item key="QrCodeAppId" value="" />
+    <item key="QrCodeAppKey" value="" />
+    <item key="AppId" value="wx516b5ff2ddaa823f" />
+    <item key="AppKey" value="fe34f67addce3736f661b56e00a29652" />
+    <item key="CallbackUrl" value="/user/auth/wechat/notify.aspx" />
+  </WeChat>
+</AuthSection>

@@ -1,0 +1,366 @@
+﻿@using Component.Base;
+@model SimpleResponse<BookDetailView>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string channelId = ViewBag.ChannelId;
+    var bookDetail = Model.Data ?? new BookDetailView();
+    ViewBag.Title = bookDetail.Title + "_" + ViewBag.SiteSection.Html.SiteName;
+    bool isAddPackage = bookDetail.PackageEndTime.HasValue;
+    DateTime packageEndTime = isAddPackage ? bookDetail.PackageEndTime.Value : new DateTime();
+    int novelType = (int)Constants.Novel.ContentType.小说;
+    int audioType = (int)Constants.Novel.ContentType.听书;
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+}
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)@(bookDetail.Title),@(bookDetail.Title)全文阅读,@(bookDetail.Title)最新章节" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)@(ViewBag.SiteSection.Html.SiteName)提供@(bookDetail.Title)乐免费在线阅读下载,包括@(bookDetail.Title)最新章节及时更新,@(bookDetail.Title)是本站首发小说,欢迎收藏以便下次阅读。" />
+}
+@section styles{
+    @Styles.Render("~/Content/bookdetail")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("书籍详情"));
+    }
+}
+
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+@if (Model.Success)
+{
+    @*书籍内容*@
+    <div class="read_detail_content">
+        <!-- 书介绍 -->
+        <div class="book_introduction bw ">
+            <div class="Text_introduction clear box">
+                <div class="book_img fl">
+                    <img src="@Html.RenderImage(new string[] { bookDetail.ThumbCover, bookDetail.SmallCover },DefaultCover.noveldetail)" alt="">
+                    @if (isAddPackage)
+                    {
+                        <div class="countdown">
+                            <span class="countdown_day"></span>天
+                            <span class="countdown_h"></span>小时
+                            <span class="countdown_m"></span>分
+                        </div>
+                    }
+                </div>
+                <div class="book_message">
+                    <p class="book_title">
+                        <span class="book_title_detail fl">
+                            @bookDetail.Title
+                        </span>@if (bookDetail.ContentType == audioType)
+                        {<span class="type listening">听</span>}
+                        else if (bookDetail.ContentType == (int)Constants.Novel.ContentType.漫画)
+                        {<span class="type katong">漫</span> }
+                    </p>
+                    <p>书号 @bookDetail.Id</p>
+                    @if (StringHelper.ToInt(bookDetail.IsHideAuthor) == 0)
+                    {
+                         <p>@bookDetail.Author</p>
+                    }
+                    <p>
+                        @if (bookDetail.ContentType == (int)Constants.Novel.ContentType.小说 && !string.IsNullOrEmpty(bookDetail.ShortWordSize))
+                        {
+                            @(bookDetail.ShortWordSize + "字") <span class="line">|</span>
+                        }
+                        <span class="serial">@(bookDetail.UpdateStatus == (int)Constants.Novel.UpdateStatusName.已完结 ? "已完结" : "连载中")</span>
+                    </p>
+                    <p>@bookDetail.Hits 次点击</p>
+                </div>
+            </div>
+            <!-- 开始阅读，加入书库 -->
+            @{
+                        //根据按钮个数选定按钮样式
+                        string btnCss = "btnnumTow";
+                        if ((bookDetail.FeeType == (int)Constants.Novel.FeeType.novelchapter || bookDetail.FeeType == (int)Constants.Novel.FeeType.novel) && !bookDetail.IsOrder)
+                        {
+                            btnCss = "btnnumThree";
+                        }
+            }
+            <div class="go_read @(btnCss) box ">
+
+                <a class="activite box" href="@(string.Format("/book/beginread?novelid={0}&code={1}",bookDetail.Id,bookDetail.RecentReadChapterCode).GetChannelRouteUrl(channelId))">@(bookDetail.ContentType == audioType ? "开始收听" : "开始阅读")</a>
+                <a class="box" id="AddToMark" href="javascript:void(0);" style="@(bookDetail.IsAddMark ? "color:#b8b8b8;" : "")">@(bookDetail.IsAddMark ? "已在书架" : "加入书架")</a>
+                @if ((bookDetail.FeeType == (int)Constants.Novel.FeeType.novelchapter || bookDetail.FeeType == (int)Constants.Novel.FeeType.novel) && !bookDetail.IsOrder)
+                {
+                    <a class="Complete_preferential box" href="@(string.Format("/preorder/novel?novelId={0}", bookDetail.Id).GetChannelRouteUrl(channelId))">全本优惠</a>
+                }
+            </div>
+            @if (!string.IsNullOrEmpty(bookDetail.ShortDescription))
+            {
+                <div class="book_abstract  clear box bw">
+                    <p class="book_abstract_detail fl">
+                        @bookDetail.Description.FilterHtmlTag()
+                    </p>
+                    <p class="more_text fr">
+                        展开<img src="/Content/img/more.png" alt="">
+                    </p>
+                </div>
+            }
+        </div>
+
+        <!-- 目录 -->
+        <div class="directory bw">
+            <p class="box total_title">目录<span class="total_chapter">(共 @bookDetail.TotalChapterCount 章)</span></p>
+            <ul class="box">
+                <li class="clear">
+                    <a href="@(ChapterContext.GetUrl("/chapter/detail", bookDetail.Id, bookDetail.RecentChapterCode, channelId: channelId))" class="fl clear">
+                        <img class="fl" src="/Content/img/new.png" alt="">
+                        <span class="fl">@bookDetail.RecentChapterName</span>
+                        @if (bookDetail.RecentChapterCode >= bookDetail.FreeChapterCount && bookDetail.FeeType > (int)Constants.Novel.FeeType.free)
+                        {<img src="/content/img/v.png" alt="">}
+                    </a>
+                    <span class="with_newtime fr">更新于  @(bookDetail.RecentChapterUpdateTime.ToString("yyyy-MM-dd"))</span>
+                </li>
+
+                @if (bookDetail.ChapterList.Success)
+                {
+                    foreach (var item in bookDetail.ChapterList.Data)
+                    {
+                        <li class="box">
+                            <a href="@(ChapterContext.GetUrl("/chapter/detail", bookDetail.Id, item.ChapterCode, channelId: channelId))">
+                                <span>@item.ChapterName</span>
+                                @if (item.ChapterCode >= bookDetail.FreeChapterCount && bookDetail.FeeType > (int)Constants.Novel.FeeType.free)
+                                {<img src="/content/img/v.png" alt="">}
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            <a class="More_chapters" href="@(string.Format("/chapter/list?novelId={0}",bookDetail.Id).GetChannelRouteUrl(channelId))">更多章节</a>
+        </div>
+
+        <!-- 捧场 -->
+        @{Html.RenderAction("List", "Present", new { novelId = bookDetail.Id, rewardFee = bookDetail.RewardFee });}
+
+        <!-- 作者的话 -->
+        @if (!string.IsNullOrEmpty(bookDetail.AuthorNotice))
+        {
+            <div class="author_words bw mb">
+                <p class="box total_title">作者的话</p>
+                <p class="box">@bookDetail.AuthorNotice</p>
+            </div>
+        }
+
+        <!-- 书评区 -->
+        <div class="Review_area bw mb">
+            <p class="box total_title">书评区<span class="Famous_fornum">(@bookDetail.CommentCount)</span></p>
+            @if (bookDetail.CommentList.Success)
+            {
+                <ul class="Review_area_uls">
+
+                    @foreach (var comment in bookDetail.CommentList.Data)
+                    {
+                        <li class="clear box">
+                            <div class="statue fl">
+                                <img src="@Html.RenderImage(new string[] { comment.UserIcon }, DefaultCover.usericon) " alt=" ">
+                            </div>
+
+                            <div class=" clear Review_messae">
+                                <div class="clear box">
+                                    <p class="fl">@comment.UserNickName</p>
+                                    <p class="fr">@comment.ReplyCount<span><a href="@(string.Format("/comment/detail?commentid={0}" ,comment.Id).GetChannelRouteUrl(channelId))"><img src="/content/img/message.png" alt=""></a></span></p>
+                                </div>
+                                <p class="timing">@comment.AddTime.ToString("yyyy-MM-dd HH:mm")</p>
+                                <p class="Gift_giving">
+                                    @if (comment.PropsId > 0 && comment.PropsCount > 0)
+                                    {
+
+                                        <span class="descript jin">精</span>
+                                        if (comment.UserType == (int)Constants.UserType.author)
+                                        {
+                                            <span class="descript ding">顶</span>
+                                        }
+                                        <span class="Gift">
+                                            [赠送]：<img class="giving" src="@Html.RenderImage(new string[]{comment.PropsIcon},DefaultCover.novelprops)" alt="">
+                                            × @comment.PropsCount 礼物给作者
+                                        </span>
+
+                                    }
+                                </p>
+                                <p>@Server.HtmlDecode(comment.Message)</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <!-- 书评区无数据 -->
+                <div class="no_Review box">
+                    <img src="/content/img/comment0.png" alt="" />
+                    <br />
+                    快来抢沙发吧~
+                </div>
+            }
+            <a class="More_chapters" href="@(string.Format("/comment/list?novelId={0}", bookDetail.Id).GetChannelRouteUrl(channelId))">更多书评</a>
+        </div>
+
+        <!-- 猜你喜欢 -->
+        @{Html.RenderAction("GuessLike", "Recommend", new { classId = bookDetail.RecClassId });}
+
+    </div>
+
+}
+
+<!-- 提示信息 -->
+<div class="message-tip" style="display:none;">
+    <div class="tip-circle box	tip-circle-detail">
+        <span></span>
+        <span></span>
+    </div>
+    <img class="tip-personal" src="/Content/img/bg4.png" alt="">
+    <p class="tip-know"></p>
+</div>
+
+@section scripts{
+@Scripts.Render("~/bundles/cookie")
+    <script>
+        $(function () {
+            showGuideTip();
+            function showGuideTip() {
+                var show_guide = $.cookie("detail_show_guide");
+                if (parseInt(show_guide) > 0) {
+                } else {
+                    $(".message-tip").show();
+
+                    // 阻止蒙版后页面滑动
+                    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                        $("body,html").css("overflow", 'hidden');
+                        $(".message-tip").on('touchmove', function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                        })
+
+                        $('.tip-know').click(function () {
+                            $(this).parent().hide();
+                            $("body,html").css("overflow", 'visible');
+                            $.cookie("detail_show_guide", 1, { expires: 30 });
+                        })
+                    } else {
+                        $("body").css("overflow", 'hidden');
+                        $('.tip-know').click(function () {
+                            $(this).parent().hide();
+                            $("body").css("overflow", 'visible');
+                            $.cookie("detail_show_guide", 1, { expires: 30 });
+                        })
+                    }
+                }
+            }
+
+            $("#AddToMark").click(AddToMark = function () {
+                var isAddMark = '@bookDetail.IsAddMark';
+                var novelId = '@bookDetail.Id';
+                if (isAddMark !== 'False') {
+                    return;
+                }
+                if (parseInt(novelId) == 0) {
+                    return;
+                }
+                $.ajax({
+                    url: '/mark/add',
+                    type: "post",
+                    data: { novelId: novelId },
+                    beforeSend: function () {
+                        $("#AddToMark").unbind("click");
+                    },
+                    success: function (result) {
+                        if (result.Success) {
+
+                            //禁用按钮
+                            $('#AddToMark').css('color', '#b8b8b8').text('已在书架');
+                            $.tips({ message: "加入书架成功" });
+
+                        } else if (result.ErrorCode == 10110) {
+                            $.tips({ message: result.Message });
+                            setTimeout(function () { window.location.href = "@StringHelper.GetReturnUrl("/login", channelId:channelId)"; }, 1000);
+                        }
+                        else
+                            $.tips({ message: result.Message });
+                    },
+                    complete: function () {
+                        $("#AddToMark").bind("click", AddToMark);
+                    },
+                    error: function (err) {
+                        $.tips({ message: "出错了，请重试" });
+                    }
+                });
+
+            });
+
+        })
+
+        function textmore() {
+            var _this = $('.book_abstract_detail');
+            var txt = _this.text();
+            // 去除文本前后空格
+            var txtlength = $.trim(_this.text()).length;
+            var max = 60;
+
+            if (txtlength > max) {
+                _this.text(_this.text().substring(0, max))
+                _this.html(_this.html() + '...')
+            } else {
+                _this.html(txt);
+                $('.more_text').hide();
+            }
+            $(".more_text").click(function (event) {
+                event.stopPropagation();
+                _this.html(txt);
+                $(this).hide();
+
+            });
+        }
+        textmore();
+
+        // 限时免费倒计时
+        function show_time() {
+            var time_start = new Date().getTime();
+            var time_end = new Date('@packageEndTime').getTime();
+            var time_distance = time_end - time_start;
+            if (time_distance > 0) {
+                var int_day = Math.floor(time_distance / 86400000)
+                time_distance -= int_day * 86400000;
+                var int_hour = Math.floor(time_distance / 3600000)
+                time_distance -= int_hour * 3600000;
+                var int_minute = Math.floor(time_distance / 60000)
+                time_distance -= int_minute * 60000;
+                var int_second = Math.floor(time_distance / 1000)
+                if (int_day < 10) {
+                    int_day = "0" + int_day;
+                }
+                if (int_hour < 10) {
+                    int_hour = "0" + int_hour;
+                }
+                if (int_minute < 10) {
+                    int_minute = "0" + int_minute;
+                }
+                if (int_second < 10) {
+                    int_second = "0" + int_second;
+                }
+                $(".countdown_day").html(int_day);
+                $(".countdown_h").html(int_hour);
+                $(".countdown_m").html(int_minute);
+                // $(".second").html(int_second);
+                setTimeout(show_time, 500);
+            } else {
+                $(".countdown_day").html('00');
+                $(".countdown_h").html('00');
+                $(".countdown_m").html('00');
+                $(".countdown").hide();
+
+            }
+        }
+
+        if ('@isAddPackage' == 'True') {
+            show_time();
+        }
+    </script>
+}

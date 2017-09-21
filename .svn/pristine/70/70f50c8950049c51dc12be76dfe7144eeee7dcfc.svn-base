@@ -1,0 +1,18 @@
+﻿@model SimpleResponse<QrCodeView>
+@{
+    Layout = null;
+}
+
+<!-- 微信关注 -->
+@if (Model.Success)
+{
+    var model = Model.Data;
+    @*<p>方法1：搜索公众号：<span>@(string.IsNullOrEmpty(model.WeChatPubId) ? model.CnName : model.WeChatPubId)</span>，关注后回复 <span>@(model.ReplyText)</span>，即可继续阅读。</p>
+
+    <p>方法2：长按下图二维码数秒，识别关注此微信公众号，关注后回复<span>@(model.ReplyText)</span>，也可以继续阅读。</p>*@
+    <p>关注微信公众号，点击菜单<span>继续阅读</span></p>
+    <div class="promote_img">
+        <img src="@Html.RenderImage(new string[] { model.Path }).SpliceUrl("r", model.UpdateTime.ConvertTimeStamp())" alt="">
+        <p>长按此图，识别二维码关注</p>
+    </div>
+}

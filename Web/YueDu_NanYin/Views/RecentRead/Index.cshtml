@@ -1,0 +1,78 @@
+﻿@using Component.Base;
+@model SimpleResponse<NovelRecentReadListView>
+@{
+    ViewBag.Title = "最近阅读-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("最近阅读"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+@section styles{
+    @Styles.Render("~/Content/additional")
+}
+@{
+
+    <div class="has_reading">
+        <div class="directory_tab box bw">
+            <span class="directory_novel fl"><a class="@(ViewBag.ContentType == 0 ? "tabactivity box" : "bbr box")" href="@Url.Action("Index", new { cType = 0 })">小说</a></span>
+            <span class="directory_comic fr"><a class="@(ViewBag.ContentType == 2 ? "tabactivity box" : "bbr box")" href="@Url.Action("Index", new { cType = 2 })">其他</a></span>
+        </div>
+        <div class="has_read_noval MarkRead bw">
+            <ul>
+                @{
+                    if (Model.Success)
+                    {
+                        string cid = "";
+                        var list = Model.Data.List.Reverse().ToList();
+                        foreach (var item in list)
+                        {
+                            cid = string.IsNullOrEmpty(item.RouteChannelId) ? channelId : item.RouteChannelId;
+                            <li class="box">
+                                <a href="@((ChapterContext.GetUrl("/chapter/detail", item.Id, item.ChapterCode, channelId: cid)))">
+                                    <p>
+                                        <span>@item.Title</span>
+                                        <span>最近阅读：@item.ChapterName</span>
+                                    </p>
+                                    @*<img class="trash" src="/Content/img/trash.png" alt="" data-novelid="@item.Id">*@
+                                </a>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('recentread', 'recentreadRefererrLog');
+
+            $('.directory_tab span').each(function (index, item) {
+                $(this).children('a').click(function () {
+                    $('.directory_tab span a').css({
+                        'borderColor': 'transparent',
+                        'color': '#000'
+                    })
+                    $(this).css({
+                        'borderColor': '#ff5c4d',
+                        'color': '#ff5c4d'
+                    })
+
+                    $('.MarkRead').hide();
+                    $('.MarkRead').eq(index).show();
+                })
+            })
+        })
+    </script>
+}

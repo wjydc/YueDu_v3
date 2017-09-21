@@ -1,0 +1,141 @@
+﻿@model CartoonRankView
+@{
+    ViewBag.Title = "排行-" + ViewBag.SiteSection.Html.SiteName;
+    int index = 0;
+    string channelId = ViewBag.ChannelId;
+}
+<link href="~/Content/css/additional.css" rel="stylesheet" />
+@section styles{
+    @Styles.Render("~/Content/additional")
+    @Styles.Render("~/Content/ranklist")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("排行"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+<div class="directory_tab comic_ranking_btn box bw">
+    <span class="directory_novel tabactivity fl">人气榜</span>
+    <span class="directory_comic bbr fr">新书榜</span>
+</div>
+<!-- 书本展示 -->
+@{
+    if (Model.Popularity.Success)
+    {
+        index = 0;
+        <!-- 人气榜 -->
+        <div class="ranking_show comic_ranking female ">
+            <ul class="box bw">
+                @foreach (var item in Model.Popularity.Data.Take(3))
+                {
+                    <li class="fl">
+                        <a class="box" href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))">
+                            <img class="ranknum" src="/Content/img/rank@(++index).png" alt="">
+                            <img class="rankpic" src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                            <br>
+                            <span>@Html.RenderText(new string[] { item.Title })</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            @{index = 3; }
+            @foreach (var item in Model.Popularity.Data.Skip(3))
+            {
+                <div class="comic_ranking_detail bw">
+                    <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" class="clear box">
+                        <div class="library_book fl">
+                            <img src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                        </div>
+                        <div class="comic_ranking_des  box">
+                            <p class="box">
+                                <span>@item.Title</span><span class="katong">漫</span>
+                            </p>
+                            <p>
+                                @if (!string.IsNullOrEmpty(item.ClassName))
+                                { <span>@StringHelper.CutString(item.ClassName, 2)</span> }
+                                <span>@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                            </p>
+                            <p>@item.ShortDescription.FilterHtmlTag()</p>
+                        </div>
+                        <p>@((++index).ToString("00"))</p>
+                    </a>
+                </div>
+            }
+        </div>
+
+    }
+}
+
+@{
+    if (Model.New.Success)
+    {
+        index = 0;
+        <!-- 新书榜 -->
+        <div class="ranking_show comic_ranking male">
+            <ul class="box bw">
+                @foreach (var item in Model.New.Data.Take(3))
+                {
+                    <li class="fl">
+                        <a class="box" href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))">
+                            <img class="ranknum" src="/Content/img/rank@(++index).png" alt="">
+                            <img class="rankpic" src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                            <br>
+                            <span>@Html.RenderText(new string[] { item.Title })</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            @{index = 3;}
+            @foreach (var item in Model.New.Data.Skip(3))
+            {
+                <div class="comic_ranking_detail bw">
+                    <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" class="clear box">
+                        <div class="library_book fl">
+                            <img src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                        </div>
+                        <div class="comic_ranking_des  box">
+                            <p class="box">
+                                <span>@item.Title</span><span class="katong">漫</span>
+                            </p>
+                            <p>
+                                @if (!string.IsNullOrEmpty(item.ClassName))
+                                { <span>@StringHelper.CutString(item.ClassName, 2)</span> }
+                                <span>@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                            </p>
+                            <p>@item.ShortDescription.FilterHtmlTag()</p>
+                        </div>
+                        <p>@((++index).ToString("00"))</p>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+}
+
+@section scripts{
+    <script>
+        $(function () {
+            $('.directory_tab span').each(function (index, item) {
+                var i = index;
+                $(this).click(function () {
+                    $('.directory_tab span').css({
+                        'borderColor': 'transparent',
+                        'color': '#000'
+                    })
+                    $(this).css({
+                        'borderColor': '#ff5c4d',
+                        'color': '#ff5c4d'
+                    })
+                    $('.ranking_show').hide();
+                    $('.ranking_show').eq(i).show();
+
+                })
+            })
+        })
+    </script>
+}

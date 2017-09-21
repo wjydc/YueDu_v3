@@ -1,0 +1,150 @@
+﻿@using Component.Base;
+@model ChapterDetailView
+@{
+    var book = Model ?? new ChapterDetailView();
+    var novelTitle = book.Novel.Data.Title;
+    ViewBag.Title = novelTitle + "-" + ViewBag.SiteSection.Html.SiteName;
+}
+
+@section styles{
+    @Styles.Render("~/Content/cartoonChapterDetail")
+}
+
+@{
+    string channelId = ViewBag.ChannelId;
+    if (Model.Novel.Success && Model.Chapter.Success)
+    {
+        Novel novel = Model.Novel.Data;
+        Chapter chapter = Model.Chapter.Data;
+        <header class="common_detail box clear comic_buying">
+            <a class="back" href="javascript:history.go(-1);" title="">
+                <img src="~/Content/img/arrow_right.png" alt="">
+            </a>
+            <p>
+                @novel.Title - @chapter.ChapterName
+            </p>
+            <div class=" fr box">
+                <a href="@("/mark/list".GetChannelRouteUrl(channelId))"><img src="~/Content/img/bookcase2.png" alt=""></a>
+                <a href="@("/".GetChannelRouteUrl(channelId))"><img src="~/Content/img/house1.png" alt=""></a>
+            </div>
+        </header>
+
+        <div class="buying box">
+            <div class="buy_head clear box bw">
+                <img src="~/Content/img/comic.png" alt="">
+                <p>本章是VIP专属哦</p>
+                <p>请支持作者，支持正版！</p>
+            </div>
+
+            <!-- 章节是收费的，且没有购买过 -->
+            <div class="change_status_1">
+                <div class="top_up_rechagre box">
+                    @if (@Model.UserBalance >= @Model.ChapterFee)
+                    {
+                        <a class="top_up_rechagre_btn" href="@ChapterContext.GetUrl("/order/chapter", chapter.NovelId, chapter.ChapterCode, channelId: channelId)">购买本章<span>（@Model.ChapterFee @(ViewBag.SiteSection.Html.FeeName)）</span></a>
+                    }
+                    else
+                    {
+                        <a class="top_up_rechagre_btn" href="@StringHelper.GetReturnUrl("/order/recharge", channelId: channelId)">购买本章<span>（@Model.ChapterFee @(ViewBag.SiteSection.Html.FeeName)）</span></a>
+                    }
+                </div>
+
+                <!-- 购买章节 -->
+                <div class="clear buy_charpter_account box">
+                    <p class="fl">账户余额：<span>@Model.UserBalance</span>&nbsp;@(ViewBag.SiteSection.Html.FeeName)</p>
+                    @if (novel.FeeType == (int)Constants.Novel.FeeType.novelchapter)
+                    {
+                        <a class="fr" href="#">购买全本<img src="~/Content/img/backred.png" /></a>
+                    }
+                </div>
+
+                <!-- 购买全本 -->
+                <div class="buy_complete_des">
+                    <p><span class="box olcircle"></span>后续VIP章节购买不再提醒</p>
+                    <p><span class="box olcircle"></span>已购买章节不会重复购买</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="comic_change_charpeter box bw">
+            <ol class="clear">
+                <li class="fl"><a class="box @(Model.IsPreChapterCode ? "comictxt" : "txtcolor")" href="@(Model.IsPreChapterCode ? Model.PreChapterUrl : "javascript:void(0);")">@(Model.IsPreChapterCode ? "上一章" : "第一章")</a></li>
+                <li class="fl"><a class="box comictxt" href="/chapter/list?novelId=@(chapter.NovelId)">目录</a></li>
+                <li class="fl"><a class="box @(Model.IsNextChapterCode ? "comictxt" : "txtcolor")" href="@(Model.IsNextChapterCode ? Model.NextChapterUrl : "javascript:void(0);")">@(Model.IsNextChapterCode ? "下一章" : "最后一章")</a></li>
+            </ol>
+        </div>
+
+            <!-- 弹层 -->
+        <div class="mask">
+        </div>
+
+            <!-- 余额不足时提示充值 -->
+        if (novel.FeeType == (int)Constants.Novel.FeeType.novelchapter)
+        {
+            <div class="Prompt_top_up box clear">
+                <img class="Prompt_close fr" src="~/Content/img/close_login.png" alt="">
+                <p class="book_name">《@novel.Title》</p>
+                <p class="old_price">全书原价：<span>@Model.NovelFee @(ViewBag.SiteSection.Html.FeeName)</span></p>
+                <p class="now_price">全本价格：<span class="price_num">@novel.Fee</span>@(ViewBag.SiteSection.Html.FeeName) </p>
+                <p class="account_residue">账户余额：<span class="price_num">@Model.UserBalance</span>@(ViewBag.SiteSection.Html.FeeName)</p>
+                @if (Model.UserBalance >= novel.Fee)
+                {
+                    <a class="top_up_rechagre_btn" href="@ChapterContext.GetUrl("/order/novel", chapter.NovelId, chapter.ChapterCode, channelId: channelId)">购买全本</a>
+                }
+                else
+                {
+                    <a class="top_up_rechagre_btn" href="@StringHelper.GetReturnUrl("/order/recharge", channelId: channelId)">购买全本</a>
+                }
+                <p><span class="box olcircle"></span>已购买书籍不会重复购买</p>
+            </div>
+        }
+    }
+}
+@section scripts{
+    <script>
+        $(function () {
+            // 余额不足时，提示充值
+            $('.buy_charpter_account a').click(function () {
+                $('.mask').show();
+                $('.Prompt_top_up').show();
+            })
+            $('.Prompt_close').click(function () {
+                $('.mask').hide();
+                $('.Prompt_top_up').hide();
+            })
+
+            // 购买全本 余额充足，提示购买成功
+            var timer;
+            function hide() {
+                $('.small_tip').hide('1000')
+            }
+            function show() {
+                $('.small_tip').show("1500");
+            }
+            $('.top_up_rechagre_btn').click(function (event) {
+                event.stopPropagation();
+                $('.mask').hide();
+                $('.Prompt_top_up').hide();
+                $('.small_tip').text('购买成功');
+                show();
+                timer = setTimeout(hide, 1000)
+            })
+
+            $('.buying').click(function (event) {
+                event.stopPropagation();
+                var that = $(this);
+                if (that.attr('data')) {
+                    $(this).removeAttr('data');
+                    $('header').show();
+                    $('.comic_change_charpeter').show();
+
+                } else {
+                    $(this).attr('data', 'clicked');
+                    $('header').hide();
+                    $('.comic_change_charpeter').hide();
+                }
+
+            })
+        })
+    </script>
+}

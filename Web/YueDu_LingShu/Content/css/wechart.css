@@ -1,0 +1,66 @@
+.wechart_pay{
+	padding:0.46875rem 0.3125rem 0.625rem;
+	margin-bottom: 0.3125rem;
+	font-size: 0.375rem;
+}
+
+.wechart_pay .we_logo{
+	display: block;
+	margin:0.46875rem auto 0;
+	width:5.625rem;
+	height:5.625rem;
+	border:2px solid #c5c5c5;
+}
+
+
+
+.wechart_pay .warm_tip{
+	color:#ff5c4d;
+	font-size: 0.4375rem;
+	margin: 0.625rem 0;
+}
+
+.wechart_pay .warm_tip_list p{
+	line-height:0.625rem;
+}
+
+.wechart_pay>a{
+	text-align: center;
+	display: block;
+	margin:0.3125rem auto 0;
+	font-size: 0.375rem;
+	color: #FF5C4D;
+}
+
+.wechart_pay>a img{
+	width: 0.15625rem;
+	/*height: 0.34375rem;*/
+	vertical-align: middle;
+	margin-left: 0.15625rem
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

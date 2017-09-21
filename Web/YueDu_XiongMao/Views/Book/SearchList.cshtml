@@ -1,0 +1,145 @@
+﻿@using Utility;
+
+@model SimpleResponse<IEnumerable<NovelView>>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "搜索-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("搜索结果"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+@section styles{
+    @Styles.Render("~/Content/login")
+}
+
+<div class="searching">
+    <div class="search_area clear box">
+        <form action="">
+            <div class="search_area_box_01  box fl">
+                <input class="box" type="search" placeholder="书名/书号/作者" value="@ViewBag.Keyword" id="txtSearch">
+                <img src="~/Content/img/magnifying_glass.png" alt="">
+            </div>
+            <p class="fr" id="spanSearch"><span class="button">搜索</span></p>
+        </form>
+    </div>
+    <div class="bg"></div>
+    @{
+        if (!Model.Success)
+        {
+            <!-- 无数据 -->
+            <div class="sraech_result_no">
+                <p class="box sraech_result_title">搜索结果 (<span>0</span>)</p>
+                <p class="box">
+                    <img src="~/Content/img/no_search.png" />
+                    <br>
+                    <span>未搜到相关书籍</span>
+                </p>
+            </div>
+        }
+        else
+        {
+            <!-- 查询数据 -->
+            <div class="sraech_result">
+                <p class="box sraech_result_title">搜索结果 (<span>@(ViewBag.TotalCount)</span>)</p>
+                <!-- 数据体 -->
+                <div class="Editor_pushing box bw margb ">
+                    <ul class="box">
+                        @foreach (var item in Model.Data)
+                        {
+                            <li class="box">
+                                <a href="@(string.Format("/book/detail?novelId={0}", item.Id).GetChannelRouteUrl(channelId))">
+                                    <div class="recommended_detail clear box ">
+                                        <div class="r_d_l fl">
+                                            <img src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                                        </div>
+                                        <div class="r_d_r">
+                                            <p class="r_d_r_title">
+                                                <span>@Html.RenderText(item.Title)</span>
+                                                @switch (item.ContentType)
+                                                {
+                                                    case (int)Constants.Novel.ContentType.漫画:
+                                                        
+                                                        <span class="katong">漫</span>
+                                                        break;
+                                                        
+                                                    case(int)Constants.Novel.ContentType.听书:
+                                                    
+                                                        <span class="listening">听</span>
+                                                        break;
+                                                        
+                                                    default:
+                                                    
+                                                        break;
+                                                }
+                                                                                              
+                                            </p>
+                                            <p class="r_d_r_content">
+                                                @Html.RenderText(item.ShortDescription.FilterHtmlTag())
+                                            </p>
+                                            <div class="r_d_r_message">
+                                                <p class="fl">
+                                                    @{
+                            if (!string.IsNullOrEmpty(item.Author) && StringHelper.ToInt(item.IsHideAuthor) == 0)
+                            {
+                                <img src="~/Content/img/person.png" alt="">@Html.RenderText(item.Author)
+                            }
+                                                    }
+                                                </p>
+                                                <p class="fr">
+                                                    @if (!string.IsNullOrEmpty(item.ClassName))
+                                                    { <span class="box">@(StringHelper.CutString(item.ClassName, 2))</span> }
+                                                    <span class="box" id='serial'>@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                                                    @if (item.ContentType == (int)Constants.Novel.ContentType.小说 && !string.IsNullOrEmpty(item.ShortWordSize))
+                                                    { <span class="box">@(item.ShortWordSize)字</span> }
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+                        {
+                            Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(ViewBag.TotalCount, "/book/searchlist", pageSize: 10, parameters: new { keyword = ViewBag.Keyword }));
+                        }
+        }
+    }
+    <div class="bg"></div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+
+    <script type="text/javascript">
+        var targetUrl = '@(("/book/searchlist").GetChannelRouteUrl(channelId))';
+        $(function () {
+            $.CustomBack('searchlist', 'searchlistRefererrLog');
+
+            function textmore() {
+                var _this = $('.r_d_r_content');
+                var max = 50;
+                for (var i = 0; i < _this.length; i++) {
+                    var tempText = $.trim(_this.eq(i).text()).replace(" ", "");
+                    if (tempText.length > max) {
+                        _this.eq(i).text(tempText.substring(0, max))
+                        _this.eq(i).html(_this.eq(i).html() + '...')
+                    } else {
+                        _this.eq(i).html(tempText)
+                    }
+                }
+            }
+            textmore();
+        });
+    </script>
+    @Scripts.Render("~/bundles/search")
+}

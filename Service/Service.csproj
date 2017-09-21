@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3BCAFFAD-792E-4F01-804F-24C51EFE9D93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Service</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc5.3.1.0\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperExtension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Repository\DLL\DapperExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessUsersService.cs">
+      <DependentUpon>IAccessUsersService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ADService.cs">
+      <DependentUpon>IADService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\BaseService.cs">
+      <DependentUpon>IBaseService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\IBaseService.cs" />
+    <Compile Include="BlackListService.cs">
+      <DependentUpon>IBlackListService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookmarkService.cs">
+      <DependentUpon>IBookmarkService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookService.cs">
+      <DependentUpon>IBookService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelCompanyService.cs" />
+    <Compile Include="ChapterRedirectService.cs">
+      <DependentUpon>IChapterRedirectService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChapterService.cs">
+      <DependentUpon>IChapterService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommentService.cs">
+      <DependentUpon>ICommentService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\AutofacBootStrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\AutoMapperBootStrapper.cs" />
+    <Compile Include="ExtendChapterService.cs">
+      <DependentUpon>IExtendChapterService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateHitsService.cs">
+      <DependentUpon>IGenerateHitsService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HotSearchWordService.cs">
+      <DependentUpon>IHotSearchWordService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IAccessUsersService.cs" />
+    <Compile Include="IADService.cs" />
+    <Compile Include="IBlackListService.cs" />
+    <Compile Include="IBookmarkService.cs" />
+    <Compile Include="IBookService.cs" />
+    <Compile Include="IChannelCompanyService.cs" />
+    <Compile Include="IChapterRedirectService.cs" />
+    <Compile Include="IChapterService.cs" />
+    <Compile Include="ICommentService.cs" />
+    <Compile Include="IExtendChapterService.cs" />
+    <Compile Include="IGenerateHitsService.cs" />
+    <Compile Include="IHotSearchWordService.cs" />
+    <Compile Include="IInterfaceErrorLogService.cs" />
+    <Compile Include="ILoginService.cs" />
+    <Compile Include="INovelPromotionChannelService.cs" />
+    <Compile Include="IOrderService.cs" />
+    <Compile Include="IPackageService.cs" />
+    <Compile Include="IPresentService.cs" />
+    <Compile Include="IPromotionLinkService.cs" />
+    <Compile Include="IQrCodeService.cs" />
+    <Compile Include="IRechargeFeeConfigService.cs" />
+    <Compile Include="IRechargeService.cs" />
+    <Compile Include="ILogService.cs" />
+    <Compile Include="INovelClassService.cs" />
+    <Compile Include="InterfaceErrorLogService.cs">
+      <DependentUpon>IInterfaceErrorLogService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IRechargeTypeService.cs" />
+    <Compile Include="IRecommendService.cs" />
+    <Compile Include="ISiteConfigService.cs" />
+    <Compile Include="IUsersService.cs" />
+    <Compile Include="LoginService.cs">
+      <DependentUpon>ILoginService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogService.cs">
+      <DependentUpon>ILogService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NovelClassService.cs">
+      <DependentUpon>INovelClassService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NovelPromotionChannelService.cs">
+      <DependentUpon>INovelPromotionChannelService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderService.cs">
+      <DependentUpon>IOrderService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PackageService.cs">
+      <DependentUpon>IPackageService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PresentService.cs">
+      <DependentUpon>IPresentService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PromotionLinkService.cs">
+      <DependentUpon>IPromotionLinkService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QrCodeService.cs">
+      <DependentUpon>IQrCodeService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RechargeFeeConfigService.cs">
+      <DependentUpon>IRechargeFeeConfigService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RechargeService.cs">
+      <DependentUpon>IRechargeService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RechargeTypeService.cs">
+      <DependentUpon>IRechargeTypeService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RecommendService.cs">
+      <DependentUpon>IRecommendService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SiteConfigService.cs">
+      <DependentUpon>ISiteConfigService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UsersService.cs">
+      <DependentUpon>IUsersService.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{53d75ba8-7a95-427d-8074-52e768d9ae5a}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{c2802730-fd8c-4220-b820-820351488856}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{6d1820b1-2fa4-4f1d-8493-4656a7a21aaa}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{e1df7428-39d8-43e2-8c10-e9509e9a2488}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

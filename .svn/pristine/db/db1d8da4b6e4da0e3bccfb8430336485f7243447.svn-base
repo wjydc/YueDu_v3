@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PaySection>
+  <NowPay>
+    <item key="AppId" value="1458628687073727" />
+    <item key="AppKey" value="hbbG7ncll34KLhs55paWD3Xk9KOQB5sC" />
+    <item key="WeChatAppId" value="" />
+    <item key="WeChatAppKey" value="" />
+    <item key="WeChatQrCodeAppId" value="" />
+    <item key="WeChatQrCodeAppKey" value="" />
+    <item key="CallbackUrl" value="http://api.ipaynow.cn" />
+    <item key="NewCallbackUrl" value="https://pay.ipaynow.cn" />
+  </NowPay>
+  <WxPay>
+    <item key="AppId" value="wx2a7edd8f3c5e76aa" />
+    <item key="MchId" value="1344705201" />
+    <item key="AppKey" value="yuange320821199010170312zdxsw666" />
+    <item key="AppSecret" value="f07eab62378f05cb9ea433c2943bd1b1" />
+    <item key="CallbackUrl" value="/user/order/wechat/notify.aspx" />
+    <item key="LogLevel" value="0" />
+  </WxPay>
+  <WxPay2>
+    <item key="AppId" value="wx2a7edd8f3c5e76aa" />
+    <item key="MchId" value="1344705201" />
+    <item key="AppKey" value="yuange320821199010170312zdxsw666" />
+    <item key="AppSecret" value="f07eab62378f05cb9ea433c2943bd1b1" />
+    <item key="CallbackUrl" value="/user/order/wechat/notify1" />
+    <item key="LogLevel" value="0" />
+  </WxPay2>
+  <Alipay>
+    <item key="SellerEmail" value="" />
+    <item key="Partner" value="" />
+    <item key="Key" value="" />
+    <item key="PrivateKey" value="" />
+    <item key="PublicKey" value="" />
+    <item key="InputCharset" value="utf-8" />
+    <item key="SignType" value="0001" />
+  </Alipay>
+</PaySection>

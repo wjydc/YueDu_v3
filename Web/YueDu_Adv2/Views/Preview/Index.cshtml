@@ -1,0 +1,67 @@
+﻿@using Component.Base;
+@model ChapterDetailView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var book = Model ?? new ChapterDetailView();
+    var novelTitle = book.Novel.Data.Title;
+    var novelAuthor = book.Novel.Data.Author;
+    var chapterTitle = book.Chapter.Data.ChapterName;
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+    ViewBag.Title = siteName;
+    ViewBag.chapterRead = false;
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+}
+
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)@(chapterTitle),@(novelTitle),@(siteName)" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)@(novelTitle)小说由作者：@(StringHelper.ToInt(book.Novel.Data.IsHideAuthor) == 0 ? novelAuthor : "")原创,是难得一见的好书,在@(siteName)全面连载!欢迎大家免费收看:@(novelTitle)" />
+}
+@section styles{
+    @Styles.Render("~/Content/preview")
+}
+@section bodyEvent{
+    @Html.Raw("oncontextmenu=\"return false\" onselectstart=\"return false\" onpaste=\"return false\" oncopy=\"return false\" oncut=\"return false\" onselectstart=\"return false\" ondrag=\"return false\"")
+}
+
+@if (Model.Novel.Success && Model.Chapter.Success)
+{
+    Novel novel = Model.Novel.Data;
+    Chapter chapter = Model.Chapter.Data;
+    if (Model.IsNextChapterCode)
+    {
+        <div class="book_to_promote box">
+            <h1 class="h1">@chapter.ChapterName</h1>
+
+            @Html.Raw(StringHelper.ConvertTxt(Model.ChapterContent))
+
+            <div class="Turn_page box">
+                <div class="previous_page fl box">
+                    <a class="@(Model.IsPreChapterCode ? "" : "txtcolor")" href="@(Model.IsPreChapterCode ? Model.PreChapterUrl: "javascript:void(0);")">@(Model.IsPreChapterCode ? "上一章" : "第一章")</a>
+                </div>
+
+                <div class="next_page fr box">
+                    <a class="@(Model.IsNextChapterCode ? "" : "txtcolor")" href="@(Model.NextChapterUrl)">@("下一章")</a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="wrap">
+            <div class="book_to_promote box">
+                <h1 class="h1">@chapter.ChapterName</h1>
+            </div>
+            <div class="promote_detail box">
+                <p>
+                    关注微信公众号，点击菜单<span style="color:red;">继续阅读</span>
+                    @*由于字数显示的原因，本页面只能更新到这里，希望你能谅解，后续更多精彩内容，可以按照以下方
+                    式继续阅读噢：*@
+                </p>
+
+                @{ Html.RenderAction("GetQr", "QrCode", new { classId = novel.ClassId, isPromote = true, replyText = Model.ReplyText });}
+            </div>
+        </div>
+    }
+}

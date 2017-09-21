@@ -1,0 +1,46 @@
+﻿@model string
+
+@{
+    Layout = null;
+    string failUrl = ViewBag.SiteSection.Pay.WxPayResultFailUrl;
+    failUrl = string.IsNullOrEmpty(failUrl) ? "/error/index1?errMessage=" + UrlParameterHelper.UrlEncode("( >﹏< )~充值失败") + "&returnUrl=" + UrlParameterHelper.UrlEncode("/order/recharge") : failUrl;
+}
+
+<script type="text/javascript">
+
+    //调用微信JS api 支付
+    function jsApiCall() {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            @Html.Raw(Model),  //josn串
+            function (res) {
+                WeixinJSBridge.log(res.err_msg);
+                //alert(res.err_code + ". " + res.err_desc + " " + res.err_msg);
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    window.location.href = "/recentread/index";
+                }
+                else {
+                    window.location.href = "@Html.Raw(failUrl)";
+                }
+            }
+        );
+    }
+
+    function callpay() {
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }
+            else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }
+        else {
+            jsApiCall();
+        }
+    }
+
+    window.onload = callpay;
+
+</script>

@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "搜索-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("搜索"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+@section styles{
+    @Styles.Render("~/Content/login")
+}
+
+<div class="searching">
+    <div class="search_area clear box">
+        <form action="">
+            <div class="search_area_box_01  box fl">
+                <input class="box" type="search" placeholder="书名/书号/作者" id="txtSearch">
+                <img src="~/Content/img/magnifying_glass.png" alt="">
+            </div>
+            <p class="fr" id="spanSearch"><span class="button">搜索</span></p>
+        </form>
+</div>
+
+    <div class="Everyone_search">
+        <div class="Everyone_search_title box clear">
+            <p class="fl">大家都在搜</p>
+            <p class="fr" id="changeHot"><img src="~/Content/img/change.png" alt="">换一换</p>
+        </div>
+        <ul class="box" id="hotContainer"></ul>
+    </div>
+
+    <div class="history_search Everyone_search">
+        <div class="Everyone_search_title box clear">
+            <p class="fl">历史搜索</p>
+            <p class="fr clearup" id="spanClear"><img src="~/Content/img/trash.png" alt="">清空</p>
+        </div>
+        <ul class="box history_search_list" id="historyContainer"></ul>
+    </div>
+    <div class="bg"></div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/search")
+    <script type="text/javascript">
+        var targetUrl = '@(("/book/searchlist").GetChannelRouteUrl(channelId))';
+        var hotPageIndex = 1;//热搜页码
+        $(function () {
+            LoadSearchHistory();
+            LoadHotSearch();
+
+            //清空历史记录
+            $("#spanClear").click(function () {
+                ClearSearchHistory();
+            });
+
+            //更换热搜
+            $("#changeHot").click(function () {
+                hotPageIndex = hotPageIndex + 1;
+                LoadHotSearch();
+            });
+
+            // 搜索框调取手机键盘search 按键
+            $('#txtSearch').bind('search', function () {
+
+            })
+        })
+
+        //清空历史搜索
+        function ClearSearchHistory() {
+            $.cookie("searchHistory", "");
+            $("#historyContainer").empty();
+        }
+
+        //加载历史搜索
+        function LoadSearchHistory() {
+            var cooieValue = $.cookie("searchHistory");
+            if (cooieValue != undefined && cooieValue != null && cooieValue != "") {
+                _history = cooieValue;
+                var historyArr = _history.split(",");
+                for (var i = 0; i < historyArr.length; i++) {
+                    if ($.trim(historyArr[i]) != '') {
+                        $("#historyContainer").append('<li class="box"><a href="@(("/book/searchlist").GetChannelRouteUrl(channelId))?keyword=' + decodeURIComponent(historyArr[i]) + '">' + decodeURIComponent(historyArr[i]) + '</a></li>');
+                    }
+                }
+            }
+        }
+
+        //加载热搜
+        function LoadHotSearch() {
+            $.ajax({
+                url: '@Url.Action("ChangeHotSearch")',
+                type: "post",
+                data: {
+                    pageIndex: hotPageIndex,
+                    pageSize: 3
+                },
+                success: function (result) {
+                    if (result.Success) {
+                        //如果更换不足一页，从第一页开始重新获取
+                        if (result.Data.pageIndex == 0) {
+                            hotPageIndex = 1;
+                        }
+                        var list = result.Data.list;
+                        $("#hotContainer").empty();
+                        $.each(list, function (i, v) {
+                            $("#hotContainer").append('<li class="box"><a href="javascript:Search(\'' + v.Name + '\')">' + v.Name + '</a></li>');
+                        });
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+        }
+    </script>
+}

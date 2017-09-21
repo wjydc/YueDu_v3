@@ -1,0 +1,345 @@
+.Comment_back {
+    background-color:#fff;
+    padding-bottom:1.5625rem;
+}
+
+body {
+    background-color:#fff;
+}
+
+.bg {
+    width: 100%;
+    height: 0.3125rem;
+    background-color: #f6f7f9;
+}
+
+/*已有评论区*/
+.Comment_back_uls {
+    padding: 0 0.3125rem;
+}
+
+    .Comment_back_uls li {
+        margin: 0.3125rem 0 0.46875rem;
+    }
+
+        .Comment_back_uls li div {
+            /*height: 1.09375rem;*/
+            color: #999999;
+        }
+
+            .Comment_back_uls li div img {
+                width: 1.09375rem;
+                height: 1.09375rem;
+                margin-right: 0.234375rem;
+                vertical-align: middle;
+            }
+
+            .Comment_back_uls li div p {
+                display: inline-block;
+                font-size: 0.34375rem;
+                vertical-align: middle;
+            }
+
+                .Comment_back_uls li div p span:last-child {
+                    font-size: 0.25rem;
+                }
+
+        .Comment_back_uls li > p {
+            margin-top: 0.15625rem;
+            font-size: 0.375rem;
+             color: #666666;
+        }
+
+/*回复*/
+.reply {
+}
+
+    .reply > p {
+        height: 0.9375rem;
+        line-height: 0.9375rem;
+        font-size: 0.4375rem;
+        padding: 0 0.390625rem;
+        border-bottom: 0.015625rem solid #d7d7d7;
+    }
+/*无评论数据*/
+.no_comment {
+    text-align: center;
+    font-size: 0.375rem;
+    color: #c2c7ce;
+    padding-top:3.125rem;
+    min-height: 7.8125rem;
+}
+
+    .no_comment img {
+        width: 0.9375rem;
+        height: 1.25rem;
+    }
+/*有评论数据*/
+.has_comment {
+    padding-bottom:1.25rem;
+}
+.has_comment li{
+	padding-top: 0.46875rem;
+}
+.has_comment p{
+	border: none;
+}
+.has_comment .reviewers img{
+	width: 1.09375rem;
+	height: 1.09375rem;
+	/*margin-right: 0.390625rem;*/
+    margin-right: 0rem;
+}
+.has_comment .comment_reviewers{
+	/*width:7.890625rem;*/
+	border-bottom: 0.015625rem solid #d7d7d7;
+	padding-bottom: 0.46875rem;
+}
+.has_comment .comment_reviewers p:nth-child(1){
+	font-size: 0.34375rem;
+	color: #b8b8b8;
+}
+.has_comment .comment_reviewers p:nth-child(2){
+	font-size: 0.25rem;
+	color: #b8b8b8;
+	margin:0 0;
+}
+.has_comment .comment_reviewers p:nth-child(3){
+	font-size: 0.375rem;
+}
+.has_comment .comment_reviewers p:nth-child(3) span:nth-child(2){
+	color: #b8b8b8;
+}
+.has_comment .comment_reviewers clear .span{
+	
+}
+/*回复·按钮*/
+.reply_btn{
+	width: 100%;
+	border-top:  0.015625rem solid #d7d7d7;
+	height: 1.171875rem;
+	text-align: center;
+	line-height: 1.171875rem;
+	color: #ff5c4d;
+	font-size:0.375rem; 
+	position: fixed;
+	bottom: 0;
+	background-color: #fff;
+}
+.reply_btn img{
+	width: 0.34375rem;
+	margin-top: -0.078125rem;
+	vertical-align: middle;
+}
+
+.has_comment li{
+	padding-top: 0.46875rem;
+}
+.has_comment p{
+	border: none;
+}
+.has_comment .reviewers img{
+	width: 1.09375rem;
+	height: 1.09375rem;
+	/*margin-right: 0.390625rem;*/
+    margin-right: 0rem;
+}
+/*.has_comment .comment_reviewers{
+	
+	border-bottom: 0.015625rem solid #d7d7d7;
+	padding-bottom: 0.46875rem;
+}
+.has_comment .comment_reviewers p:nth-child(1){
+	font-size: 0.3125rem;
+	color: #b8b8b8;
+}
+.has_comment .comment_reviewers p:nth-child(2){
+	font-size: 0.25rem;
+	color: #b8b8b8;
+	margin: 0.15625rem 0;
+}
+.has_comment .comment_reviewers p:nth-child(3){
+	font-size: 0.375rem;
+}
+.has_comment .comment_reviewers p:nth-child(3) span:nth-child(2){
+	color: #b8b8b8;
+}*/
+/*回复·按钮*/
+.reply_btn{
+	width: 100%;
+	border-top:  0.015625rem solid #d7d7d7;
+	height: 1.171875rem;
+	text-align: center;
+	line-height: 1.171875rem;
+	color: #ff5c4d;
+	font-size:0.375rem; 
+	position: fixed;
+	bottom: 0;
+	background-color: #fff;
+}
+.reply_btn img{vertical-align: middle;}
+
+    .has_comment li {
+        padding-top: 0.46875rem;
+    }
+
+    .has_comment p {
+        border: none;
+    }
+
+.has_comment .reviewers{
+    margin-left: 3%;
+     margin-right:0.25rem;
+    position:relative;
+}
+
+    .has_comment .reviewers img {
+        width: 1.09375rem;
+        height: 1.09375rem;
+       
+    }
+
+    .has_comment .comment_reviewers {
+        border-bottom: 0.015625rem solid #d7d7d7;
+        padding-right: 0.3125rem;
+        padding-bottom: 0.46875rem;
+        overflow: hidden;
+    }
+
+    .has_comment .comment_reviewers p{
+        line-height: 0.6rem;
+    }
+        .has_comment .comment_reviewers p:nth-child(1) {
+            font-size:  0.34375rem;
+          color: #999999;
+        }
+
+        .has_comment .comment_reviewers p:nth-child(2) {
+            font-size: 0.25rem;
+            color: #999999;
+            margin: 0 0 0.15625rem 0;
+        }
+
+        .has_comment .comment_reviewers p:nth-child(3) {
+            font-size: 0.375rem;
+               color: #666666;
+        }
+
+            .has_comment .comment_reviewers p:nth-child(3) span:nth-child(2) {
+             color: #999999;
+            }
+             .has_comment .comment_reviewers .sended_message {
+           color: #666666;
+        }
+.Comment_back_uls li span{
+    float:left;
+}
+/*回复·按钮*/
+.reply_btn {
+    width: 100%;
+    border-top: 0.015625rem solid #d7d7d7;
+    height: 1.171875rem;
+    text-align: center;
+    line-height: 1.171875rem;
+    color: #ff5c4d;
+    font-size: 0.375rem;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+}
+
+    .reply_btn img {
+        vertical-align: middle;
+    }
+
+/*回复遮罩层 */
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+}
+
+.Text_input {
+    width: 100%;
+    height: 4.296875rem;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    display: none;
+}
+
+    .Text_input > p {
+        overflow: hidden;
+        line-height: 1.25rem;
+        height: 1.25rem;
+        border-bottom: 0.015625rem solid #d7d7d7;
+        padding: 0 0.3125rem;
+    }
+
+.Text_input > p span {
+    font-size: 0.375rem;
+}
+.Text_input .cancle{
+    float: left;
+}
+.Text_input .send{
+    color: #ff928a;
+    float: right;
+}
+
+    .Text_input .send_area {
+        padding: 0 0.3125rem;
+    }
+
+        .Text_input .send_area p {
+            font-size: 0.40625rem;
+            color: #999999;
+            margin: 0.15625rem 0;
+        }
+
+        .Text_input .send_area textarea {
+            border: none;
+            width: 100%;
+            height: 1.875rem;
+            font-size: 0.40625rem;
+        }
+
+
+ .Turn_page{
+    background-color: #f6f7f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

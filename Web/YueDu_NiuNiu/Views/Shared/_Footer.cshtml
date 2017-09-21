@@ -1,0 +1,53 @@
+﻿@{
+    string winxinqr = ViewBag.SiteSection.Html.WeChatQrCode;
+    string workhour = ViewBag.SiteSection.Service.WorkHour;
+    string email = ViewBag.SiteSection.Service.Email;
+    string qq = ViewBag.SiteSection.Service.QQ;
+    string wechat = ViewBag.SiteSection.Service.WeChat;
+    string wechatPubId = ViewBag.SiteSection.Service.WeChatPubId;
+    bool isShowDownloadApp = StringHelper.ToBool(ViewBag.SiteSection.Download.IsShowApp);
+}
+<!--底部信息-->
+<footer class="box bw">
+    @if (isShowDownloadApp)
+    {
+        <div class="download">
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hzpz.groundnut.wheatreader" target="_blank" class="download_btn box">
+                <img src="/content/img/phone.png" alt="">
+                <span>客户端下载</span>
+            </a>
+        </div>
+    }
+    <p class="footer_title">客服</p>
+    <div class="footer_message clear">
+        <div class="f_m_left fl">
+            <p>
+                <span>工作时间：@workhour</span>
+                <span>客服邮箱：@email</span>
+                <span>客服QQ：@qq</span>
+                <span>微信公众号：@wechat</span>
+            </p>
+        </div>
+        <div class="f_m_right fr">
+            <img src="@winxinqr.SpliceUrl("r", DateTime.Now.Date.ConvertTimeStamp())" alt="" />
+        </div>
+    </div>
+    <div class="legislation_note">
+        <p>Copyright © 2017 niuniuyuedu.com  浙 ICP备16009763号-9</p>
+        @*<a href="https://v.pinpaibao.com.cn/cert/site/?site=mt.cyread.cn&at=business"><img src="~/Content/img/hy.png" alt=""></a>*@
+    </div>    
+    @RenderPage("~/Views/Shared/beian.cshtml")
+</footer>
+
+<script>
+    $(function () {
+        var downbtn = $('.download_btn');
+        var btnnum = downbtn.length;
+
+        if (btnnum == 1) {
+            downbtn.css('width', '100%')
+        } else if (btnnum == 2) {
+            downbtn.css('width', '40%')
+        }
+    })
+</script>

@@ -1,0 +1,286 @@
+﻿@using Component.Base;
+@model SimpleResponse<BookDetailView>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var bookDetail = Model.Data ?? new BookDetailView();
+    ViewBag.Title = bookDetail.Title + "_" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+}
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)@(bookDetail.Title),@(bookDetail.Title)全文阅读,@(bookDetail.Title)最新章节" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)@(ViewBag.SiteSection.Html.SiteName)提供@(bookDetail.Title)乐免费在线阅读下载,包括@(bookDetail.Title)最新章节及时更新,@(bookDetail.Title)是本站首发漫画,欢迎收藏以便下次阅读。" />
+}
+@section styles{
+    @Styles.Render("~/Content/cartoonDetail")
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+@if (Model.Success)
+{
+    <div class="comic_zone_head">
+        <div class="blur">
+            <img src="@Html.RenderImage(new string[] { bookDetail.ThumbCover, bookDetail.SmallCover }, DefaultCover.noveldetail)" alt="">
+            <img class="blurdiv" src="/Content/img/blurbg.png" alt="">
+        </div>
+
+        @{ Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("书籍详情")); }
+
+        <!-- 书介绍 -->
+        <div class="book_introduction comic_introduction">
+            <div class="Text_introduction clear box">
+                <div class="book_img fl">
+                    <img src="@Html.RenderImage(new string[] { bookDetail.ThumbCover, bookDetail.SmallCover }, DefaultCover.noveldetail)" alt="">
+                </div>
+                <div class="book_message">
+                    <p class="book_title ">
+                        <span class="book_title_detail fl">@bookDetail.Title</span><span class="type katong ">漫</span>
+                    </p>
+                    @if (StringHelper.ToInt(bookDetail.IsHideAuthor) == 0) 
+                    {
+                         <p>@bookDetail.Author</p>
+                    }
+                    <p>
+                        @if (bookDetail.CartoonType > 0)
+                        {
+                            Constants.Novel.CartoonType ct = Constants.Novel.CartoonType.故事绘本;
+                            if (EnumHelper.TryParsebyValue<Constants.Novel.CartoonType>(bookDetail.CartoonType, out ct))
+                            {
+                                @ct
+                                <span class="line">|</span>
+                            }
+                        }
+                        <span class="serial">@(bookDetail.UpdateStatus == (int)Constants.Novel.UpdateStatusName.已完结 ? "已完结" : "连载中")</span>
+                    </p>
+                    <p>@bookDetail.Hits 次点击</p>
+                    <div class="clear exclusive">
+                        @if (!string.IsNullOrEmpty(bookDetail.CPName))
+                        {
+                            <p class="fl">来源：@bookDetail.CPName</p>
+                        }
+                        <p class="fr">
+                            @{
+                        var copyrightStatus = bookDetail.CopyrightStatus;
+                        if (copyrightStatus > 0)
+                        {
+
+                            if (((int)Constants.Novel.CopyrightStatus.首发 & copyrightStatus) == (int)Constants.Novel.CopyrightStatus.首发)
+                            {
+                                <span><img src="/content/img/the_first.png" alt="">首发</span>
+                            }
+                            if (((int)Constants.Novel.CopyrightStatus.独家 & copyrightStatus) == (int)Constants.Novel.CopyrightStatus.独家)
+                            {
+                                <span><img src="/content/img/exclusive.png" alt="">独家</span>
+                            }
+                            if (((int)Constants.Novel.CopyrightStatus.授权 & copyrightStatus) == (int)Constants.Novel.CopyrightStatus.授权)
+                            {
+                                <span><img src="/content/img/authorization.png" alt="">授权</span>
+                            }
+                        }
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- 开始阅读，加入书库 -->
+            @{
+                        //根据按钮个数选定按钮样式
+                        string btnCss = "btnnumTow";
+                        if ((bookDetail.FeeType == (int)Constants.Novel.FeeType.novelchapter || bookDetail.FeeType == (int)Constants.Novel.FeeType.novel) && !bookDetail.IsOrder)
+                        {
+                            btnCss = "btnnumThree";
+                        }
+            }
+            <div class="go_read @(btnCss) box ">
+
+                <a class="activite box" href="@(string.Format("/book/beginread?novelid={0}&code={1}", bookDetail.Id, bookDetail.RecentReadChapterCode).GetChannelRouteUrl(channelId))" title="">开始阅读</a>
+                <a class="box" id="AddToMark" href="javascript:" title="" style="@(bookDetail.IsAddMark ? "color:#b8b8b8;" : "")">@(bookDetail.IsAddMark ? "已在书架" : "加入书架")</a>
+                @if ((bookDetail.FeeType == (int)Constants.Novel.FeeType.novelchapter || bookDetail.FeeType == (int)Constants.Novel.FeeType.novel) && !bookDetail.IsOrder)
+                {
+                    <a class="Complete_preferential box" href="@(string.Format("/preorder/novel?novelId={0}", bookDetail.Id).GetChannelRouteUrl(channelId))">全本优惠</a>
+                }
+            </div>
+            @if (!string.IsNullOrEmpty(bookDetail.ShortDescription))
+            {
+                <div class="book_abstract  clear box bw">
+                    <p class="book_abstract_detail fl">
+                        @bookDetail.ShortDescription.FilterHtmlTag()
+                    </p>
+                    <p class="more_text fr">
+                        展开<img src="/Content/img/more.png" alt="">
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="read_detail_content">
+        <!-- 目录 -->
+        <div class="directory comic_directory bw">
+            <p class="box total_title">目录</p>
+            <ul class="box comic_charpeter_title">
+                <li class="clear">
+                    <a href="@(ChapterContext.GetUrl("/chapter/detail", bookDetail.Id, bookDetail.RecentChapterCode, channelId: channelId))" class="fl clear">
+                        <img class="fl" src="/content/img/new.png" alt="">
+                        <span class="fl">@bookDetail.RecentChapterName</span>
+                        @if (bookDetail.RecentChapterCode >= bookDetail.FreeChapterCount && bookDetail.FeeType > (int)Constants.Novel.FeeType.free)
+                        { <img class="fl" src="/content/img/v.png" alt=""> }
+                    </a>
+                    <span class="with_newtime fr">更新于 @(bookDetail.RecentChapterUpdateTime.ToString("yyyy-MM-dd"))</span>
+                </li>
+            </ul>
+            <ol class="box comic_charpeter_list bw clear">
+                @if (bookDetail.ChapterList.Success)
+                {
+                    foreach (var item in bookDetail.ChapterList.Data)
+                    {
+                        <li class="fl box">
+                            <a href="@(ChapterContext.GetUrl("/chapter/detail", bookDetail.Id, item.ChapterCode, channelId: channelId))">
+                                <span> @item.ChapterName</span>
+                                @if (item.ChapterCode >= bookDetail.FreeChapterCount && bookDetail.FeeType > (int)Constants.Novel.FeeType.free)
+                                {<img src="/content/img/v.png" alt=""> }
+                            </a>
+                        </li>
+                    }
+                }
+            </ol>
+            <a class="More_chapters" href="@(string.Format("/chapter/list?novelId={0}", bookDetail.Id).GetChannelRouteUrl(channelId))" title="">更多章节</a>
+        </div>
+        <!-- 捧场 -->
+        @{Html.RenderAction("List", "Present", new { novelId = bookDetail.Id, rewardFee = bookDetail.RewardFee });}
+
+        <!-- 书评区 -->
+        <div class="Review_area bw mb">
+            <p class="box total_title">书评区<span class="Famous_fornum"> (@bookDetail.CommentCount)</span></p>
+            @if (bookDetail.CommentList.Success)
+            {
+                <ul class="Review_area_uls">
+
+                    @foreach (var comment in bookDetail.CommentList.Data)
+                    {
+                        <li class="clear box">
+                            <div class="statue fl">
+                                <img src="@Html.RenderImage(new string[] { comment.UserIcon }, DefaultCover.usericon) " alt=" ">
+                            </div>
+
+                            <div class=" clear Review_messae">
+                                <div class="clear box">
+                                    <p class="fl">@comment.UserNickName</p>
+                                    <p class="fr">@comment.ReplyCount<span><a href="@(string.Format("/comment/detail?commentid={0}", comment.Id).GetChannelRouteUrl(channelId))"><img src="/content/img/message.png" alt=""></a></span></p>
+                                </div>
+                                <p class="timing">@comment.AddTime.ToString("yyyy-MM-dd HH:mm")</p>
+                                <p class="Gift_giving">
+                                    @if (comment.PropsId > 0 && comment.PropsCount > 0)
+                                    {
+
+                                        <span class="descript jin">精</span>
+                                        if (comment.UserType == (int)Constants.UserType.author)
+                                        {
+                                            <span class="descript ding">顶</span>
+                                        }
+                                        <span class="Gift">
+                                            [赠送]：<img class="giving" src="@Html.RenderImage(new string[] { comment.PropsIcon }, DefaultCover.novelprops)" alt="">
+                                            × @comment.PropsCount 礼物给作者
+                                        </span>
+
+                                    }
+                                </p>
+                                <p>@Server.HtmlDecode(comment.Message)</p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <!-- 书评区无数据 -->
+                <div class="no_Review box">
+                    <img src="/content/img/comment0.png" alt="" />
+                    <br />
+                    快来抢沙发吧~
+                </div>
+            }
+            <a class="More_chapters" href="@(string.Format("/comment/list?novelId={0}", bookDetail.Id).GetChannelRouteUrl(channelId))">更多书评</a>
+        </div>
+
+        <!-- 猜你喜欢 -->
+        @{Html.RenderAction("GuessLike", "Recommend", new { classId = bookDetail.RecClassId });}
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function () {
+
+            function textmore() {
+                var _this = $('.book_abstract_detail');
+                var txt = _this.text();
+                var txtlength = $.trim(_this.text()).length;
+                var max = 60;
+
+                if (txtlength > max) {
+                    _this.text(_this.text().substring(0, max))
+                    _this.html(_this.html() + '...')
+                } else {
+                    _this.html(txt);
+                    $('.more_text').hide();
+                }
+                $(".more_text").click(function (event) {
+                    event.stopPropagation();
+                    _this.html(txt);
+                    $(this).hide();
+
+                })
+            }
+            textmore();
+
+            //加入书架
+            $("#AddToMark").click(AddToMark = function () {
+                var novelId = '@bookDetail.Id';
+                var isAddMark = '@bookDetail.IsAddMark';
+                if (isAddMark !== 'False') {
+                    return;
+                }
+                if (parseInt(novelId) == 0) {
+                    return;
+                }
+                $.ajax({
+                    url: '/mark/add',
+                    type: "post",
+                    data: { novelId: novelId },
+                    beforeSend: function () {
+                        $("#AddToMark").unbind("click");
+                    },
+                    success: function (result) {
+                        if (result.Success) {
+
+                            //禁用按钮
+                            $("#AddToMark").css('color', '#c6c8c6').text('已在书架');
+                            $.tips({ message: "加入书架成功" });
+
+                        } else if (result.ErrorCode == 10110) {
+                            $.tips({ message: result.Message });
+                            setTimeout(function () {
+                                window.location.href = "@StringHelper.GetReturnUrl("/login",channelId:channelId)";
+                            }, 1000);
+                        }
+                        else
+                            $.tips({ message: result.Message });
+                    },
+                    complete: function () {
+                        $("#AddToMark").bind("click", AddToMark);
+                    },
+                    error: function (err) {
+                        $.tips({ message: "出错了，请重试" });
+                    }
+                });
+            });
+        })
+    </script>
+}

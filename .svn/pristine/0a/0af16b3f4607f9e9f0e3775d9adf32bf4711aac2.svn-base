@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PaySection>
+  <NowPay>
+    <item key="AppId" value="" />
+    <item key="AppKey" value="" />
+    <item key="WeChatAppId" value="" />
+    <item key="WeChatAppKey" value="" />
+    <item key="WeChatQrCodeAppId" value="" />
+    <item key="WeChatQrCodeAppKey" value="" />
+    <item key="CallbackUrl" value="http://api.ipaynow.cn" />
+    <item key="NewCallbackUrl" value="https://pay.ipaynow.cn" />
+  </NowPay>
+  <WxPay>
+    <item key="AppId" value="wx1791838399dd1721" />
+    <item key="MchId" value="1485392302" />
+    <item key="AppKey" value="GUOJIANGyuedu1234567890guojiang1" />
+    <item key="AppSecret" value="3bc86aedb325e44fb3253b3e4fc43277" />
+    <item key="CallbackUrl" value="/user/order/wechat/notify.aspx" />
+    <item key="LogLevel" value="0" />
+  </WxPay>
+  <WxPay2>
+    <item key="AppId" value="wx1791838399dd1721" />
+    <item key="MchId" value="1485392302" />
+    <item key="AppKey" value="GUOJIANGyuedu1234567890guojiang1" />
+    <item key="AppSecret" value="3bc86aedb325e44fb3253b3e4fc43277" />
+    <item key="CallbackUrl" value="/user/order/wechat/notify1" />
+    <item key="LogLevel" value="0" />
+  </WxPay2>
+  <Alipay>
+    <item key="SellerEmail" value="guojiangyuedu@163.com" />
+    <item key="Partner" value="2088721526659638" />
+    <item key="Key" value="i0is9lqeyw18jmrmpty6u0ngu8ke7wlz" />
+    <item key="PrivateKey" value="MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAM+Jq4VJ7IpqkZBBHGtZgbVS8jUt1m2GEoQhRDlPFQRljvlu+x/5/AOCHpbBldi8fdf5CW3H3dLUDPdYPd1Wh2SP4kUoybzUfAJWIdGhPRD4BYYq0n3xG4yr58xP+x0YgQAHXf0PNnvRPIylK1mDJ6W2EgA98STkXbVwhgI6rxXdAgMBAAECgYAfzA78b/QOzP8aY+9vvxnxZxD29tvokecaWWJziVtF/i1mqAtPveRPwUrgfC5yM4bwZRZ9vGaPG7AU4W8xD0XU6rSehakTF3JrQDGessAJuTNoADKkE3DThMEKm2KhTFFpt/BHHZrl9GA4RW7yFV3VhJL5Owsg7ZxrwiGK8dcfXQJBAPWZ7hQBt1cBMC7Q8UhkAkgDj6sr2ZCbBO9Ct+yyl7lURMcezrSn5csQkMpczPWFj7AksHWmVmAW1d4ANXDMikMCQQDYUyuAliIVMLaaVEul5uOrq4247ENj3rYmO5h+lTgsPf2u5bDKonvVUWuPJ//cfiPu6uUBxnxnBk8z88kU/i1fAkEAmKATEr3KSLhFUCKqfvkfbc9AvfffGX0sgN9uWxrVLOfQYgmkHSJlrF7cC9XFzSI2HBmAy2wWK1qlh3OLwlBp7wJBANa7CC2l2cMrDbd4AXd3D3vy2MU9UU+rXSfqdF8ChDX2ewDHY4xhaYbAQYJi9CnM1KJubFAs1IP30VsCnRHHlQUCQQCwTw46LZkfPWn/93RatlkOnJnf87h4DPj/wTjwi6neBuwYcMYf+j+pHunzcfCRo4pdvsoNuH5WljWNH+2iWsxd" />
+    <item key="PublicKey" value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBo4nIfnkgmTOmwsUeI81VKfa4BZIlMelEMfLtDDbtZD1lDvVCBcs2W6B4BPHC2HYp6FgvvVEwsPKUa5yUvNqWYpH/4qe25BGqATKvdkLBX/SzdXDSzUMHvdFr3Q0+8KBl3dCPCqjip+0rZSXqtpeW044JdMAAGpGIfUoTfUm7OwIDAQAB" />
+    <item key="InputCharset" value="utf-8" />
+    <item key="SignType" value="0001" />
+  </Alipay>
+</PaySection>

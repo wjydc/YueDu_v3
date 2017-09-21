@@ -1,0 +1,33 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string orderId = StringHelper.ToString(ViewBag.OrderId);
+    bool isMicromessenger = StringHelper.GetUserAgent().ToLower().Contains("micromessenger");
+}
+
+<a href="@Model" id="submit"></a>
+
+<script type="text/javascript">
+    document.getElementById("submit").click();
+
+    if ('@isMicromessenger' == 'False' && '@orderId' != '') {
+        setInterval(query, 5000);
+        function query() {
+            $.ajax({
+                url: '/order/result',
+                type: "post",
+                data: { orderId: '@orderId' },
+                success: function (result) {
+                    if (result.Success) {
+                        window.location.href = result.Data.returnUrl;
+                    }
+                },
+                error: function (err) {
+                    $.tips({ message: "出错了，请重试" });
+                }
+            });
+        }
+    }
+
+</script>

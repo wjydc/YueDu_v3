@@ -1,0 +1,38 @@
+﻿@model SimpleResponse<IEnumerable<Model.RechargeInfo>>
+
+@{
+    ViewBag.Title = "充值记录";
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("充值记录"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+<link href="~/Content/css/rechargecenter.css" rel="stylesheet" />
+
+
+<div class="recharge_records box">
+    <ul class="box">
+        @{
+            if (Model.Success)
+            {
+                foreach (var item in Model.Data)
+                {
+                    <li class="box">
+                        <p>充值：<span>@item.Fee</span>@ViewBag.SiteSection.Html.FeeName</p>
+                        <p class="clear">
+                            <span class="fl">@item.Name</span>
+                            <span class="fr">@item.CompleteTime</span>
+                        </p>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>
+<div class="bg"></div>

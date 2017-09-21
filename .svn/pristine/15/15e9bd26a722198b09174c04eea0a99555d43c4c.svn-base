@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SiteSection>
+  <item key="SiteName" value="掌读小说" />
+  <item key="SiteTitle" value="掌读小说" />
+  <item key="FeeName" value="读币" />
+  <item key="MetaKeywords" value="" />
+  <item key="MetaDescription" value="" />
+  <Service>
+    <item key="WorkHour" value="周一到周五 9:00-17:30" />
+    <item key="Phone" value="" />
+    <item key="Email" value="3349073599@qq.com" />
+    <item key="QQ" value="3349073599" />
+    <item key="WeChat" value="掌读小说网（zhangread1）" />
+    <item key="WeChatPubId" value="掌读小说网" />
+  </Service>
+  <Auth>
+    <QQ>
+      <item key="IsShow" value="true" />
+    </QQ>
+    <Weibo>
+      <item key="IsShow" value="true" />
+    </Weibo>
+    <WeChat>
+      <item key="IsShow" value="true" />
+      <item key="IsAutoLoginInMicroMessenger" value="false" />
+    </WeChat>
+  </Auth>
+  <Pay>
+    <item key="IsShowFailTip" value="true" />
+    <WxPay>
+      <!--<item key="ResultFailUrl" value="/wx/index" />-->
+      <item key="ResultFailUrl" value="/notify/payerror" />
+    </WxPay>
+  </Pay>
+  <CP>
+    <item key="IsShowAllNovel" value="false" />
+    <item key="IsShowAllAudio" value="false" />
+    <item key="IsShowAllCartoon" value="true" />
+  </CP>
+  <Class name="分类">
+    <SpeType name="男女频">
+      <item key="IsShowMale" value="true" />
+      <item key="IsShowFemale" value="true" />
+    </SpeType>
+    <Audio name="听书">
+      <item key="IsShow" value="false" />
+    </Audio>
+    <Cartoon name="漫画">
+      <item key="IsShow" value="true" />
+    </Cartoon>
+  </Class>
+  <Novel name="小说">
+    <item key="ChapterWordSizeFee" value="5" />
+  </Novel>
+  <Audio name="听书">
+    <item key="AllPackageFee" value="2000" />
+  </Audio>
+  <Comment name="评论">
+    <item key="IsOpen" value="true" />
+    <item key="IsReverseSort" value="true" />
+  </Comment>
+  <Download>
+    <App>
+      <item key="IsShow" value="true" />
+    </App>
+  </Download>
+  <Filter>
+    <Book>
+      <item key="CPID" value="10053" />
+    </Book>
+  </Filter>
+</SiteSection>

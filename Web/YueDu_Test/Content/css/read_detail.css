@@ -1,0 +1,691 @@
+/*阅读详情页*/
+/*头部样式公用common_detail*/
+
+/**/
+body{
+    /*overflow-x:hidden;*/
+}
+.book_introduction {
+    /*height: 7.734375rem;*/
+    margin-bottom: 0.3125rem;
+}
+
+.Text_introduction {
+    padding: 0.46875rem 0 0 0.3125rem;
+}
+
+.Text_introduction .book_img {
+    width: 2.1875rem;
+    height: 3.03125rem;
+    margin-right: 0.3125rem;
+    position: relative;
+}
+
+.Text_introduction .book_img img{
+    position: absolute;
+    width: 2.15625rem;
+    height: 3.0rem;
+    box-shadow: 0.03125rem 0.03125rem 0.078125rem #aba6a6;
+}
+
+.Text_introduction .book_img .countdown {
+    width: 2.15625rem;
+    height: 0.34375rem;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    opacity: 0.9;
+    font-size: 0.234375rem;
+    text-align: center;
+    line-height: 0.34375rem;
+    color: #ff5c4d;
+}
+
+.book_message{
+    /*width:70%;*/
+    overflow: hidden;
+}
+.book_message>p:not(:first-child){
+    color: #666;
+}
+.book_message div p{
+     color: #666;
+}
+.book_message p {
+    font-size: 0.34375rem;
+    margin-bottom: 0.15625rem;
+}
+.book_message .book_title{
+    font-size: 0.46875rem;
+    overflow:hidden;
+}
+.book_message .book_title .book_title_detail {
+    display: inline-block;
+    max-width:82%;
+    font-size: 0.46875rem;
+    overflow: hidden;  
+   white-space: nowrap;  
+   text-overflow: ellipsis; 
+}
+
+.book_message .type {
+    font-size: 0.304063rem;
+    display: inline-block;
+    width: 0.359375rem;
+    height: 0.359375rem;
+    border-radius: 0.046875rem;
+    text-align: center;
+    color: #fff;
+    line-height: 0.359375rem;
+    margin-left: 0.15625rem;
+  /* margin-top:-0.078125rem;
+   vertical-align: middle;*/
+   float: left;
+   margin-top: 0.15rem;
+}
+
+ 
+
+.book_message .serial {
+    color: #7dc686;
+}
+/*<!-- 开始阅读，加入书库 -->*/
+.book_introduction .go_read {
+    /*padding: 0.3125rem 0 0.300625rem 0.3125rem;*/
+}
+
+
+.book_introduction .go_read a {
+    display: block;
+    height: 1.0rem;
+    line-height: 1.0rem;
+    border:1px solid #DFE1E3;
+    text-align: center;
+    border-radius:0.078125rem;
+    font-size: 0.40625rem;
+}
+
+.book_introduction .go_read .activite {
+    background-color: #ff5c4d;
+    color:#fff;
+}
+
+.book_abstract {
+    padding: 0.390625rem 0.3125rem 0.5rem;
+    color:#999;
+}
+
+.book_abstract_detail {
+    width: 100%;
+    font-size: 0.375rem;
+    text-indent: 0.75rem;
+    text-align: justify;
+    line-height:0.6rem;
+}
+.more_text{
+    font-size: 0.34375rem;
+   
+}
+.more_text img{
+    width:0.28125rem;
+    height:0.15625rem;
+   vertical-align: middle;
+   margin-top: -0.078125rem;
+   margin-left: 0.078125rem;
+}
+
+/*目录*/
+.directory {
+    margin-bottom: 0.3125rem;
+}
+
+
+
+.directory p .total_chapter {
+    font-size: 0.34375rem;
+    margin-left: 0.15625rem;
+}
+
+.directory ul {
+    padding-left: 0.3125rem;
+}
+
+.directory ul li {
+    font-size: 0.375rem;
+    height: 1.09375rem;
+    line-height: 1.09375rem;
+    border-bottom:1px solid #f0f1f2;
+}
+
+/*.directory ul li:nth-child(1) img {
+   width: 0.375rem;
+    height: 0.34375rem;
+    margin-top:0.38rem;
+}*/
+.directory ul li a{
+    display:block;
+    font-size: 0.375rem;
+    height: 1.09375rem;
+    line-height: 1.09375rem;
+    overflow: hidden;
+}
+.directory ul li a span{
+    max-width:90%;
+    overflow: hidden;  
+    white-space: nowrap;  
+    text-overflow: ellipsis; 
+    float: left;
+}
+.directory ul li img{
+    width: 0.375rem;
+    height: 0.34375rem;
+   margin:0.38rem 0 0 0.078125rem;
+}
+.with_newtime {
+    font-size: 0.28125rem;
+    color: #c9c9c9;
+}
+
+
+
+.directory ul li:nth-child(1) a{
+    display: inline-block;
+    width: 65%;
+    color: #ff5c4d;
+}
+
+.directory ul li:nth-child(1) a span {
+    margin: 0 0 0 0.234375rem;
+    display: inline-block;
+    max-width: 80%;
+    overflow: hidden;
+}
+.directory ul li:nth-child(1) .with_newtime{
+    margin-right: 0.3125rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*公共*/
+
+
+/*捧场*/
+.Famous_for {
+    margin-bottom: 0.3125rem;
+}
+
+.Famous_fornum {
+    font-size: 0.34375rem;
+    margin-left: 0.15625rem;
+}
+
+.Famous_for ul {
+    /*display: flex;
+    justify-content: space-around;*/
+    margin-bottom: 0.546875rem;
+    margin-top: 0.46875rem;
+    /*align-items: center;*/
+    overflow: hidden;
+}
+
+    .Famous_for ul li {
+        width: 24%;
+        text-align: center;
+        margin-left: 0.4%;
+        margin-right: 0.4%;
+    }
+
+    .Famous_for ul .two-three{
+
+        /*margin: 0 3%;*/
+
+
+
+
+    }
+        .Famous_for ul li img:nth-child(1) {
+            width: 0.46875rem;
+            height: 0.421875rem;
+        }
+
+        .Famous_for ul li .person {
+            width: 1.09375rem;
+            height: 1.09375rem;
+        }
+
+        .Famous_for ul li span {
+                font-size: 0.34375rem;
+    width: 99%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    overflow: hidden;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+        }
+
+    .Famous_for ul .mine {
+        border-left:1px solid #ecedee;
+        padding-top: 0.546875rem;
+    }
+
+        .Famous_for ul .mine .person {
+            width: 1.09375rem;
+            height: 1.09375rem;
+        }
+
+.Famous_for ol {
+    border-bottom:1px solid #f0f1f2;
+    padding-left: 0.3125rem;
+}
+
+    .Famous_for ol li {
+        margin-bottom: 0.546875rem;
+        font-size: 0.375rem;
+        color:#666666;
+    }
+
+    .Famous_for ol img {
+        width: 0.46875rem;
+        height: 0.46875rem;
+        vertical-align: middle;
+    }
+
+    .Famous_for ol li span:nth-child(4) {
+        color: #ff928a;
+    }
+
+/*作者的话*/
+.author_words p:nth-child(2) {
+    padding: 0.46875rem 0.3125rem 0.9375rem;
+    font-size: 0.40625rem;
+    color:#666666;
+}
+
+/*书评区*/
+.Review_area_uls li {
+    padding-top: 0.46875rem;
+}
+
+.Review_area_uls .Review_messae div img {
+    margin-left: 0.15625rem;
+    width: 0.390625rem;
+    height: 0.390625rem;
+    vertical-align: middle;
+}
+
+.Review_area_uls li:last-child {
+    /*border-bottom: 0.015625rem solid #e6e6e6;*/
+}
+
+    .Review_area_uls li:last-child div {
+        border-bottom: none;
+    }
+
+.Review_area_uls li .statue {
+   /* width: 11%;*/
+    margin-left: 3%;
+    margin-right:0.3125rem;
+    position: relative;
+}
+
+    .Review_area_uls li .statue img {
+        width: 1.09375rem;
+        height: 1.09375rem;
+    }
+
+.Review_area_uls .Review_messae div {
+    padding-right: 0.3125rem;
+    padding-top: 0.078125rem;
+    color:#999999;
+}
+.Review_area_uls .Review_messae p{
+    line-height: 0.6rem;
+}
+.Review_area_uls .Review_messae div p:nth-child(2) {
+      color:#999999;
+}
+.Review_area_uls .Review_messae p:last-child {
+    color: #666666;
+}
+.Review_area_uls .Review_messae {
+   /* width: 82%;*/
+    padding-bottom: 0.46875rem;
+    padding-right: 0.3125rem;
+    border-bottom:1px solid #f0f1f2;
+}
+
+    .Review_area_uls .Review_messae .Gift_giving .giving {
+        width: 0.625rem;
+        height: 0.625rem;
+        vertical-align: middle;
+    }
+
+    .Review_area_uls .Review_messae div img {
+        margin-left: 0.15625rem;
+        width: 0.390625rem;
+        height: 0.390625rem;
+        vertical-align: middle;
+    }
+
+.Review_messae .Gift_giving .Gift {
+    font-size: 0.4375rem;
+    font-weight: 600;
+}
+
+.Gift_giving span {
+}
+
+.Gift_giving .descript {
+    color: #fff;
+    display: inline-block;
+    width: 0.375rem;
+    height: 0.375rem;
+    line-height: 0.375rem;
+    border-radius: 50%;
+    font-size: 0.28125rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.Gift_giving .jin {
+    background-color: #56abe7;
+    margin-right: 0.15625rem;
+}
+
+.Gift_giving .ding {
+    background-color: #ffad0e;
+}
+
+.Review_messae p {
+    font-size: 0.34375rem;
+}
+
+.Review_messae .timing {
+    font-size: 0.25rem;
+    color:#999999;
+}
+
+/*花式追书*/
+.Fancy_book_content {
+    padding: 0.46875rem 0.3125rem;
+}
+
+.red {
+    color: #ff5c4d;
+}
+
+.Fancy_book_content > p {
+    font-size: 0.40625rem;
+    margin-bottom: 0.3125rem;
+}
+
+.Fancy_book_content ul li {
+    margin-bottom: 0.15625rem;
+}
+
+    .Fancy_book_content ul li p:nth-child(1) {
+        /*width: 30%;*/
+        font-size: 0.40625rem;
+        color: #ff5c4d;
+        text-indent: -0.171875rem;
+        position: relative;
+    }
+
+    .Fancy_book_content ul li p:nth-child(2) {
+        /*width: 70%;*/
+        font-size: 0.375rem;
+        overflow: hidden;
+    }
+
+/*猜你喜欢*/
+.Guess_like ul {
+    padding-bottom: 0.46875rem;
+}
+
+/*更多书评页面*/
+.Review_area .More_chapters {
+    border-top:1px solid #f0f1f2;
+}
+
+.more_review {
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 1.25rem;
+   /* overflow: scroll;*/
+   /* -webkit-overflow-scrolling: touch;*/
+}
+
+    .more_review .onloading {
+        margin-top: 0.78125rem;
+        margin-bottom: 0.3125rem;
+        text-align: center;
+        font-size: 0.292969rem;
+    }
+
+.Review_area .total_title {
+    font-size: 0.46875rem;
+    margin-bottom: 0.03125rem;
+}
+
+.Review_area .add_comment {
+    width: 100%;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    font-size: 0.375rem;
+    color: #ff5c4d;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 5;
+    background-color: #fff;
+    border-top:1px solid #d7d7d7;
+}
+
+.add_comment img {
+    width: 0.390625rem;
+    vertical-align: middle;
+}
+
+
+
+
+
+/*捧场弹窗*/
+
+.detail_mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+    z-index: 5;
+}
+
+.Famous_for_mask{
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    min-height:12.0rem;
+    width: 100%;
+    
+    display: none;
+}
+
+.Famous_for_mask>img{
+    width: 0.3125rem;
+    margin-top: 0.3125rem;
+    margin-right: 0.3125rem;
+    
+} 
+.Famous_for_mask>p{
+    margin: 0.78125rem 0 0.3125rem 0.3125rem;
+    font-size: 0.4375rem;
+}
+.Famous_for_mask ul{
+    height:6.5rem;
+    padding-left: 0.3125rem;
+    overflow:scroll;
+    /*滑动卡顿*/
+    -webkit-overflow-scrolling: touch;
+}
+.Famous_for_mask ul li{
+    border-bottom:1px solid #f0f1f2;
+   height:1.09375rem;
+   line-height:1.09375rem;
+}
+.Famous_for_mask ul li p{
+    display: inline-block;
+    font-size: 0.375rem;
+    color:#666666;
+}
+
+
+
+/*数量*/
+.Famous_for_mask .goods_num{
+    height:0.78125rem;
+    line-height: 0.78125rem;
+    font-size: 0.375rem;
+    margin-bottom: 0.3125rem;
+}
+.goods_num{
+    padding: 0.15625rem 0.3125rem;
+}
+.goods_num p{
+    display: inline-block;
+    
+}
+.goods_num span{
+    display: inline-block;
+   width: 0.78125rem;
+    height:0.78125rem;
+    text-align: center;
+    font-size: 0.46875rem;
+     line-height: 0.78125rem;
+      border:1px solid #999;
+    margin: 0 0.15625rem;
+    cursor: pointer;
+    overflow:hidden;
+}
+
+.goods_num .nummm input{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border:none;
+    outline: none;
+    text-align: center;
+}
+
+.Famous_for_mask ul li p span{color: #ff5c4d}
+.Famous_for_mask ul li p img{
+    vertical-align: middle;
+}
+
+
+/*单选框*/
+
+.Famous_for_mask ul li>span{
+    display: inline-block;
+    width:0.390625rem;
+    height:0.390625rem;
+    margin-top: 0.390625rem;
+    margin-right: 0.46875rem;
+    position: relative;
+}
+.Famous_for_mask ul li>span input{
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.Famous_for_mask ul li>span label{
+    position: absolute;
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+
+
+.Famousmask_btn{
+    width: 93.75%;
+    height: 1.09375rem;
+    line-height: 1.09375rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.4375rem;
+    background-color: #ff5c4d;
+    border-radius: 0.15625rem;
+    margin: 0.3125rem auto;
+}
+
+.leave_message{
+    font-size: 0.375rem;
+    padding-left:0.3125rem;
+}
+
+.leave_message span:nth-child(1){
+    color: #ff5c4d;
+   margin-right: 0.15625rem;
+
+}
+.leave_message span:nth-child(2){
+    color: #999999;
+}
+
+
+.flatteract{
+    background-color: #ff5c4d;
+}
+
+
+
+
+.unchecked{
+    background: url(../img/uncheck.png) no-repeat ;
+    background-size: 100% 100%;
+}
+.checked {
+ background: url(../img/check.png) no-repeat ;
+ background-size: 100% 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

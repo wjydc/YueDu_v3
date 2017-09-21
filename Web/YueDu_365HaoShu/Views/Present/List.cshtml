@@ -1,0 +1,216 @@
+﻿@model PresentListView
+
+@{
+    Layout = null;
+    var rankList = Model.RankList;
+    var recentPresentList = Model.RecentPresentList;
+    var novelProp = Model.NovelPropsList;
+    string channelId = ViewBag.ChannelId;
+}
+
+<div class="Famous_for bw">
+    <p class="box total_title">捧场总数<span class="Famous_fornum">(@Model.RewardFee)</span></p>
+
+    <ul class="Famous_for_list">
+        @if (rankList.Success)
+        {
+            var rankInfo = rankList.Data;
+            var first = rankInfo.FirstOrDefault();
+            var second = rankInfo.ElementAtOrDefault(1);
+            var third = rankInfo.ElementAtOrDefault(2);
+            <li class="fl">
+                <img src="/content/img/num1.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { first == null ? "/content/img/default/unknow.png" : first.UserIcon }, DefaultCover.usericon)" alt=""><br>
+                <span>@(first == null ? "暂无" : first.UserNickName)</span>
+            </li>
+            <li class="fl two-three">
+                <img src="/content/img/num2.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { second == null ? "/content/img/default/unknow.png" : second.UserIcon }, DefaultCover.usericon)" alt=""><br>
+                <span>@(second == null ? "暂无" : second.UserNickName)</span>
+            </li>
+            <li class="fl two-three">
+                <img src="/content/img/num3.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { third == null ? "/content/img/default/unknow.png" : third.UserIcon }, DefaultCover.usericon)" alt=""><br>
+                <span>@(third == null ? "暂无" : third.UserNickName)</span>
+            </li>
+
+        }
+        else
+        {
+            <li class="fl">
+                <img src="/content/img/num1.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { "/content/img/default/unknow.png" }, DefaultCover.usericon)" alt=""><br>
+                <span>暂无</span>
+            </li>
+            <li class="fl two-three">
+                <img src="/content/img/num2.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { "/content/img/default/unknow.png" }, DefaultCover.usericon)" alt=""><br>
+                <span>暂无</span>
+            </li>
+            <li class="fl two-three">
+                <img src="/content/img/num3.png" alt=""><br>
+                <img class="person" src="@Html.RenderImage(new string[] { "/content/img/default/unknow.png" }, DefaultCover.usericon)" alt=""><br>
+                <span>暂无</span>
+            </li>
+        }
+
+        <li class="mine box fr">
+            @if (Model.UserRankInfo == "未登录")
+            {
+                <img class="person" src="/content/img/default/unknow.png" alt=""><br>
+            }
+            else
+            {
+                <img class="person" src="@Html.RenderImage(new string[] { Model.UserIcon }, DefaultCover.usericon)" alt=""><br>
+            }
+            <span>我 · @(Model.UserRankInfo)</span>
+        </li>
+    </ul>
+
+    <ol class="box">
+        @if (recentPresentList.Success)
+        {
+            foreach (var item in recentPresentList.Data)
+            {
+                <li>
+                    <span>@item.UserNickName：</span>
+                    <img src="@Html.RenderImage(new string[] { item.PropsIcon }, DefaultCover.novelprops)" alt="">
+                    <span>x</span>
+                    <span>@item.PropsCount</span>
+                </li>
+            }
+        }
+    </ol>
+
+    <span class="More_chapters 	mine_flatter" title="">我要捧场</span>
+</div>
+
+<!-- 捧场弹窗 -->
+<div class="detail_mask " style="display:none;"></div>
+<div class="Famous_for_mask bw clear" style="display:none;">
+    <img class="fr close" src="/content/img/close_login.png" alt="">
+    <p>捧场</p>
+    <ul class="box">
+        @if (novelProp.Success)
+        {
+            var i = 1;
+            foreach (var item in novelProp.Data)
+            {
+                <li class="box clear">
+                    <p>
+                        <img src="@Html.RenderImage(new string[] { item.Icon, item.SmallIcon,item.LargeIcon }, DefaultCover.novelprops)" alt="">
+                        @item.Name<span>@item.Fee</span> @(ViewBag.SiteSection.Html.FeeName)/个
+                    </p>
+                    <span class="fr flatter">
+                        <input type="radio" checked="@(i== 1 ? "checked":"" )" id="@i" name="props" value="@item.Id" des="@item.Description" />
+                        <label class="@(i == 1 ? "checked" : "unchecked")" data-id="@i"></label>
+                    </span>
+                </li>
+                i++;
+            }
+        }
+    </ul>
+    <div class="goods_num">
+        <p class="box">
+            数量
+            <span class="reduction choosenum" id="subNum">-</span>
+            <span class="nummm">
+                <input id="propNum" class="" type="number" value='1'>
+            </span>
+            <span class="addnum choosenum" id="addNum">+</span>
+        </p>
+    </div>
+    <div class="leave_message box">        
+        @if (novelProp.Success)
+        {
+        <span>留言</span>
+        <span id="propDescription">@novelProp.Data.FirstOrDefault().Description</span>
+        }
+    </div>
+
+    <div id="addPresent" class="Famousmask_btn">捧场</div>
+</div>
+
+<script>
+    $(function () {
+        // 弹窗样式
+        $('li[class="box clear"]').click(function () {
+            var childLabel = $(this).find('label');
+            var radioId = childLabel.data('id');
+            $('label').not(childLabel).removeClass('checked').addClass('unchecked');
+            childLabel.removeClass('unchecked').addClass('checked');
+            $('input[type="radio"]').removeAttr('checked');
+            $('#' + radioId).attr('checked', 'checked');
+            // radio值
+            var val = $('#' + radioId).attr('value');
+            $('#propDescription').text($('#' + radioId).attr('des'));
+            $('#propNum').val("1");
+        });
+
+        $('#propNum').keyup(function () {
+            var reg = /^\d{0,2}$/;
+            if (!reg.test($(this).val())) {
+                $(this).val('1');
+            }
+        });
+
+        $('#addNum').click(function () {
+            var propNum = parseInt($('#propNum').val());
+            $('#propNum').val(propNum + 1);
+        });
+
+        $('#subNum').click(function () {
+            var propNum = parseInt($('#propNum').val());
+            if (propNum > 0)
+                $('#propNum').val(propNum - 1);
+        });
+
+        // 弹窗蒙板
+        $('.mine_flatter').click(function () {
+            $.post("/present/add", null, function (result) {
+                if (result.ErrorCode == 10410) {
+                    $('.detail_mask').show();
+                    $('.Famous_for_mask').show();
+                }
+                else if (result.ErrorCode == 10110) {
+                    window.location.href = "@StringHelper.GetReturnUrl("/login",channelId:channelId)";
+                }
+            });
+        })
+        $('.close').click(function () {
+            $('.detail_mask').hide();
+            $('.Famous_for_mask').hide();
+        })
+
+        $('#addPresent').click(function () {
+            var novelId = '@Model.NovelId';
+            var propsId = $('input[type="radio"][checked="checked"]').val();
+            var propsCount = $('#propNum').val();
+            var message = $('#propDescription').text();
+
+            $.ajax({
+                url: '/present/add',
+                type: "post",
+                data: { NovelId: novelId, PropsId: propsId, PropsCount: propsCount, Message: message },
+                success: function (result) {
+                    if (result.Success) {
+                        $.tips({ message: "捧场成功！" });
+                        window.location.reload(true);
+
+                    } else {
+                        //捧场失败
+                        if (result.ErrorCode == 10242) {
+                            $.tips({ message: "您的余额不足，请充值" });
+                            window.location.href = "/order/recharge";
+                        }
+                        else
+                            $.tips({ message: result.Message });
+                    }
+                },
+                error: function (err) {
+                    $.tips({ message: "捧场失败，请重试" });
+                }
+            });
+        });
+    })
+</script>   

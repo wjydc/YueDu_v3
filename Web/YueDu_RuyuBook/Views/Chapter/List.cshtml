@@ -1,0 +1,76 @@
+﻿@using Component.Base;
+@model NovelChapterView
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var novelInfo = Model.NovelInfo.Data;
+    var novelTitle = novelInfo.Title;
+    var chapterList = Model.ChapterList.Data;
+    var pageInfo = Model.PageInfo;
+    var sort = Model.Sort;
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+    ViewBag.Title = string.Format("{0}最新章节列表_{0}全文阅读，{0}txt全集下载_{1}", novelTitle, siteName);
+    string channelId = ViewBag.ChannelId;
+    int asc = (int)Constants.SortDirection.asc;
+    int desc = (int)Constants.SortDirection.desc;
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+}
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)@(novelTitle)最新章节,@(novelTitle)txt下载" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)本站提供@(novelTitle)最新章节列表免费在线阅读,包括@(novelTitle)txt下载,@(novelTitle)全文阅读,更多@(novelTitle)txt全集下载尽在@(siteName)。" />
+}
+@section styles{
+    @Styles.Render("~/Content/directory")
+}
+
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+@{
+    if (Model.NovelInfo.Success)
+    {
+
+        @section header{
+            @{
+                Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView(novelInfo.Title));
+            }
+        }
+
+        if (Model.ChapterList.Success)
+        {
+            <div class="directory_detail box">
+                <p class="bw clear"><span class="fl">共 @pageInfo.RowCount 章</span><span class="fr"><a href="@(string.Format("/chapter/list?novelid={0}&sort={1}", novelInfo.Id, (sort == asc ? desc : asc)).GetChannelRouteUrl(channelId))">@(sort == (int)Constants.SortDirection.asc ? "倒序" : "正序")</a></span></p>
+                <p>正文</p>
+                <ul class="box">
+                    @foreach (var item in chapterList)
+                    {
+                        <li class="box">
+
+                            <a href="@(ChapterContext.GetUrl("/chapter/detail", item.NovelId, item.ChapterCode, channelId: channelId))">
+                                <span>@Html.RenderText(item.ChapterName)</span>
+                                @if (item.ChapterCode >= novelInfo.FreeChapterCount && novelInfo.FeeType > (int)Constants.Novel.FeeType.free)
+                                {
+                                    <img src="/content/img/v.png" alt="" />
+                                }
+                            </a>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+                    Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(pageInfo.RowCount, "/chapter/list", parameters: new { novelId = novelInfo.Id, sort = sort }));
+        }
+    }
+}
+
+@{Html.RenderAction("GuessLike", "Recommend", new { classId = Model.RecClassId });}
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('chapter/list', 'chapterListRefererrLog');
+        })
+    </script>
+}

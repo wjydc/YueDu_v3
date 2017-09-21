@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="bw">
+    <div class="error_wrap box">
+        <img src="/Content/img/error2.png" alt="">
+        <p class="error_title">@ViewBag.ErrorMessage</p>
+        <p class="error_warm">哎呦~页面被外星人劫持了！</p>
+        <a class="error_operation " href="@(string.IsNullOrEmpty(ViewBag.ReturnUrl) ? "javascript:window.history.go(-1);" : ViewBag.ReturnUrl)" title="">
+            <img src="/Content/img/refresh.png" alt="">返回
+        </a>
+        <a class="error_operation " href="/" title="">
+            <img src="/Content/img/home.png" alt="">首页
+        </a>
+    </div>
+</body>
+
+@section scripts{
+<script>
+	$(function(){
+		$('.error_wrap a').click(function(){
+			$('.error_wrap a').removeClass('erroractivity');
+			$(this).addClass('erroractivity');
+		})
+	})
+</script>
+}

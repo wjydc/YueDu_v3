@@ -1,0 +1,94 @@
+﻿@model SimpleResponse<UsersView>
+@{
+    ViewBag.Title = "个人中心";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userInfo = Model.Data;
+    string channelId = ViewBag.ChannelId;
+    bool isMicroMessenger = StringHelper.GetUserAgent().ToLower().Contains("micromessenger");
+    bool isAutoLoginInMicroMessenger = (isMicroMessenger && StringHelper.ToBool(ViewBag.SiteSection.Auth.IsAutoLoginInMicroMessenger));
+}
+
+@section styles{
+    @Styles.Render("~/Content/userCenter")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("个人中心"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+@if (Model.Success)
+{
+	<!-- 返回个人中心提示 -->
+	<div class="back_index box" style="display:none;" id="divHomeTip">
+		<span>返回首页</span>
+	</div>
+    
+    <div class="personal_nickname bw box">
+        <img src="@Html.RenderImage(new string[] { userInfo.Icon  },DefaultCover.usericon)" alt="">
+        <br>@userInfo.NickName
+    </div>
+
+    <div class="personal_account bw box">
+        <div class="personal_accounting">
+            <img src="/content/img/person.png" alt="">
+            <span>账号：</span>
+            <span>@userInfo.UserName</span>
+            @*<span class="copy">&nbsp;&nbsp;复制</span>*@
+        </div>
+        <div class="personal_balance clear">
+            <img src="/content/img/money.png" alt="">
+            <span>余额：</span>
+            <span class="copy">@userInfo.Fee</span>
+            <span>@(ViewBag.SiteSection.Html.FeeName)</span>
+            <a class="personal_recharge fr" href="/order/recharge">充值</a>
+        </div>
+    </div>
+
+    <div class="personal_record box bw">
+        <a href="@("/order/RechargeRecord".GetChannelRouteUrl(channelId))" class="recordin clear">
+            <img src="/content/img/recharge.png" alt="">
+            <span>充值记录</span>
+            <img class="fr" src="/content/img/arrow_left.png" alt="">
+        </a>
+        <a href="@("/user/ConsumeRecords".GetChannelRouteUrl(channelId))" class="recording clear">
+            <img src="/content/img/consumption.png" alt="">
+            <span>打赏记录</span>
+            <img class="fr" src="/content/img/arrow_left.png" alt="">
+        </a>
+        <a href="@("/recentread/index".GetChannelRouteUrl(channelId))" class="clear">
+            <img src="~/Content/img/reading.png" />
+            <span>最近阅读</span>
+            <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+        </a>
+    </div>
+
+    <div class="personal_back bw"@(isAutoLoginInMicroMessenger ? " style=\"display:none;\"" : "")>
+        <a href="@("/user/logout".GetChannelRouteUrl(channelId))">退出登录</a>
+    </div>
+
+}
+@section scripts{
+    @Scripts.Render("~/bundles/cookie")
+
+    <script type="text/javascript">
+        $(function () {
+            showHomeTip();
+            $("#divHomeTip").click(function () {
+                $("#divHomeTip").hide();
+                $.cookie("homeIconTip", 1);
+            });
+        });
+        function showHomeTip() {
+            var homeIconTip = $.cookie("homeIconTip");
+            if (homeIconTip == undefined) {
+                $("#divHomeTip").show();
+            }
+        }
+    </script>
+}

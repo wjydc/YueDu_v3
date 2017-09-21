@@ -1,0 +1,165 @@
+﻿@model SimpleResponse<IEnumerable<CommentView>>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var commentList = Model.Data;
+    int novelId = ViewBag.NovelId;
+    ViewBag.Title = ViewBag.NovelTitle + "_留言列表-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+    int pageIndex = ViewBag.PageIndex;
+}
+@section styles{
+    @Styles.Render("~/Content/bookComment")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("书评区"));
+    }
+}
+
+<div class="read_detail_content box more_review">
+    <div class="Review_area bw mb">
+        <p class="box total_title">全部书评 </p>
+
+        @if (Model.Success)
+        {
+            <ul class="Review_area_uls">
+                @foreach (var comment in commentList)
+                {
+                    <li class="clear box">
+                        <div class="statue fl">
+                            <img src="@Html.RenderImage(new string[] { comment.UserIcon }, DefaultCover.usericon)" alt="">
+                        </div>
+
+                        <div class=" clear Review_messae">
+                            <div class="clear box">
+                                <p class="fl">@comment.UserNickName</p>
+                                <p class="fr">
+                                    @comment.ReplyCount<span>
+                                        <a href="@(("/comment/detail?commentId=" + comment.Id).GetChannelRouteUrl(channelId))">
+                                            <img src="/content/img/message.png" alt="">
+                                        </a>
+                                    </span>
+                                </p>
+                            </div>
+                            <p class="timing">@comment.AddTime.ToString("yyyy-MM-dd HH:mm")</p>
+
+                            <p class="Gift_giving">
+                                @if (comment.PropsId > 0 && comment.PropsCount > 0)
+                                {
+                                    <span class="descript jin">精</span>
+
+                                    if (comment.UserType == (int)Constants.UserType.author)
+                                    {
+                                        <span class="descript ding">顶</span>
+                                    }
+                                    <span class="Gift">
+                                        [赠送]：<img class="giving" src="@Html.RenderImage(new string[] { comment.PropsIcon }, DefaultCover.novelprops)" alt="">
+                                        × @comment.PropsCount 礼物给作者
+                                    </span>
+                                }
+                            </p>
+
+                            <p>@Server.HtmlDecode(comment.Message)</p>
+                        </div>
+                    </li>
+                }
+            </ul>
+                {
+                    Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(ViewBag.RowCount, "/Comment/list", parameters: new { novelId = novelId }));
+                }
+        }
+        else
+        {
+            <div class="no_comment box">
+                <img src="/content/img/comment0.png" alt="" />
+                <br />
+                快来抢沙发吧~
+            </div>
+        }
+
+        @if (ViewBag.IsOpen)
+        {
+            <div class="add_comment">
+                <img src="/content/img/comment.png" alt="">
+                <span>发表评论</span>
+            </div>
+        }
+    </div>
+</div>
+@if (ViewBag.IsOpen)
+{
+    <!-- 回复遮罩层 -->
+    <div class="mask"></div>
+    <div class="Text_input box">
+        <p>
+            <span class="cancle">取消</span>
+            <span class="send">发表</span>
+        </p>
+        <div class="send_area box">
+            <p>
+                <span></span>
+                <span>谈谈对本书的看法 ：</span>
+            </p>
+
+            <textarea name="" style='resize: none;'></textarea>
+        </div>
+    </div>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('comment/list', 'commentListRefererrLog');
+
+            $('.add_comment').click(function () {
+                $('.Text_input').show();
+                $('.mask').show()
+            })
+            $('.cancle').click(function () {
+                $('.Text_input').hide();
+                $('.mask').hide();
+                $('textarea').val('');
+            })
+
+            // 发送信息
+            var html = '';
+            $('.send').click(function () {
+                var message = $('textarea').val();
+                if (message == '') {
+                    $.tips({ message: "评论不能为空" });
+                    $('textarea').focus();
+                } else {
+
+                    $.ajax({
+                        url: '/comment/send',
+                        type: "post",
+                        data: { message: message, novelId: "@novelId" },
+                        success: function (result) {
+                            if (result.Success) {
+                                $.tips({ message: '评论成功' });
+                                window.location.reload();
+
+                            } else {
+                                //评论失败
+                                if (result.ErrorCode == 10110) {
+                                    window.location.href = "@StringHelper.GetReturnUrl("/login",channelId:channelId)";
+                                }
+                                else {
+
+                                    $.tips({ message: '充值用户三天后可评论' });
+                                }
+                            }
+                        },
+                        error: function (err) {
+                            $.tips({ message: '评论失败，请重试' });
+                        }
+                    });
+
+                }
+
+            });
+
+        })
+    </script>
+}

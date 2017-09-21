@@ -1,0 +1,69 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "网站登录";
+    string channelId = ViewBag.ChannelId;
+    bool isShowQQ = StringHelper.ToBool(ViewBag.SiteSection.Auth.IsShowQQ);
+    bool isShowWeibo = StringHelper.ToBool(ViewBag.SiteSection.Auth.IsShowWeibo);
+    bool isShowWeChat = StringHelper.ToBool(ViewBag.SiteSection.Auth.IsShowWeChat);
+    int showIndex = 0;
+    string showClass = "";
+    if (isShowQQ)
+    {
+        showIndex++;
+    }
+    if (isShowWeibo)
+    {
+        showIndex++;
+    }
+    if (isShowWeChat)
+    {
+        showIndex++;
+    }
+    if (showIndex == 2)
+    {
+        showClass = "twoways";
+    }
+    else if (showIndex == 3)
+    {
+        showClass = "threeways";
+    }
+}
+
+@section styles{
+    @Styles.Render("~/Content/login")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("登录", showBookmark: false));
+    }
+}
+
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+<div class="login bw">
+    <p>建议您使用以下方式一键登录（点图标）</p>
+    <!-- 2种登录方式twoways
+            3种登录方式threeways
+            4种登录方式fourways
+         -->
+    <div class="login_way @(showClass)">
+        @{
+            bool isWeiXin = StringHelper.GetUserAgent().ToLower().Contains("micromessenger");
+        }
+        <a href="@((isWeiXin ? "/WeChat/Login?returnUrl=" + Model : "/wechat/scanlogin?returnUrl=" + Model).GetChannelRouteUrl(channelId))" @Html.Raw(isShowWeChat ? "" : " style=\"display:none;\"")>
+            <img src="/content/img/wechat_login.png" alt=""><br />微信
+        </a>
+        <a href="@(("/QQ/Login?returnUrl=" + Model).GetChannelRouteUrl(channelId))" @Html.Raw(isShowQQ ? "" : " style=\"display:none;\"")>
+            <img src="/content/img/qq_logo.png" alt=""><br />QQ
+        </a>
+        <a href="@(("/Weibo/Login?returnUrl=" + Model).GetChannelRouteUrl(channelId))" @Html.Raw(isShowWeibo ? "" : " style=\"display:none;\"")>
+            <img src="/content/img/sina_logo.png" alt=""><br />微博
+        </a>
+    </div>
+</div>

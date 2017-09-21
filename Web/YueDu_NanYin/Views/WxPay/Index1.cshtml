@@ -1,0 +1,59 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string channelId = ViewBag.ChannelId;
+    string orderId = StringHelper.ToString(ViewBag.OrderId);
+}
+
+@section styles{
+    @Styles.Render("~/Content/WxPay")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("微信扫码支付"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+
+<div class="wechart_pay bw box">
+    <p>扫码支付（微信长按可付款）</p>
+    <img class="we_logo" src="@ViewData.Model" alt="">
+    <p class="warm_tip">温馨提示：</p>
+    <div class="warm_tip_list">
+        <p>1. 如果当前您在微信中阅读，直接长按识别图中二维码即可付款。</p>
+        <p>
+            2. 如果您使用的是浏览器，请先保存二维码图片（截图
+            或者直接保存），然后使用微信扫一扫功能→相册→扫
+            描二维码付款。
+        </p>
+    </div>
+
+    <a href="@("/recentread/index".GetChannelRouteUrl(channelId))">支付扫码完成<img src="/Content/img/backred.png" alt=""></a>
+</div>
+<script>
+    if ('@orderId' != '') {
+        setInterval(query, 5000);
+        function query() {
+            $.ajax({
+                url: '/order/result',
+                type: "post",
+                data: { orderId: '@orderId' },
+                success: function (result) {
+                    if (result.Success) {
+                        window.location.href = result.Data.returnUrl;
+                    }
+                },
+                error: function (err) {
+                    $.tips({ message: "出错了，请重试" });
+                }
+            });
+        }
+    }
+</script>

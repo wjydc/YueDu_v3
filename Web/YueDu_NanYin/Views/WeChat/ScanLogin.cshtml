@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "网站登录";
+    string winxinqr = ViewBag.SiteSection.Html.WeChatQrCode;
+    string wechatPubId = ViewBag.SiteSection.Service.WeChatPubId;
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("微信登录", showBookmark: false));
+    }
+}
+@section styles{
+    @Styles.Render("~/Content/login")
+}
+
+<div class="wechat_login bw">
+    <div class="wheat_logo">
+        <img src="@winxinqr.SpliceUrl("r", DateTime.Now.Date.ConvertTimeStamp())" alt="" />
+        <br>
+        亿万用户已选择微信账号登录
+    </div>
+    <div class="wechat_bg"></div>
+    <div class="Warm_prompt box bw">
+        <p class="prompt">温馨提示：</p>
+        <ul>
+            <li class="box"><span></span>您也可以关注@(wechatPubId)微信公众号登录</li>
+            <li class="box"><span></span>方法1：长按图片>保存手机>打开微信扫一扫>相册>扫描微信二维码登录</li>
+            <li class="box"><span></span>方法2：打开微信搜索“@(wechatPubId)”关注@(wechatPubId)微信公众号</li>
+            <li class="box"><span></span>点击公众号页面下方“阅读”>“继续阅读”,使用微信登录即可继续阅读当前阅读小说</li>
+            <li class="box"><span></span>点击首页右上方的“人像”按钮 , 选择“微信”账号登录，此时即可登录成功</li>
+        </ul>
+    </div>
+</div>
+

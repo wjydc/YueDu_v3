@@ -1,0 +1,53 @@
+﻿@model SimpleResponse<IEnumerable<RecommendView>>
+
+@{
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+    string title = Model.Success ? Model.Data.FirstOrDefault().RecClassName : "";
+    title = !string.IsNullOrEmpty(title) ? title : "三次元漫画";
+    ViewBag.Title = title + "-" + siteName;
+    string channelId = ViewBag.ChannelId;
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView(title));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+@section styles{
+    @Styles.Render("~/Content/additional")
+}
+<div class="library_list comic_cp bw box">
+    @{
+        if (Model.Success)
+        {
+            <ul>
+                @foreach (var item in Model.Data)
+                {
+                    <li>
+                        <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))" class="clear box">
+                            <div class="library_book fl">
+                                <img src="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="">
+                            </div>
+                            <div class="library_book_detail ">
+                                <p class="box first">
+                                    <span>@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</span><span>漫</span>
+                                </p>
+
+                                <p>最新： @(item.RecentChapterName)</p>
+                                <p>更新时间：@item.RecentChapterUpdateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                                <p>@StringHelper.CutString(Html.RenderText(new string[] { item.RecDescription.FilterHtmlTag(), item.ShortDescription.FilterHtmlTag() }), 20)</p>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="bg"></div>
+        }
+    }
+</div>

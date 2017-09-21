@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "联系客服";
+    string channelId = ViewBag.ChannelId;
+    string winxinqr = ViewBag.SiteSection.Html.WeChatQrCode;
+    string workhour = ViewBag.SiteSection.Service.WorkHour;
+    string email = ViewBag.SiteSection.Service.Email;
+    string qq = ViewBag.SiteSection.Service.QQ;
+    string wechat = ViewBag.SiteSection.Service.WeChat;
+    string wechatPubId = ViewBag.SiteSection.Service.WeChatPubId;
+}
+@section styles{
+    @Styles.Render("~/Content/payError")
+}
+<header class="common_detail box clear ">
+    <a class="back" href="javascript:history.go(-1);" title="">
+        <img src="~/Content/img/backblack.png" alt="">
+    </a>
+    <p>联系客服</p>
+</header>
+
+<div class="contactCS bw box">
+    <div class="contactCS_p box">
+        <p>工作时间：@workhour</p>
+        <p>客服邮箱：@email</p>
+        <p>客服QQ：@qq</p>
+        <p>微信公众号：@wechatPubId</p>
+    </div>
+    <div class="contactCS_wc">
+        <img src="~/Content/img/kfqr.jpg" alt="">
+        <p>长按二维码，联系公众号客服</p>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/libflexible")
+}

@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "支付失败";
+    string channelId = ViewBag.ChannelId;  
+    string reUrl=ViewBag.ReUrl;
+    string winxinqr = ViewBag.SiteSection.Html.WeChatQrCode;
+    }
+@section styles{
+    @Styles.Render("~/Content/payError")
+}
+
+    <header class="common_detail box clear ">
+        <a class="back" href="@(("/").GetChannelRouteUrl(channelId))" title="">
+            <img src="~/Content/img/backblack.png" alt="">
+        </a>
+        <p>支付失败</p>
+    </header> 
+    <div class="pay_error bw box">
+        <div class="error_icon">
+            <img src="/Content/img/cry.png" alt="">
+            <p>非常抱歉，支付未成功</p>
+        </div>
+        <div class="error_wchat">
+            <img src="~/Content/img/fwqr.png" alt="">
+            <p>如果你遇到不允许跨号支付问题或其他问题</p>
+            <p>请【长按上面识别二维码】进入公众号支付，更多热门独家小说和书友福利！</p>
+        </div>
+    </div>
+    <div class="pay_again">
+        <a class="red fl" href="@("/order/recharge".GetChannelRouteUrl(channelId))">重新支付</a>
+        <a class="blue fr" href="@("/notify/contact".GetChannelRouteUrl(channelId))">联系客服</a>
+    </div>
+@section scripts{
+    @Scripts.Render("~/bundles/libflexible")
+}

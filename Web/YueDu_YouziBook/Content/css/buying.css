@@ -1,0 +1,411 @@
+
+/*购买全本*/
+.buying{
+	width: 100%;
+	height: 100%;
+	padding-bottom: 2.34375rem;
+	background-color: #fff;
+	/*margin-bottom: 0.3125rem;*/
+}
+/*.buy_head{
+	min-height: 3.125rem;
+	padding:0 0.3125rem;
+}
+.buy_head_left{
+	width: 62.5%;
+}
+.buy_head_left p{
+	margin-top:0.3125rem;
+}
+.buy_head_left p:nth-child(1){
+	font-size: 0.375rem;
+}
+.buy_head_left p:nth-child(2){
+	width: 100%;
+	font-size:0.46875rem;
+	overflow: hidden;
+	height:0.625rem;
+	white-space: nowrap;  
+	text-overflow: ellipsis;
+}
+.buy_head_left p:nth-child(3){
+	font-size:0.28125rem;
+	color:#b3b3b3;
+}
+
+.buy_head_right{
+	/*width:3.125rem;
+	position: relative;
+    width: 2.8rem;
+    height: 2.8rem;
+    float: right;
+}
+
+.buy_head_right>img{
+	/*width: 0.59375rem;
+	height: 0.625rem;
+	position: absolute;
+	top: 0;
+	right: 0.15625rem;
+    width: 0.59375rem;
+    height: 0.625rem;
+    float: right;
+}
+
+.buy_dd_bookcase{
+	width: 2.421875rem;
+	color:#fff;
+	background: url(../img/message_box.png) no-repeat;
+	background-position: top right;
+	background-size: 100% 100%;
+	position: absolute;
+	top:0.78125rem;
+	right: 0;
+    width: 2.421875rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    color: #fff;
+    background: url(../img/message_box.png) no-repeat;
+    background-position: top right;
+    background-size: 100% 100%;
+    float: right;
+    margin-top: 0.1rem;
+    margin-left: 0.7rem;
+}
+.buy_dd_bookcase span{
+	min-width: 80%;
+	text-align: center;
+	display: inline-block;
+	height:0.859375rem;
+	line-height:0.9375rem;
+	font-size:0.34375rem;
+}
+.buy_head_right div:last-child{
+	/*position: absolute;
+	right: 0;
+	top:1.875rem;
+    float: right;
+    margin-top: 0.42rem;
+}
+
+.buy_head_right div:last-child img{
+	/*width: 0.78125rem;
+	height: 0.78125rem;
+	margin-left: 0.09375rem;
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-left: 0.12rem;
+}*/
+
+
+.buy_book_content{
+	font-size: 0.375rem;
+	min-height: 3.59375rem;
+	padding: 0 0.3125rem 0.625rem;
+	color:rgb(83,83,83);
+}
+
+.buy_book_content p{
+	text-indent: 0.75rem;
+	padding: 0.15625rem 0;
+	line-height:0.625rem;
+}
+
+/*充值*/
+
+.top_up_rechagre{
+	padding:0 3.125% 0.46875rem;
+    width:100%;
+    float:left;
+    margin-top:0.5rem;
+}
+
+.top_up_rechagre p{
+	font-size: 0.375rem;
+	color:#666666;
+	margin-top: 0.3125rem;
+}
+
+.top_up_rechagre p span{
+	color: #ff5c4d;
+}
+
+.top_up_rechagre_btn{
+	display: block;
+	text-align: center;
+	width: 93.75%;
+	height: 0.9375rem;
+	line-height: 0.9375rem;
+	font-size: 0.4375rem;
+	color: #fff;
+	background-color:#ff5c4d;
+	border-radius: 0.15625rem;
+	margin: 0 auto;
+	/*margin:0.3125rem auto 0.625rem; */
+}
+.top_up_rechagre_btn span{
+	font-size:0.34375rem;
+}
+.buying_recommend{
+	padding: 0 0.3125rem;
+	/*border-top:0.015625rem solid #d7d7d7;*/
+	
+}
+
+.buying_recommend>p{
+	font-size: 0.4375rem;
+	padding:0.46875rem 0 ;
+}
+.buying_recommend ul li{
+	border-bottom: 0.015625rem dashed #d7d7d7;
+	height: 0.9375rem;
+	line-height:0.9375rem;
+	font-size: 0.375rem;
+}
+.buying_recommend ul li a{
+	color:#ff5c4d;
+}
+
+/*章节切换·*/
+.change_charpeter{
+	padding:0.9375rem  0.3125rem 1.09375rem;
+}
+
+.change_charpeter ol{
+	/*display: flex;
+	justify-content: space-between;*/
+}
+.change_charpeter ol li{
+	width:30%;
+	border:1px solid #d7d7d7;
+	border-radius: 0.15625rem;
+	
+}
+.change_charpeter ol li:nth-child(2){
+	margin: 0 5%;
+}
+.change_charpeter ol li a{
+	display: block;
+	height: 0.859375rem;
+	line-height: 0.859375rem;
+	text-align: center;
+	font-size: 0.4375rem;
+}
+
+.buy_weixin{
+	text-align: center;
+}
+
+.buy_weixin p:nth-child(1){
+	font-size: 0.4375rem;
+	margin-bottom: 0.3125rem;
+}
+.buy_weixin p:nth-child(2){
+	font-size:0.34375rem;
+	color:#b3b3b3;
+}
+
+.buy_weixin img{
+	width: 2.96875rem;
+	height: 2.96875rem;
+	margin: 0.46875rem auto 1.25rem;
+}
+
+/*购买章节下的文字*/
+.buy_chapter_des{
+	
+}
+.buy_chapter_des p{
+	text-align: left;
+	font-size: 0.3125rem;
+	
+	padding-left: 0.3125rem;
+	color: #b3b3b3;
+}
+
+
+.buy_complete_des {
+    width: 100%;
+    float: left;
+    text-align: left;
+    overflow: hidden;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.buy_complete_des a{
+	font-size: 0.4375rem;
+	color: #ff5c4d;
+}
+
+.buy_complete_des a img{
+	width: 0.1875rem;
+	height: 0.359375rem;
+	vertical-align: middle;
+	margin-left: 0.15625rem;
+	margin-top: -0.078125rem;
+}
+
+/*章节是免费的，或者已经购买过了 显示购买全本*/
+.buy_all{
+	width: 100%;
+	display: block;
+	text-align: center;
+	font-size: 0.4375rem;
+	color: #ff5c4d;
+	margin-top:-0.3125rem;
+	min-height:0.9375rem;
+}
+.buy_all img{
+	margin-left: 0.15625rem;
+}
+
+.Download_now{
+	width: 100%;
+	height:1.5625rem;
+	background:rgba(0,0,0,0.6);
+	position: fixed;
+	bottom:0;
+	z-index: 5;
+}
+
+.Download_now_left{
+	/*height:1.5625rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 0.3125rem;
+	color: #fff;*/
+}
+.Download_now_left img{
+	vertical-align: middle;
+	margin-right: 0.15625rem;
+}
+.Download_now_left img:nth-child(1){
+	width: 0.46875rem;
+	height: 0.46875rem;
+	margin-right: 0.3125rem;
+}
+
+.Download_now_left img:nth-child(2){
+	width:1.09375rem;
+	height: 1.09375rem;
+}
+.Download_now_left p span:nth-child(1){
+	font-size: 0.4375rem;
+}
+.Download_now_left p span:nth-child(2){
+	font-size: 0.3125rem;
+}
+
+
+.Download_now_right{
+	width: 2.5rem;
+	height: 0.78125rem;
+	background-color: #f34232;
+	color: #fff;
+	border-radius: 0.15625rem;
+	text-align:center;
+	line-height: 0.78125rem;
+	/*margin-top:0.390625rem;
+	margin-right: 0.46875rem;*/
+}
+
+
+.warn_login{
+	width:7.0rem;
+	height: 3.59375rem;
+	background-color: #fff;
+	border-radius: 0.3125rem;
+	position: fixed;
+	z-index: 20;
+	top:40%;
+	left:50%; 
+	margin-left: -3.5rem;
+	text-align: center;
+	font-size: 0.40625rem;
+	padding-top: 0.9375rem;
+	display: none;
+}
+
+
+.warn_login  img{
+	position: absolute;
+	top:0.15625rem;
+	right: 0.3125rem;
+	width:0.3125rem;
+	height:0.3125rem;
+}
+
+.warn_login  a{
+	display: block;
+	margin:  0 auto;
+	width:4.921875rem;
+	height:1.09375rem;
+	background-color: #ff5c4d;
+	color: #fff;
+	line-height: 1.09375rem;
+	border-radius:0.15625rem;
+	font-size: 0.46875rem;
+	margin-top: 0.46875rem; 
+}
+
+
+
+
+
+/*夜间模式样式*/
+
+.backColor{background-color: #1a1a1a}
+.textColor{color:#787878;}
+.headBackcolor{background-color:#e1e1e1}
+.libackColor{
+	background-color: #d4d4d4;
+	color: #000;
+}
+.buyAdd{
+	background:url("../img/message_boxnight.png") no-repeat;
+	color: #000;
+	background-size:100% 100%;
+}
+
+
+
+
+
+.new_reading{
+	padding:0.3125rem 0;
+}
+
+.buy_charpter_account{
+	padding:0 0.3125rem 0.3125rem;
+	font-size:0.375rem;
+    width:100%;
+    float:left;
+}
+.buy_charpter_account>p{
+	color: #666;
+}
+.buy_charpter_account>p span{
+	color:#ff5c4d; 
+}
+.buy_charpter_account a{
+	color:#ff5c4d; 
+	font-size: 0.375rem;
+}
+
+.buy_charpter_account a img{
+	width: 0.15625rem;
+	height: 0.34375rem;
+	vertical-align: middle;
+	margin-left: 0.15625rem;
+	margin-top: -0.078125rem;
+}
+
+
+
+
+
+
+

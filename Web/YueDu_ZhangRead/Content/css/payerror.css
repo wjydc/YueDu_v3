@@ -1,0 +1,110 @@
+body,html{
+	background-color: #fff;
+}
+
+.contactCS{
+	margin:1.25rem auto ;
+	font-size:0.4075rem;
+	color: #666;
+	/*padding: 0 1.25rem;*/
+	overflow: hidden;
+}
+.contactCS .contactCS_p {
+	display:table;
+	width:7.2rem;
+	margin: 0 auto;
+
+}
+.contactCS .contactCS_p p{
+	margin-bottom: 0.15625rem;
+}
+.contactCS_wc{
+	margin: 0.78125rem auto 0;
+	text-align: center;
+	font-size:0.4075rem;
+}
+
+.contactCS_wc img{
+	width:180px;
+	height:180px;
+	margin-bottom: 0.234375rem;
+}
+
+
+/*支付失败*/
+.pay_error{
+	text-align: center;
+}
+.error_icon{
+	height:3.125rem;
+	background-color: #c9c9c9;
+	color:#fff;
+	font-size: 0.46875rem;
+	text-align: center;
+}
+.error_icon img{
+	width:1.25rem;
+	height:1.25rem;
+	margin:0.46875rem auto 0.15625rem
+}
+
+
+.error_wchat{
+	padding: 0 0.3125rem;
+}
+
+.error_wchat img{
+	width:150px;
+	height:150px;
+	margin: 0.59375rem auto;
+}
+.error_wchat p:nth-child(2){
+	font-size: 0.40625rem;
+	color:#FF5C4D;
+	margin-bottom: 0.234375rem;
+}
+
+.error_wchat p:nth-child(3){
+	font-size:0.375rem;
+	color:#333;
+	text-align: left;
+}
+
+.pay_again{
+	padding:30px  0.625rem;
+	overflow: hidden;
+}
+
+.pay_again a{
+	display: inline-block;
+	width:125px;
+	height:38px;
+	color:#fff;
+	font-size:18px;
+	border-radius: 0.15625rem;
+	text-align: center;
+	line-height:38px;
+}
+.red{
+	background-color: #FF5C4D
+}
+.blue{
+	background-color: #60A6E4;
+}
+
+
+
+.enter-Index{
+	text-align: center;
+	font-size: 0.40625rem;
+	
+}
+.enter-Index a{
+	color:#ff5c4d;
+}
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "充值";
+    string channelId = ViewBag.ChannelId;
+}
+@section styles{
+    @Styles.Render("~/Content/wxIndex")
+}
+<link href="~/Content/wx/css/index.css" rel="stylesheet" />
+<div class="wrap">
+    <p>
+        <span>可爱的书友们，由于微信升级，</span><br>
+        <span>如充值时提示“不允许跨号支付”</span>
+    </p>
+    <p>请按照如下操作方式进行充值哦</p>
+    <div class="step">
+        <p>第一步：点击充值页面右上方“...”按钮</p>
+        <div class="step_img">
+            <img src="~/Content/wx/css/1.png" />
+        </div>
+
+    </div>
+
+    <div class="step">
+        <p>第二步：点击“在聊天中置顶”按钮</p>
+        <div class="step_img">
+            <img src="~/Content/wx/css/2.png" />
+        </div>
+    </div>
+
+    <div class="step">
+        <p>第三部：回到微信首页点击聊天最顶部的链接，即可继续完成充值</p>
+        <div class="step_img">
+            <img src="~/Content/wx/css/3.png" />
+        </div>
+    </div>
+    <p>给大家带来的不便我们深表歉意。</p>
+</div>
+<a class="btn" href="@("/order/recharge".GetChannelRouteUrl(channelId))">返回</a>
+

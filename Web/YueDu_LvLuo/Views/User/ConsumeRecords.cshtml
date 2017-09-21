@@ -1,0 +1,43 @@
+﻿@model SimpleResponse<IEnumerable<ConsumeView>>
+
+@{
+    ViewBag.Title = "消费记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    @Styles.Render("~/Content/consumeRecords")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("消费记录"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+<!-- 打赏 -->
+<div class="consumption_records recharge_records box">
+    @if (Model.Success)
+    {
+        <ul class="box">
+            @foreach (var item in Model.Data)
+            {
+                <li>
+                    <p>@item.PropsName<span class="consumption_num">（@(item.Fee)@(ViewBag.SiteSection.Html.FeeName)）</span></p>
+                    <p class="clear">
+                        <span class="fl">《@(item.NovelTitle)》</span>
+                        <span class="fr">@item.AddTime</span>
+                    </p>
+                </li>
+            }
+            
+        </ul>
+        }
+    @{
+        Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(StringHelper.ToInt(ViewBag.rowCount), ""));
+    }
+</div>
+
+<div class="bg"></div>

@@ -1,0 +1,217 @@
+﻿@model BookFreeView
+
+@{
+    ViewBag.Title = "免费小说-" + ViewBag.SiteSection.Html.SiteName;
+    var limitfree_endtime = Model.LimitFreeList.Success ? Model.LimitFreeList.Data.FirstOrDefault().EndTime : new DateTime();
+    string channelId = ViewBag.ChannelId;
+}
+
+@section styles{
+    @Styles.Render("~/Content/additional")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("免费专区"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+<div class="free_zone">
+    <!-- 限时免费 -->
+    @if (Model.LimitFreeList.Success)
+    {
+        <div class="Limited_time_free bw box margb">
+            <div class="common_title free_zone_title">
+                限时免费
+                <span class="day">0</span>:
+                <span class="hours">00</span>:
+                <span class="min">00</span>:
+                <span class="second">00</span>
+            </div>
+            @foreach (var item in Model.LimitFreeList.Data.Take(1))
+            {
+                <div class="recommended_detail clear box ">
+                    <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))">
+                        <div class="r_d_l fl">
+                            <img src="@Html.RenderImage(new string[] { item.PackageCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="@item.NovelTitle">
+                        </div>
+                        <div class="r_d_r">
+                            <p class="r_d_r_title">
+                                @Html.RenderText(new string[] { item.PackageTitle, item.NovelTitle })
+                            </p>
+                            <p class="r_d_r_content">
+                                @Html.RenderText(new string[] { item.PackageShortSummary.FilterHtmlTag(), item.ShortDescription.FilterHtmlTag() })
+                            </p>
+                            <div class="r_d_r_message" id='free_zone_des'>
+                                @if (!string.IsNullOrEmpty(item.ClassName))
+                                { <span class="box">@StringHelper.CutString(item.ClassName, 2)</span> }
+                                <span class="box">@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                                @if (!string.IsNullOrEmpty(item.ShortWordSize))
+                                { <span class="box">@(item.ShortWordSize)字</span> }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            <ul class="free_book">
+                @foreach (var item in Model.LimitFreeList.Data.Skip(1))
+                {
+                    <li>
+                        <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))">
+                            <img src="@Html.RenderImage(new string[] { item.Cover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="">
+                            <br>
+                            @Html.RenderText(new string[] { item.Title, item.NovelTitle })
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- 免费新书 -->
+    @if (Model.NewFreeList.Success)
+    {
+        //免费新书
+        IEnumerable<RecommendView> newFree = Model.NewFreeList.Data as IEnumerable<RecommendView>;
+        <div class="free_zone_book Editor_pushing Limited_time_free bw box">
+            <div class="common_title box">
+                @(!string.IsNullOrEmpty(newFree.FirstOrDefault().RecClassName) ? newFree.FirstOrDefault().RecClassName : "免费新书")
+            </div>
+            <ul>
+                @foreach (var item in newFree)
+                {
+                    <li class="box">
+                        <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))">
+                            <div class="recommended_detail clear box ">
+                                <div class="r_d_l fl">
+                                    <img src="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="@item.NovelTitle">
+                                </div>
+                                <div class="r_d_r">
+                                    <p class="r_d_r_title">
+                                        @Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })
+                                    </p>
+                                    <p class="r_d_r_content">
+                                        @Html.RenderText(new string[] { item.RecDescription.FilterHtmlTag(), item.ShortDescription.FilterHtmlTag() })
+                                    </p>
+                                    <div class="r_d_r_message" id='free_zone_des'>
+                                        @if (!string.IsNullOrEmpty(item.ClassName))
+                                        { <span class="box">@StringHelper.CutString(item.ClassName, 2)</span> }
+                                        <span class="box">@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                                        @if (!string.IsNullOrEmpty(item.ShortWordSize))
+                                        { <span class="box">@(item.ShortWordSize)字</span> }
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- 热门免费 -->
+    @if (Model.HotFreeList.Success)
+    {
+        //热门免费
+        IEnumerable<RecommendView> hotFree = Model.HotFreeList.Data as IEnumerable<RecommendView>;
+        <div class="free_zone_book free_zone_hot Editor_pushing Limited_time_free bw box">
+            <div class="common_title box">
+                @(!string.IsNullOrEmpty(hotFree.FirstOrDefault().RecClassName) ? hotFree.FirstOrDefault().RecClassName : "热门免费")
+            </div>
+            <ul>
+                @foreach (var item in hotFree)
+                {
+                    <li class="box">
+                        <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))">
+                            <div class="recommended_detail clear box ">
+                                <div class="r_d_l fl">
+                                    <img src="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="">
+                                </div>
+                                <div class="r_d_r">
+                                    <p class="r_d_r_title">
+                                        @Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })
+                                    </p>
+                                    <p class="r_d_r_content">
+                                        @Html.RenderText(new string[] { item.RecDescription.FilterHtmlTag(), item.ShortDescription.FilterHtmlTag() })
+                                    </p>
+                                    <div class="r_d_r_message">
+                                        @if (!string.IsNullOrEmpty(item.ClassName))
+                                        { <span class="box">@StringHelper.CutString(item.ClassName, 2)</span>}
+                                        <span class="box">@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                                        @if (!string.IsNullOrEmpty(item.ShortWordSize))
+                                        { <span class="box">@(item.ShortWordSize)字</span>}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/libflexible")
+    <script type="text/javascript">
+        // 限时免费倒计时
+        function show_time() {
+            var time_start = new Date().getTime();
+            var time_end = new Date("@(limitfree_endtime)").getTime();
+            var time_distance = time_end - time_start;
+            if (time_distance > 0) {
+                var int_day = Math.floor(time_distance / 86400000)
+                time_distance -= int_day * 86400000;
+                var int_hour = Math.floor(time_distance / 3600000)
+                time_distance -= int_hour * 3600000;
+                var int_minute = Math.floor(time_distance / 60000)
+                time_distance -= int_minute * 60000;
+                var int_second = Math.floor(time_distance / 1000)
+                if (int_day < 10) {
+                    int_day = "0" + int_day;
+                }
+                if (int_hour < 10) {
+                    int_hour = "0" + int_hour;
+                }
+                if (int_minute < 10) {
+                    int_minute = "0" + int_minute;
+                }
+                if (int_second < 10) {
+                    int_second = "0" + int_second;
+                }
+                $(".day").html(int_day);
+                $(".hours").html(int_hour);
+                $(".min").html(int_minute);
+                $(".second").html(int_second);
+                setTimeout("show_time()", 1000);
+            } else {
+                $(".day").html('00');
+                $(".hours").html('00');
+                $(".min").html('00');
+                $(".second").html('00');
+            }
+        }
+        show_time()
+
+        // 热门推荐
+        function textmore() {
+            var _this = $('.r_d_r_content');
+            var max = 50;
+            for (var i = 0; i < _this.length; i++) {
+                var tempText = $.trim(_this.eq(i).text()).replace(" ", "");
+                if (tempText.length > max) {
+                    _this.eq(i).text(tempText.substring(0, max))
+                    _this.eq(i).html(_this.eq(i).html() + '...')
+                } else {
+                    _this.eq(i).html(tempText)
+                }
+            }
+        }
+        textmore();
+    </script>
+}

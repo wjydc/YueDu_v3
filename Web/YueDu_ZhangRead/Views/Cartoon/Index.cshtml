@@ -1,0 +1,227 @@
+﻿@using Component.Base;
+@model CartoonView
+@{
+    ViewBag.Title = "漫画-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+}
+@section styles{
+    @Styles.Render("~/Content/cartoonIndex")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("漫画专区"));
+    }
+}
+
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+<!-- 内容 -->
+<div class="commic_zone content ">
+    <!-- 轮播 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @if (Model.HeadADList.Success)
+            {
+                foreach (var item in Model.HeadADList.Data)
+                {
+                    int funcType = item.FunctionType;
+                    string href = UIHelper.GetADUrl(funcType, item.FId, channelId, item.FCode, item.Url);
+
+                    <a href="@href" @(Html.Raw(funcType == (int)Constants.AdFuncTypeName.超链接 ? "target='_blank'" : "")) class="swiper-slide">
+                        <img src="@Html.RenderImage(new string[] { @item.Cover }, DefaultCover.ad)" alt="" />
+                    </a>
+
+                }
+            }
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- 分类导航 -->
+    <div class="detail_nav box bw mh">
+        <ul class="box">
+            <li>
+                <a href="@(("/book/list?cType=" + ((int)Constants.Novel.ContentType.漫画)).GetChannelRouteUrl(channelId))">
+                    <img src="/Content/img/fenlei.png" alt="">
+                    <br>
+                    分类
+                </a>
+            </li>
+            <li>
+                <a href="@("/cartoon/rank".GetChannelRouteUrl(channelId))">
+                    <img src="/Content/img/paihang.png" alt="">
+                    <br>
+                    排行
+                </a>
+            </li>
+            <li>
+                <a href="@("/book/search".GetChannelRouteUrl(channelId))">
+                    <img src="/Content/img/sousuo.png" alt="">
+                    <br>
+                    搜索
+                </a>
+            </li>
+            <li>
+                <a href="@(("/recentread/index?cType=" + ((int)Constants.Novel.ContentType.漫画)).GetChannelRouteUrl(channelId))">
+                    <img src="/Content/img/duguo.png" alt="">
+                    <br>
+                    读过
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 新作速递 -->
+    @if (Model.FavRecList.Success)
+    {
+        var favRecList = Model.FavRecList.Data;
+        
+        <div class="commic_book bw margb">
+            <div class="common_title">
+                @(!string.IsNullOrEmpty(favRecList.FirstOrDefault().RecClassName) ? favRecList.FirstOrDefault().RecClassName : "新作速递")
+            </div>
+            <ul>
+                @foreach (var item in favRecList)
+                {
+                    <li>
+                        <a href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))">
+                            <img data-echo="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" src="~/Content/img/default/book.png" alt=" ">
+                            <br />
+                            <span class="box">@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    <!-- 人气推荐 -->
+    @if (Model.HotRecList.Success)
+    {
+        var hotRecList = Model.HotRecList.Data;
+
+        <div class="Limited_time_free bw box margb">
+            <div class="common_title">
+                @(!string.IsNullOrEmpty(hotRecList.FirstOrDefault().RecClassName) ? hotRecList.FirstOrDefault().RecClassName : "人气推荐")
+            </div>
+            @foreach (var item in hotRecList.Take(1))
+            {
+                <div class="recommended_detail clear box ">
+                    <a href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))">
+                        <div class="r_d_l fl">
+                            <img data-echo="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" src="~/Content/img/default/book.png" alt="">
+                        </div>
+                        <div class="r_d_r">
+                            <p class="r_d_r_title">
+                                @Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })
+                            </p>
+                            <p class="r_d_r_content">
+                                @Html.RenderText(new string[] { item.RecDescription.FilterHtmlTag(), item.ShortDescription.FilterHtmlTag() })
+                            </p>
+                            <div class="r_d_r_message" id='free_zone_des'>
+                                @if (!string.IsNullOrEmpty(item.ClassName))
+                                { <span class="box">@(StringHelper.CutString(item.ClassName, 2))</span> }
+                                <span class="box">@(item.UpdateStatus == (int)Constants.Novel.UpdateStatusName.连载中 ? "连载" : "完结")</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+            <ul class="free_book">
+                @foreach (var item in hotRecList.Skip(1))
+                {
+                    <li>
+                        <a href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))">
+                            <img data-echo="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" src="~/Content/img/default/book.png" alt="">
+                            <br>
+                            @Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    <!-- 大图分割 -->
+    @if (Model.MiddleADList.Success)
+    {
+        <div class="free_logo margb">
+            @foreach (var item in Model.MiddleADList.Data)
+            {
+                int funcType = item.FunctionType;
+                string href = UIHelper.GetADUrl(funcType, item.FId, channelId, item.FCode, item.Url);
+
+                <a href="@href" @(Html.Raw(funcType == (int)Constants.AdFuncTypeName.超链接 ? "target='_blank'" : ""))>
+                    <img data-echo="@Html.RenderImage(new string[] { item.Cover }, DefaultCover.ad)" src="~/Content/img/default/banner.png" alt="" />
+                </a>
+            }
+        </div>
+    }
+    <!-- 三次元漫画[可配置] -->
+    @if (Model.ThreeRecList.Success)
+    {
+        var ThreeRec = Model.ThreeRecList.Data;
+
+        <div class="Hot_zone comic_hot box bw margb ">
+            <div class="common_title box">
+                @(!string.IsNullOrEmpty(ThreeRec.FirstOrDefault().RecClassName) ? ThreeRec.FirstOrDefault().RecClassName : "三次元漫画")
+            </div>
+            <ul class="Hot_zone_list clear box">
+                @foreach (var item in ThreeRec)
+                {
+                    <li class="fl">
+                        <a href="/book/detail?novelId=@item.NovelId">
+                            <img data-echo="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" src="~/Content/img/default/book.png" alt="">
+                            <br>
+                            @Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })
+                        </a>
+                    </li>
+                }
+            </ul>
+            <a href="@("/cartoon/cp".GetChannelRouteUrl(channelId))" class="enter">查看更多</a>
+        </div>
+    }
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/dist", "~/bundles/echo")
+    <script type="text/javascript">
+        $(function () {
+
+            echo.init({
+                offset: 100,
+                throttle: 20,
+                unload: false,
+                callback: function (element, op) {
+                    console.log(element, 'has been', op + 'ed')
+                }
+            });
+
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                autoplay: 3200,
+                loop: true,
+                autoplayDisableOnInteraction: false
+            });
+        });
+
+        // 热门推荐
+        function textmore() {
+            var _this = $('.r_d_r_content');
+            var max = 50;
+            for (var i = 0; i < _this.length; i++) {
+                var tempText = $.trim(_this.eq(i).text()).replace(" ", "");
+                if (tempText.length > max) {
+                    _this.eq(i).text(tempText.substring(0, max))
+                    _this.eq(i).html(_this.eq(i).html() + '...')
+                } else {
+                    _this.eq(i).html(tempText)
+                }
+            }
+        }
+        textmore();
+    </script>
+}

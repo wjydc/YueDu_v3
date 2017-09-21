@@ -1,0 +1,161 @@
+﻿@using Component.Base;
+@model AudioView
+
+@{
+    ViewBag.Title = "听书-" + ViewBag.SiteSection.Html.SiteName;
+    var book = Model ?? new AudioView();
+    string channelId = ViewBag.ChannelId;
+}
+
+@section styles{
+    @Styles.Render("~/Content/additional")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("听书专区"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+@*<div class="listening_zone_ordering bw">
+        <ul class="box">
+            <li>
+                <a href="#">
+                    <img src="/Content/img/sourse.png" alt=""><br>
+                    资源丰富
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/Content/img/quality.png" alt=""><br>
+                    品质精良
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/Content/img/price.png" alt=""><br>
+                    价格优惠
+                </a>
+            </li>
+        </ul>
+
+        @{
+            if (!Model.IsPackageOrder)
+            {
+                if (Model.UserBalance >= Model.AllAudioFee)
+                {
+                    <a id="Monthly_order" class="Monthly_order" href="#">
+                        <span>包月订购</span>
+                        <span>（@(Model.AllAudioFee) @(ViewBag.SiteSection.Html.FeeName)/月）</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="Monthly_order" href="/order/recharge">
+                        <span>包月订购</span>
+                        <span>（@(Model.AllAudioFee) @(ViewBag.SiteSection.Html.FeeName)/月）</span>
+                    </a>
+                }
+            }
+            else
+            {
+                <a class="Monthly_order" href="/">
+                    <span>已包月</span>
+                    <span></span>
+                </a>
+            }
+        }
+
+        <div class="buy_complete_des">
+            <p>温馨提示：</p>
+            <p><span class="box olcircle"></span>订购“听书专区”包月后，站内所有听书内容在订购期内不再收费。</p>
+            <p><span class="box olcircle"></span>站点的小说内容不包含在“听书专区”包月内</p>
+        </div>
+    </div>*@
+<!-- /*听书列表*/ -->
+<div class="listening_reconmond bw">
+    @{
+        if (Model.HotRecList.Success)
+        {
+            var hotRecList = Model.HotRecList.Data;
+
+            <div class="common_title box bw">
+                @(!string.IsNullOrEmpty(hotRecList.FirstOrDefault().RecClassName) ? hotRecList.FirstOrDefault().RecClassName : "热门推荐")
+            </div>
+            <ul class="box bw">
+                @{
+            int index = 0;
+            foreach (var item in hotRecList)
+            {
+                ++index;
+                <li class="clear box">
+                    <a href="@(string.Format("/book/detail?novelId={0}", item.NovelId).GetChannelRouteUrl(channelId))">
+                        <span class="fl">@(index)</span>
+                        <span class="fl">@(Html.RenderText(new string[] { item.RecTitle, item.NovelTitle }))</span>
+                        <img class="fr" src="/Content/img/arrow_left.png" alt="">
+                    </a>
+                </li>
+            }
+                }
+            </ul>
+        }
+        <div class="listening_see_more box">
+            <a class=" box" href="@(string.Format("/book/list?cType={0}", (int)Constants.Novel.ContentType.听书).GetChannelRouteUrl(channelId))">查看更多</a>
+        </div>
+    }
+</div>
+
+<!-- 弹层 -->
+<div class="mask">
+</div>
+<!-- 包月订购弹窗 -->
+<!-- 删除确认 -->
+<div class="dele_sure box">
+    <p>确定购买？</p>
+    <span class="dele_sure_no">取消</span>
+    <span class="dele_sure_yes">确定</span>
+</div>
+
+<!-- 加入书架弹窗 -->
+<div class="small_tip">
+    购买成功
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+
+            // 包月订购弹窗
+            $('#Monthly_order').click(function () {
+                $('.dele_sure').show();
+                $('.mask').show()
+            })
+            $('.dele_sure_no').click(function () {
+                $('.dele_sure').hide();
+                $('.mask').hide();
+            })
+
+            var timer;
+            function hide() {
+                $('.small_tip').hide('1000')
+            }
+            function show() {
+                $('.small_tip').show("1500");
+            }
+            $('.dele_sure_yes').click(function () {
+                $('.mask').hide();
+                $(this).parent().hide();
+                show();
+                timer = setTimeout(hide, 1000)
+            })
+
+            $('.dele_sure_yes').click(function () {
+                window.location.href = "/order/AllAudioPackage";
+            })
+        })
+    </script>
+}

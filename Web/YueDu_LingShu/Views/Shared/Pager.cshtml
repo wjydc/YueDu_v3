@@ -1,0 +1,62 @@
+﻿@model ViewModel.IPagerInfo
+@using System.ComponentModel;
+@if (Model != null && Model.RowCount > 0)
+{
+    string cid = ViewBag.ChannelId;
+    int pageCount = Model.PageCount;
+    int pageIndex = !string.IsNullOrEmpty(Request.QueryString["PageIndex"]) ? Convert.ToInt32(Request.QueryString["PageIndex"]) : 1;
+
+    string strParameters = "?pageSize=" + Model.PageSize;
+    if (Model.Parameters != null)
+    {
+        foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Model.Parameters))
+        {
+            strParameters += string.Format("&{0}={1}", descriptor.Name, descriptor.GetValue(Model.Parameters));
+        }
+    }
+
+    string url = string.IsNullOrEmpty(Model.Url) ? Request.RawUrl : Model.Url + strParameters;
+    if (!cid.IsClearBlankNullOrEmpty(out cid))
+    {
+        url = url.GetChannelRouteUrl(cid);
+    }
+
+    <div class="Turn_page box">
+        <div class="previous_page fl box">
+            <a href="@(pageIndex <= 1 ? "javascript:void(0)" :  url.SpliceUrl("pageIndex", (pageIndex - 1)))" style="@(pageIndex == 1 ? "color:#d9d9d9" : "#353535") ">上一页</a>
+        </div>
+        <div class="page_num fl box">
+            <span class="choose_num">@pageIndex</span>/<span>@pageCount</span>
+            <img class="down" src="~/Content/img/down.png" alt="">
+            <select class="selects">
+                @for (int i = 1; i <= pageCount; i++)
+                {
+                    <option @(Html.Raw(pageIndex == i ? "selected='selected'" : "")) value="@(url.SpliceUrl("pageIndex", i.ToString()))">@(i)</option>
+                }
+            </select>
+        </div>
+        <div class="next_page fr box">
+            <a href="@(pageIndex >= pageCount ? "javascript:void(0)" : url.SpliceUrl("pageIndex", (pageIndex + 1)))" style="@(pageIndex == pageCount ? "color:#d9d9d9" : "") ">下一页</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('.selects').change(function () {
+                var num = $('.selects option:selected').text();
+                var link = $(this).val();
+                window.location.href = link;
+            })
+        })
+    </script>
+}
+else
+{
+    <div class="no_Review box">
+        <img src="~/Content/img/comment0.png" />
+        <br />
+        暂无数据~~~
+    </div>
+    @*<div style="text-align:center;">暂无数据</div>*@
+}

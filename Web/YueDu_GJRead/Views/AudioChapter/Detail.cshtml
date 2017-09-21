@@ -1,0 +1,77 @@
+﻿@model ChapterDetailView
+
+@{
+    Layout = null;
+    var book = Model ?? new ChapterDetailView();
+    string novelTitle = book.Novel.Data.Title;
+    string novelAuthor = book.Novel.Data.Author;
+    string chapterTitle = book.Chapter.Data.ChapterName;
+    ViewBag.Title = novelTitle + "-" + ViewBag.SiteSection.Html.SiteName;
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        @(novelTitle)-@(siteName)
+    </title>
+    <meta name="keywords" content="@(chapterTitle),@(novelTitle),@(siteName)" />
+    <meta name="description" content="@(novelTitle)小说由作者：@(StringHelper.ToInt(book.Novel.Data.IsHideAuthor) == 0 ? novelAuthor : "")原创,是难得一见的好书,在@(siteName)全面连载!欢迎大家免费收看:@(novelTitle)" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    @Styles.Render("~/Content/audio")
+    @Scripts.Render("~/bundles/audio")
+</head>
+<body oncontextmenu="return false" onselectstart="return false" onpaste="return false"
+      oncopy="return false" oncut="return false" onselectstart="return false" ondrag="return false ">
+    @{
+        if (Model.Novel.Success && Model.Chapter.Success)
+        {
+            Novel novel = Model.Novel.Data;
+            Chapter chapter = Model.Chapter.Data;
+            <div class="cdBox">
+                <div class="coverBox">
+                    <img src="@Html.RenderImage(new string[] { novel.ThumbCover, novel.SmallCover }, DefaultCover.noveldetail)" />
+                </div>
+            </div>
+            <div class="cdText">
+                @novel.Title - @chapter.ChapterName<br />
+                @if (StringHelper.ToInt(novel.IsHideAuthor) == 0) 
+                {
+                    <span>主播：@novel.Author</span>
+                }
+            </div>
+            <div class="controlBox">
+                <div id="playContent">
+                    <div onclick="myControl.selectTime(event)" id="progressWrap">
+                        <div id="progress" style="display: block; width: 2px;"></div>
+                        <div class="timeBox"><span id="currentTime"></span><span id="totleTime"></span></div>
+                    </div>
+                </div>
+                <ul>
+                    <li class="fl">
+                        <a id="prevButton" class="prev @(Model.IsPreChapterCode ? "" : "gray")" href="@(Model.IsPreChapterCode ? Model.PreChapterUrl : "javascript:void(0);")"></a>
+                    </li>
+                    <li class="playbg fl">
+                        <a id="playButton" onclick="myControl.mainControl()" class="play"></a>
+                    </li>
+                    <li class="fr">
+                        <a id="nextButton" class="next @(Model.IsNextChapterCode ? "" : "gray")" href="@(Model.IsNextChapterCode ? Model.NextChapterUrl : "javascript:void(0);")"></a>
+                    </li>
+                </ul>
+            </div>
+            <audio id="myMusic">
+                <source src="@Model.ChapterAudioUrl" type="audio/ogg" />
+                <source src="@Model.ChapterAudioUrl" type="audio/mpeg" />
+            </audio>
+        }
+    }
+    @Scripts.Render("~/bundles/audioplay")
+    @RenderPage("~/Views/Shared/Statistics.cshtml")
+</body>
+</html>

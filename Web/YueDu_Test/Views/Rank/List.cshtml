@@ -1,0 +1,261 @@
+﻿@model  RankView
+
+@{
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+    ViewBag.Title = "排行-" + siteName;
+    int rankIndex = 1;
+    var GirlsTitle = Model.GirlsList.Success ? Model.GirlsList.Data.FirstOrDefault().RecClassName : "女生榜";
+    var BoysTitle = Model.BoysList.Success ? Model.BoysList.Data.FirstOrDefault().RecClassName : "男生榜";
+    string channelId = ViewBag.ChannelId;
+    bool isShowMale = StringHelper.ToBool(ViewBag.SiteSection.Class.IsShowMale);
+    bool isShowFemale = StringHelper.ToBool(ViewBag.SiteSection.Class.IsShowFemale);
+}
+@section styles{
+    @Styles.Render("~/Content/ranklist")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("排行"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+@if (isShowMale && isShowFemale)
+{
+    <div class="directory_tab ranking_btn box bw">
+        <span class="directory_novel tabactivity  fl">@(!string.IsNullOrEmpty(GirlsTitle) ? GirlsTitle : "女生榜")</span>
+        <span class="directory_comic bbr fl tab_second">@(!string.IsNullOrEmpty(BoysTitle) ? BoysTitle : "男生榜")</span>
+        <span class="directory_comic bbr fr">综合榜</span>
+    </div>
+}
+
+<!-- 书本展示 -->
+<!-- 女生 -->
+@if (isShowFemale)
+{
+    <div class="ranking_show female" @Html.Raw(!isShowFemale ? " style=\"display:none;\"" : "")>
+        @if (Model.GirlsList.Success)
+        {
+            <ul class="box bw">
+                @foreach (var item in Model.GirlsList.Data.Take(3))
+                {
+                    <li class="fl">
+                        <a class="box" href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))">
+                            <img class="ranknum" src="~/Content/img/rank@(rankIndex++).png" alt="">
+                            <img class="rankpic" src="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt=" ">
+                            <br>
+                            <span>@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <ol class="box bw">
+                @{rankIndex = 3;}
+                @foreach (var item in Model.GirlsList.Data.Skip(3))
+                {
+                    <li class="clear">
+                        <a href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))" title="">
+                            <p class="fl">@(++rankIndex)</p>
+                            <p class="fl">@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</p>
+                            <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                        </a>
+                    </li>
+                }
+            </ol>
+        }
+    </div>
+}
+<!-- 男生 -->
+@if (isShowMale)
+{
+    <div class="ranking_show male" @Html.Raw(!isShowMale ? " style=\"display:none;\"" : "")>
+        @if (Model.BoysList.Success)
+        {
+            <ul class="box bw">
+                @{rankIndex = 1;}
+                @foreach (var item in Model.BoysList.Data.Take(3))
+                {
+                    <li class="fl">
+                        <a class="box" href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))">
+                            <img class="ranknum" src="~/Content/img/rank@(rankIndex++).png" alt="">
+                            <img class="rankpic" src="@Html.RenderImage(new string[] { item.RecCover, item.ThumbCover, item.SmallCover }, DefaultCover.recommend)" alt="">
+                            <br>
+                            <span>@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <ol class="box bw">
+                @{rankIndex = 3;}
+                @foreach (var item in Model.BoysList.Data.Skip(3))
+                {
+                    <li class="clear">
+                        <a href="@(("/book/detail?novelId=" + item.NovelId).GetChannelRouteUrl(channelId))" title="">
+                            <p class="fl">@(++rankIndex)</p>
+                            <p class="fl">@Html.RenderText(new string[] { item.RecTitle, item.NovelTitle })</p>
+                            <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                        </a>
+                    </li>
+                }
+            </ol>
+        }
+    </div>
+}
+<!-- 综合 -->
+<div class="ranking_show comprehensive" @Html.Raw(!(isShowMale && isShowFemale) ? " style=\"display:block;\"" : "")>
+    @{
+        if (Model.ClickList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">点击排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.ClickList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+    @{
+        if (Model.RewardList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">打赏排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.RewardList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+    @{
+        if (Model.FavoriteList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">收藏排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.FavoriteList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+    @{
+        if (Model.WordSizeList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">字数排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.WordSizeList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+    @{
+        if (Model.NewList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">新书排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.NewList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+    @{
+        if (Model.FinishList.Success)
+        {
+            <div class="ranking_show_detail bw">
+                <p class="comprehensive_title box bw">完本排行榜</p>
+                <ol class="box">
+                    @{rankIndex = 0;}
+                    @foreach (var item in Model.FinishList.Data)
+                    {
+                        <li class="clear">
+                            <a href="@(("/book/detail?novelId=" + item.Id).GetChannelRouteUrl(channelId))" title="">
+                                <p class="fl">@(++rankIndex)</p>
+                                <p class="fl">@item.Title</p>
+                                <img class="fr" src="~/Content/img/arrow_left.png" alt="">
+                            </a>
+                        </li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+</div>
+
+@section scripts{
+    @if (isShowMale && isShowFemale)
+    {
+        <script>
+            $(function () {
+                $('.directory_tab span').each(function (index, item) {
+                    var i = index;
+                    $(this).click(function () {
+                        $('.directory_tab span').css({
+                            'borderColor': 'transparent',
+                            'color': '#000'
+                        })
+                        $(this).css({
+                            'borderColor': '#ff5c4d',
+                            'color': '#ff5c4d'
+                        })
+                        $('.ranking_show').hide();
+                        $('.ranking_show').eq(i).show();
+
+                    })
+                })
+            })
+        </script>
+    }
+}

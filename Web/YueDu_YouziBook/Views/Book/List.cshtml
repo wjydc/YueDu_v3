@@ -1,0 +1,166 @@
+﻿@model BookListView
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "免费小说书库_小说书库-" + ViewBag.SiteSection.Html.SiteName;
+
+    var novelType = (int)Constants.Novel.ContentType.小说;
+    var audioType = (int)Constants.Novel.ContentType.听书;
+    var comicType = (int)Constants.Novel.ContentType.漫画;
+    var serial = (int)Constants.Novel.UpdateStatus.serial;
+    var end = (int)Constants.Novel.UpdateStatus.end;
+    var free = (int)Constants.Novel.FeeTypeFilter.free;
+    var fee = (int)Constants.Novel.FeeTypeFilter.fee;
+    var newest = (int)Constants.Novel.SortBy.newest;
+    var hot = (int)Constants.Novel.SortBy.hot;
+    var bookClass = Model.NovelClassList;
+    var bookList = Model.BookList;
+    var cType = Model.CType;
+    var classId = Model.ClassId;
+    var updateStatus = Model.UpdateStatus;
+    var feeType = Model.FeeType;
+    var sort = Model.Sort;
+
+    string url = Request.RawUrl;
+    string channelId = ViewBag.ChannelId;
+    bool isShowAudio = StringHelper.ToBool(ViewBag.SiteSection.Class.IsShowAudio);
+    bool isShowCartoon = StringHelper.ToBool(ViewBag.SiteSection.Class.IsShowCartoon);
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+}
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)免费小说书库,小说书库,@(ViewBag.SiteSection.Html.SiteName)书库" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)@(ViewBag.SiteSection.Html.SiteName)书库包括:武侠仙侠,奇幻玄幻,科幻灵异,都市言情,穿越女频,青春校园,历史军事,网游竞技,职业官场等在线小说阅读下载!" />
+}
+@section styles{
+    @Styles.Render("~/Content/additional")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new HeaderView("书库"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+<!---分类导航--->
+<div class="library_classfiy bw margb box">
+    <div class="type clear box" @Html.Raw((isShowAudio || isShowCartoon) ? "" : "style=\"display:none;\"")>
+        <p class="fl"><img src="/content/img/classify.png" alt=""></p>
+        <ul>
+            <li>
+                <span>类型</span>
+                @*<a class="@(cType == null?"type_all":"")" href="/book/list">全部</a>*@
+                <a class="@(cType == novelType ? "type_all" : "")" href="@(string.Format("/book/list?ctype={0}", novelType).GetChannelRouteUrl(channelId))">小说</a>
+                <a class="@(cType == audioType ? "type_all" : "")" href="@(string.Format("/book/list?ctype={0}", audioType).GetChannelRouteUrl(channelId))" @Html.Raw(isShowAudio ? "" : "style=\"display:none;\"")>听书</a>
+                <a class="@(cType == comicType ? "type_all" : "")" href="@(string.Format("/book/list?ctype={0}", comicType).GetChannelRouteUrl(channelId))" @Html.Raw(isShowCartoon ? "" : "style=\"display:none;\"")>漫画</a>
+            </li>
+        </ul>
+    </div>
+    <div class="type clear box">
+        <p class="fl"><img src="/content/img/type.png" alt=""></p>
+        <ul>
+            <li>
+                <span>分类</span>
+                <a class="@(classId == 0?"type_all":"")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl( "classId", "").SpliceUrl("pageIndex", "1"))">全部</a>
+                @{
+                    if (bookClass.Success)
+                    {
+                        foreach (var item in bookClass.Data)
+                        {
+                            <a class="@(classId == item.Id ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("classId", @item.Id).SpliceUrl("pageIndex", "1"))">@item.ClassName</a>
+                        }
+                    }
+                }
+            </li>
+        </ul>
+    </div>
+    <div class="type clear box">
+        <p class="fl"><img src="/content/img/progress.png" alt=""></p>
+        <ul>
+            <li>
+                <span>进度</span>
+                <a class="@(updateStatus == 0 ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("updateStatus", "").SpliceUrl("pageIndex", "1"))">全部</a>
+                <a class="@(updateStatus == serial ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("updateStatus", serial).SpliceUrl("pageIndex", "1"))">连载</a>
+                <a class="@(updateStatus == end ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("updateStatus", end).SpliceUrl("pageIndex", "1"))">完结</a>
+            </li>
+        </ul>
+    </div>
+    <div class="type clear box">
+        <p class="fl"><img src="/content/img/attribute.png" alt=""></p>
+        <ul>
+            <li>
+                <span>属性</span>
+                <a class="@(feeType == 0 ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("feeType", "").SpliceUrl("pageIndex", "1"))">全部</a>
+                <a class="@(feeType == free ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("feeType", free).SpliceUrl("pageIndex", "1"))">免费</a>
+                <a class="@(feeType == fee ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("feeType", fee).SpliceUrl("pageIndex", "1"))">付费</a>
+            </li>
+        </ul>
+    </div>
+    <div class="type clear box">
+        <p class="fl"><img src="/content/img/sorting.png" alt=""></p>
+        <ul>
+            <li>
+                <span>排序</span>
+                <a class="@(sort == newest ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("sort", newest).SpliceUrl("pageIndex", "1"))">最新</a>
+                <a class="@(sort == hot ? "type_all" : "")" href="@(url.GetChannelRouteUrl(channelId).SpliceUrl("sort", hot).SpliceUrl("pageIndex", "1"))">点击</a>
+            </li>
+        </ul>
+    </div>
+</div>
+@{
+    if (bookList.Success)
+    {
+    <!---书籍列表-->
+        <div class="library_list bw box">
+            <ul>
+                @foreach (var item in bookList.Data)
+                {
+                    <li>
+                        <a href="@(string.Format("/book/detail?novelId={0}", item.Id).GetChannelRouteUrl(channelId))" class="clear box">
+                            <div class="library_book fl">
+                                <img src="@Html.RenderImage(new string[] { item.ThumbCover, item.SmallCover }, DefaultCover.novellist)" alt="">
+                            </div>
+                            <div class="library_book_detail">
+                                <p class="box">
+                                    <span>@Html.RenderText(item.Title)</span>
+                                    @if (item.ContentType == (int)Constants.Novel.ContentType.听书)
+                                    {<span class="listening">听</span>}
+                                    else if (item.ContentType == (int)Constants.Novel.ContentType.漫画)
+                                    {<span class="katong">漫</span>}
+                                </p>
+                                <p>
+                                    @if (!string.IsNullOrEmpty(item.ClassName))
+                                    { <span>@(StringHelper.CutString(item.ClassName, 2))</span> }
+                                    <span>@(item.UpdateStatus == (int)Constants.Novel.UpdateStatus.end ? "完结" : "连载")</span>                                   
+                                    @if (item.ContentType == (int)Constants.Novel.ContentType.小说 && !string.IsNullOrEmpty(item.ShortWordSize))
+                                    {<span>@(item.ShortWordSize)字</span>}
+                                </p>
+                                <p>@(!string.IsNullOrEmpty(item.RecentChapterName) ? "最新：" : "")@item.RecentChapterName</p>
+                                <p>更新时间：@item.RecentChapterUpdateTime.ToString("yyyy-MM-dd")</p>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+                Html.RenderPartial("~/Views/Shared/Pager.cshtml", new PagerInfo(Model.RowCount, ""));
+    }
+    else
+    {
+        <div class="no_Review box">
+            <img src="/content/img/comment0.png" alt="" />
+            <br />
+            暂无数据
+        </div>
+    }
+}
+@section scripts{
+    @Scripts.Render("~/bundles/goBack")
+    <script>
+        $(function () {
+            $.CustomBack('book/list', 'bookListRefererrLog');
+        })
+    </script>
+}

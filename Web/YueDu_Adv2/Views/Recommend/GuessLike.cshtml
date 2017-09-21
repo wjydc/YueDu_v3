@@ -1,0 +1,26 @@
+﻿@model SimpleResponse<IEnumerable<RecommendView>>
+@{
+    Layout = null;
+    string channelId = ViewBag.ChannelId;
+}
+
+<div class="Guess_like bw mb">
+    @if (Model.Success)
+    {
+        var recList = Model.Data;
+
+        <p class="box total_title">@(!string.IsNullOrEmpty(recList.FirstOrDefault().RecClassName) ? recList.FirstOrDefault().RecClassName : "猜你喜欢")</p>
+        <ul class="free_book box">
+            @foreach (var recommed in recList)
+            {
+                <li>
+                    <a href="@(string.Format("/book/detail?novelId={0}", recommed.NovelId).GetChannelRouteUrl(channelId))">
+                        <img src="@Html.RenderImage(new string[] { recommed.RecCover, recommed.ThumbCover, recommed.SmallCover }, DefaultCover.recommend)" alt="">
+                        <br>
+                        @recommed.NovelTitle
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>

@@ -1,0 +1,201 @@
+﻿@model SimpleResponse<List<RechargeView>>
+
+@{
+    ViewBag.Title = "账户充值-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+    bool isShowFailTip = StringHelper.ToBool(ViewBag.SiteSection.Pay.IsShowFailTip);
+}
+@section styles{
+    @Styles.Render("~/Content/consumeRecords")
+}
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView("充值"));
+    }
+}
+@section footer{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Footer.cshtml");
+    }
+}
+
+<div class="recharge_center">
+    <p class="recharge_account box">您的账户余额：<span>@(ViewBag.Fee)</span>@(ViewBag.SiteSection.Html.FeeName)</p>
+    <!-- 充值失败提示 -->
+    <a class="recharge_error" href="@(("/wx/index").GetChannelRouteUrl(channelId))"@Html.Raw(isShowFailTip ? "" : " style=\"display:none;\"")>充值失败?</a>
+    <div class="bg"></div>
+    <p class="box">选择支付方式：<span class="be_chooseed"></span></p>
+
+    @{
+        int index = 1;
+        if (Model.Success)
+        {
+            List<RechargeView> list = Model.Data;
+            <div class="recharge_tab box">
+                <div class="box">
+                    @foreach (var item in Model.Data)
+                    {
+                        <span class="@(index == 1 ? "tabactivity " : "bbr")" data-paytype="@item.PayInfo.PayType" @(index == 1 ? "data=payway" : "") data-fpaytype="@item.PayInfo.FPayType">@item.PayInfo.Name</span>
+                        index++;
+                    }
+                </div>
+            </div>
+            <div class="recharge_ways Sweep_WeChat">
+                <p class="box recharge_choose">选择支付金额：</p>
+
+                @{
+                    index = 1;
+                    foreach (var item in Model.Data)
+                    {
+                        <div class="payways" @(index == 1 ? " data=checked " : "") style="@(index==1?"":"display:none;")">
+                            <ul class="clear box ">
+                                @{int payItemIndex = 1;}
+                                @foreach (var payItem in item.PayItems)
+                                {
+                                    if (payItem.Fee >= 100)
+                                    {
+                                        <li class="fl box @(payItemIndex == 1 ? "moneyactivity" : "")" @(payItemIndex == 1 ? " data=checkedli " : "")>
+                                            <p data-fee="@(payItem.Fee)" data-id="@payItem.Id">¥@(payItem.Fee / 100)</p>
+                                            <span>@(payItem.Brief)</span>
+                                        </li>
+                                        payItemIndex++;
+                                    }
+                                }
+                            </ul>
+                            <p class="recharge_descript recharge_scale box">充值比例：1元=100@(ViewBag.SiteSection.Html.FeeName)</p>
+                            <p class="recharge_descript box">@item.PayInfo.Description</p>
+                        </div>
+                                index++;
+                    }
+                }
+                <a class="sure_pay" href="javascript:" id="btnPay" title="">确认支付</a>
+            </div>
+        }
+    }
+
+    <div class="bg"></div>
+    <a href="@(string.Format("/order/recharge?ut={0}", new Random().Next(1000, 10000)).GetChannelRouteUrl(channelId))">.</a>
+</div>
+
+<!-- 提示信息 -->
+<div class="recharge-tip" style="display:none;">
+    <div class="recharge-tip-detail box">
+        <p class="step1">
+            <span></span>
+            <img src="/Content/img/step1.png" alt="">
+        </p>
+        <p class="step2">
+            <span></span>
+            <img src="/Content/img/step2.png" alt="">
+        </p>
+        <p class="step3">
+            <img src="/Content/img/step3.png" alt="">
+        </p>
+
+
+    </div>
+    <p class="tip-know"></p>
+</div>
+
+
+
+@section scripts{
+@Scripts.Render("~/bundles/cookie")
+    <script>
+        $(function () {
+            showGuideTip();
+            function showGuideTip() {
+                var show_guide = $.cookie("order_show_guide");
+                if (parseInt(show_guide) > 0) {
+                } else {
+                    $(".recharge-tip").show();
+
+                    // 阻止蒙版后页面滑动
+                    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                        $("body,html").css("overflow", 'hidden');
+                        $(".recharge-tip").on('touchmove', function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                        })
+
+                        $('.tip-know').click(function () {
+                            $(this).parent().hide();
+                            $("body,html").css("overflow", 'visible');
+                            $.cookie("order_show_guide", 1, { expires: 30 });
+                        })
+                    } else {
+                        $("body").css("overflow", 'hidden');
+                        $('.tip-know').click(function () {
+                            $(this).parent().hide();
+                            $("body").css("overflow", 'visible');
+                            $.cookie("order_show_guide", 1, { expires: 30 });
+                        })
+                    }
+                }
+            }
+
+            //默认显示第一项
+            $(".be_chooseed").text($(".recharge_tab.box span").eq(0).text());
+
+            $('.recharge_tab span').each(function (index, item) {
+                var i = index;
+                $(this).click(function () {
+                    $('.recharge_tab span').css({
+                        'borderColor': 'transparent',
+                        'color': '#000'
+                    })
+                    $('.recharge_tab span').removeAttr('data');
+                    $(this).css({
+                        'borderColor': '#ff5c4d',
+                        'color': '#ff5c4d'
+                    })
+                    $('.payways').hide();
+                    $('.payways').removeAttr('data');
+                    $('.payways').eq(i).show();
+                    $('.payways').eq(i).attr('data', 'checked');
+                    $(this).attr('data', 'payway');
+                    $('.be_chooseed').html($(this).text());
+                })
+            })
+
+            $('.recharge_ways ul li').click(function (event) {
+                $(this).parent().children("li").css({ 'color': '#333333', 'backgroundColor': '#fff' })
+                $(this).parent().children("li").removeAttr('data');
+                $(this).parent().children("li").find('span').css('color', '#ff5c4d');
+                $(this).css({ 'color': '#fff', 'backgroundColor': '#ff5c4d' });
+                $(this).find('span').css('color', '#fff');
+                $(this).attr('data', 'checkedli');
+            });
+
+            // 确认支付按钮输出被选项
+            $('#btnPay').click(function () {
+                var choosedSpan = $('.recharge_tab span[data=payway]');
+                var payType = choosedSpan.attr("data-paytype");
+                var fPayType = choosedSpan.attr("data-fPayType");
+                var choosedP = $('.payways[data=checked] li[data=checkedli] p');
+                var fee = choosedP.attr("data-fee");
+                var id = choosedP.attr("data-id");
+
+                var ut = getQueryString("ut");
+                var returnUrl = getQueryString("returnUrl");
+
+                var url = '@("/recharge/pay".GetChannelRouteUrl(channelId))?pt=' + payType + "&money=" + fee + "&fpt=" + fPayType + "&fcid=" + id;
+                if (ut != null) {
+                    url = url + "&ut=" + ut;
+                }
+                if (returnUrl != null) {
+                    url = url + "&returnUrl=" + returnUrl;
+                }
+
+                window.location.href = url;
+            })
+
+        })
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-cn" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    @Scripts.Render("~/bundles/libflexible/css")
+    @Scripts.Render("~/bundles/libflexible")
+
+    <title>@ViewBag.Title</title>
+    @RenderSection("headerMeta", false)
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    @Styles.Render("~/Content/common")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/tips")
+</head>
+<body @RenderSection("bodyEvent", required: false)>
+    @RenderSection("header", false)
+    @RenderBody()
+    @RenderSection("footer", false)
+</body>
+@RenderSection("scripts", required: false)
+@RenderSection("pageScripts", required: false)
+@RenderPage("~/Views/Shared/Statistics.cshtml")
+</html>

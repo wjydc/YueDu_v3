@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C0CC5838-0B6F-4ECD-90A4-D07244E3E1A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Component</RootNamespace>
+    <AssemblyName>Component</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Pay\WeChat\dll\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.3990.25764, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Pay\WeChat\dll\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Auth\QQConnect.cs" />
+    <Compile Include="Auth\WeChatConnect.cs" />
+    <Compile Include="Auth\WeiboConnect.cs" />
+    <Compile Include="Base\ChapterContext.cs" />
+    <Compile Include="Base\ChapterDetailManage.cs">
+      <DependentUpon>ChapterContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\ChapterPagerManage.cs">
+      <DependentUpon>ChapterContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\ChapterPreviewManage.cs">
+      <DependentUpon>ChapterContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\DataContext.cs" />
+    <Compile Include="Base\ChapterRedirectManage.cs">
+      <DependentUpon>ChapterContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\PayContext.cs" />
+    <Compile Include="Base\RecentReadContext.cs" />
+    <Compile Include="Config\AuthSectionHandler.cs">
+      <DependentUpon>BaseSectionHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\BaseSectionHandler.cs" />
+    <Compile Include="Config\PaySectionHandler.cs">
+      <DependentUpon>BaseSectionHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\RecSectionHandler.cs">
+      <DependentUpon>BaseSectionHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\SiteSectionHandler.cs">
+      <DependentUpon>BaseSectionHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Auth\ConnectController.cs" />
+    <Compile Include="Controllers\Auth\QQConnectController.cs">
+      <DependentUpon>ConnectController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Auth\WeChatConnectController.cs">
+      <DependentUpon>ConnectController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Auth\WeiboConnectController.cs">
+      <DependentUpon>ConnectController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Log\ErrorLogController.cs" />
+    <Compile Include="Controllers\Log\LogInfoController.cs" />
+    <Compile Include="Controllers\Novel\ChapterDetailController.cs" />
+    <Compile Include="Controllers\Novel\ChapterPagerController.cs" />
+    <Compile Include="Controllers\Novel\ChapterRedirectController.cs" />
+    <Compile Include="Controllers\Novel\DetailController.cs" />
+    <Compile Include="Controllers\Novel\ChapterPreviewController.cs" />
+    <Compile Include="Controllers\Pay\PrePayController.cs" />
+    <Compile Include="Controllers\User\HeaderInfoController.cs" />
+    <Compile Include="Controllers\User\LoginedController.cs" />
+    <Compile Include="Controllers\User\UserInfoController.cs" />
+    <Compile Include="Controllers\User\CreateUserController.cs" />
+    <Compile Include="Filter\ActionFilter.cs" />
+    <Compile Include="Filter\AjaxRequest.cs" />
+    <Compile Include="Filter\Authorization.cs" />
+    <Compile Include="Filter\BaseExceptionFilter.cs">
+      <DependentUpon>ExceptionFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filter\ExceptionFilter.cs" />
+    <Compile Include="Handler\FilterModule.cs" />
+    <Compile Include="Pay\Alipay\AlipayConfig.cs" />
+    <Compile Include="Pay\Alipay\AlipayCore.cs" />
+    <Compile Include="Pay\Alipay\AlipayNotify.cs" />
+    <Compile Include="Pay\Alipay\AlipaySubmit.cs" />
+    <Compile Include="Pay\Alipay\MD5.cs" />
+    <Compile Include="Pay\Alipay\RSA.cs" />
+    <Compile Include="Pay\NowPay\NowPayConfig.cs" />
+    <Compile Include="Pay\WxPay\business\JsApiPay.cs" />
+    <Compile Include="Pay\WxPay\business\NativeNotify.cs" />
+    <Compile Include="Pay\WxPay2\business\JsApiPay.cs" />
+    <Compile Include="Pay\WxPay2\business\NativeNotify.cs" />
+    <Compile Include="Pay\WxPay2\business\ResultNotify.cs" />
+    <Compile Include="Pay\WxPay\business\ResultNotify.cs" />
+    <Compile Include="Pay\WxPay\lib\Config.cs" />
+    <Compile Include="Pay\WxPay\lib\Data.cs" />
+    <Compile Include="Pay\WxPay\lib\Exception.cs" />
+    <Compile Include="Pay\WxPay\lib\HttpService.cs" />
+    <Compile Include="Pay\WxPay\lib\Log.cs" />
+    <Compile Include="Pay\WxPay\lib\Notify.cs" />
+    <Compile Include="Pay\WxPay2\lib\Config.cs" />
+    <Compile Include="Pay\WxPay2\lib\Data.cs" />
+    <Compile Include="Pay\WxPay2\lib\Exception.cs" />
+    <Compile Include="Pay\WxPay2\lib\HttpService.cs" />
+    <Compile Include="Pay\WxPay2\lib\Log.cs" />
+    <Compile Include="Pay\WxPay2\lib\Notify.cs" />
+    <Compile Include="Pay\WxPay2\lib\WxPayApi.cs" />
+    <Compile Include="Pay\WxPay\lib\WxPayApi.cs" />
+    <Compile Include="Pay\WxPay\QrCodeMaker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Base\CurrentContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cache\Cache.csproj">
+      <Project>{89d69636-a27a-4f00-8dd1-40c8b8a64835}</Project>
+      <Name>Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{53d75ba8-7a95-427d-8074-52e768d9ae5a}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{3bcaffad-792e-4f01-804f-24c51efe9d93}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{6d1820b1-2fa4-4f1d-8493-4656a7a21aaa}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
+      <Project>{e1df7428-39d8-43e2-8c10-e9509e9a2488}</Project>
+      <Name>ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pay\WxPay\dll\LitJson.dll" />
+    <Content Include="Pay\WxPay\dll\ThoughtWorks.QRCode.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

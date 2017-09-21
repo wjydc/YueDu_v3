@@ -1,0 +1,12 @@
+﻿<!-- 下载 -->
+<div class="Download_now clear box" style="display:none;">
+    <div class="Download_now_left fl clear box">
+        <img class="fl close" src="~/Content/img/close.png" alt="">
+        <img class="fl" src="~/Content/img/logo.png" alt="">
+        <p class="fl">
+            <span>首次下载app送200米粒</span><br>
+            <span>邀请好友下载再送200（客服qq2181767254）</span>
+        </p>
+    </div>
+    <a class="Download_now_right fr" target="_blank" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hzpz.groundnut.wheatreader">立即下载</a>
+</div>

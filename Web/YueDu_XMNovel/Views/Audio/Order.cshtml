@@ -1,0 +1,55 @@
+﻿@using Component.Base;
+@model ChapterDetailView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var book = Model ?? new ChapterDetailView();
+    var novelTitle = book.Novel.Data.Title;
+    ViewBag.Title = novelTitle + "-" + ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+}
+
+@section styles{
+    @Styles.Render("~/Content/cartoonChapterDetail")
+}
+
+@section header{
+    @{
+        Html.RenderPartial("~/Views/Shared/_Header.cshtml", new ViewModel.HeaderView(book.Novel.Data.Title));
+    }
+}
+
+@{
+    if (Model.Novel.Success && Model.Chapter.Success)
+    {
+        Novel novel = Model.Novel.Data;
+        Chapter chapter = Model.Chapter.Data;
+        <div class="buying box">
+
+            <div class="buy_head clear box bw">
+                <img src="~/Content/img/comic.png" alt="">
+                <p>本章是VIP专属哦</p>
+                <p>请支持作者，支持正版！</p>
+            </div>
+
+            <div class="change_status_1">
+                <div class="top_up_rechagre box">
+                    @if (Model.UserBalance >= novel.Fee)
+                    {
+                        <a class="top_up_rechagre_btn" href="@ChapterContext.GetUrl("/order/novel", chapter.NovelId, chapter.ChapterCode,channelId:channelId)">购买全本<span>（@novel.Fee @(ViewBag.SiteSection.Html.FeeName)）</span></a>
+                    }
+                    else
+                    {
+                        <a class="top_up_rechagre_btn" href="@StringHelper.GetReturnUrl("/order/recharge", channelId: channelId)">购买全本<span>（@novel.Fee @(ViewBag.SiteSection.Html.FeeName)）</span></a>
+                    }
+                </div>
+                <div class="clear buy_charpter_account box">
+                    <p class="fl">账户余额：<span>@Model.UserBalance</span>&nbsp;@(ViewBag.SiteSection.Html.FeeName)</p>
+                </div>
+                <div class="buy_complete_des">
+                    <p><span class="box olcircle"></span>后续VIP章节购买不再提醒</p>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,147 @@
+﻿@using Component.Base;
+@model ChapterDetailView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var book = Model ?? new ChapterDetailView();
+    var novelTitle = book.Novel.Data.Title;
+    var novelAuthor = book.Novel.Data.Author;
+    var chapterTitle = book.Chapter.Data.ChapterName;
+    ViewBag.Title = novelTitle + "-" + ViewBag.SiteSection.Html.SiteName;
+    ViewBag.chapterRead = false;
+    string siteName = ViewBag.SiteSection.Html.SiteName;
+    string channelId = ViewBag.ChannelId;
+    bool isShowDownloadApp = StringHelper.ToBool(ViewBag.SiteSection.Download.IsShowApp);
+    string metaKeywords = ViewBag.SiteSection.Html.MetaKeywords;
+    string metaDescription = ViewBag.SiteSection.Html.MetaDescription;
+    int adIndex = StringHelper.ToInt(ViewBag.AdIndex);
+}
+
+@section headerMeta{
+    <meta name="keywords" content="@Html.RenderPrefixMeta(metaKeywords)@(chapterTitle),@(novelTitle),@(siteName)" />
+    <meta name="description" content="@Html.RenderPrefixMeta(metaDescription)@(novelTitle)小说由作者：@(StringHelper.ToInt(book.Novel.Data.IsHideAuthor) == 0 ? novelAuthor : "")原创,是难得一见的好书,在@(siteName)全面连载!欢迎大家免费收看:@(novelTitle)" />
+}
+
+@section styles{
+    @Styles.Render("~/Content/chapterDetail")
+}
+
+@section bodyEvent{
+    @Html.Raw("oncontextmenu=\"return false\" onselectstart=\"return false\" onpaste=\"return false\" oncopy=\"return false\" oncut=\"return false\" onselectstart=\"return false\" ondrag=\"return false\"")
+}
+
+@{
+    if (Model.Novel.Success && Model.Chapter.Success)
+    {
+        Novel novel = Model.Novel.Data;
+        Chapter chapter = Model.Chapter.Data;
+        <div id="divContainer" class="buying @(ViewBag.ReadMode == 0 ? "daytime" : "darknight") box">
+            <div class="buy_head clear box bw">
+                <div class="buy_head_left fl">
+                    <p>
+                        <a href="@(("/").GetChannelRouteUrl(channelId))" title="">首页</a>
+                        <span>|</span>
+                        <a href="@(("/book/detail?novelId=" + chapter.NovelId).GetChannelRouteUrl(channelId))" title="">书页</a>
+                        <span>|</span>
+                        @*<a href="@(("/chapter/list?novelId=" + chapter.NovelId).GetChannelRouteUrl(channelId))" title="">目录</a>
+                        <span>|</span>*@
+                        <a href="@(("/user/detail").GetChannelRouteUrl(channelId))" title="">个人中心</a>
+                        <span>|</span>
+                        <a href="#" title="" id="addToMark" onclick="return addMark(@(Model.IsMark?1:0),@novel.Id)">@(Model.IsMark ? "已在书架" : "加入书架")</a>
+                    </p>
+                    <p>@*第@(chapter.ChapterCode+1)章*@  @(chapter.ChapterName)</p>
+                    <p>发布：@(chapter.OnlineTime)  字数：@(chapter.WordSize)</p>
+                </div>
+                <div class="buy_head_right fr">
+                    <div class="add_bookcase">
+                        @if (!Model.IsMark)
+                        {
+                            <img class="add_bookcase" src="~/Content/img/buy_logo.png" alt="" onclick="return addMark(@(Model.IsMark?1:0),@novel.Id)">
+                        }
+                    </div>
+                    <div class="buy_dd_bookcase box">
+                        @if (!Model.IsMark)
+                        {
+                            <span style="display:none;">加入书架</span>
+                        }
+                    </div>
+                    <div>
+                        <span ondblclick="return false;" class="buy_moon"></span>
+                        <span ondblclick="return false;" class="textS"></span>
+                        <span ondblclick="return false;" class="textL"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 章节是免费的，或者已经购买过了 -->
+            <div class="change_status_2 bw">
+                <div class="buy_book_content box bw fontscale@(ViewBag.FontSize)" id="pContainer">
+                    @Html.Raw(Model.ChapterContent)
+                </div>
+            </div>
+            @if (!chapter.Notice.IsObjectNullOrEmpty())
+            {
+                <div class='author_mess box bw'>
+                    <p>作者的话：@(chapter.Notice)</p>
+                </div>
+            }
+            @if (Model.AdList.Success)
+            {
+                <!-- 推荐阅读 -->
+                <div class="new_reading bw box">
+                    <p class="common_title bw">热门推荐</p>
+                </div>
+                <div class="buying_recommend box bw">
+                    <ul>
+                        @foreach (var item in Model.AdList.Data)
+                        {
+                            int funcType = item.FunctionType;
+                            string href = UIHelper.GetADUrl(funcType, item.FId, channelId, item.FCode, item.Url);
+                            <li>
+                                <span>@Html.RenderText(new string[] { item.ShortSummary, item.Title })</span>
+                                <a href="@href" @(Html.Raw(funcType == (int)Constants.AdFuncTypeName.超链接 ? "target='_blank'" : ""))>点击这里</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="change_charpeter box bw">
+                <ol>
+                    <li class="box fl"><a class="@(Model.IsPreChapterCode ? "" : "txtcolor")" href="@(Model.IsPreChapterCode ? Model.PreChapterUrl.SpliceUrl("qrdx", Model.ShowQrCodeMinChapterCode).SpliceUrl("dx", adIndex) : "javascript:void(0);")">@(Model.IsPreChapterCode ? "上一章" : "第一章")</a></li>
+                    <li class="box fl"><a href="@(("/chapter/list?novelId=" + chapter.NovelId).GetChannelRouteUrl(channelId))">目录</a></li>
+                    <li class="box fr"><a class="@(Model.IsNextChapterCode ? "" : "txtcolor")" href="@(Model.IsNextChapterCode ? Model.NextChapterUrl.SpliceUrl("qrdx", Model.ShowQrCodeMinChapterCode).SpliceUrl("dx", adIndex) : "javascript:void(0);")">@(Model.IsNextChapterCode ? "下一章" : "最后一章")</a></li>
+                </ol>
+            </div>
+
+            <!-- 微信关注、下载 -->
+            @if(Model.Chapter.Success && (Model.Chapter.Data.ChapterCode >= Model.ShowQrCodeMinChapterCode))
+            {
+            Html.RenderAction("GetQr", "QrCode", new { classId = novel.ClassId });
+            }
+        </div>
+        if (isShowDownloadApp) 
+        { 
+        //下载
+        Html.RenderPartial("~/Views/Shared/DownloadTip.cshtml");
+        }
+        if (!string.IsNullOrEmpty(Model.HitUrl))
+        {
+        <div style="display:none;"><img src="@Model.HitUrl" alt="" /></div>
+        }
+	    <!-- 弹层 -->
+        <div class="mask" style="display:none;">
+        </div>
+	    <!-- 提醒登录弹窗 -->
+        <div class="warn_login box">
+            <img class="warn_login_close" src="~/Content/img/close_login.png" alt="">
+            <p class="">对不起，你需要登录才能使用此功能</p>
+            <a href="@StringHelper.GetReturnUrl("/login",channelId: channelId)">立即登录</a>
+        </div>
+    }
+}
+
+@section pageScripts{
+    <script>
+        var reloadUrl = '@("/mark/list/".GetChannelRouteUrl(channelId))';
+    </script>
+    @Scripts.Render("~/bundles/bookReading")
+}
